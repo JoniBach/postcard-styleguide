@@ -1,9 +1,24 @@
 {
-	"name": "postcard-styleguide",
-	"version": "0.2.0",
+	"name": "@jonibach/postcard",
+	"version": "0.2.1",
 	"description": "Postcard: a warm, playful, framework-agnostic style guide (CSS tokens, components and a few vanilla helpers) from the GT Retrospective tour site.",
+	"keywords": [
+		"design-system",
+		"css",
+		"design-tokens",
+		"style-guide",
+		"framework-agnostic",
+		"accessibility"
+	],
+	"homepage": "https://jonibach.github.io/postcard-styleguide/",
+	"bugs": {
+		"url": "https://github.com/JoniBach/postcard-styleguide/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/JoniBach/postcard-styleguide.git"
+	},
 	"type": "module",
-	"private": true,
 	"files": [
 		"postcard.css",
 		"css",
@@ -11,25 +26,37 @@
 		"icons",
 		"js",
 		"dist",
-		"assets"
+		"assets",
+		"docs",
+		"CHANGELOG.md"
 	],
+	"sideEffects": [
+		"*.css"
+	],
+	"style": "./dist/postcard.css",
 	"exports": {
 		".": "./dist/postcard.css",
 		"./postcard.css": "./postcard.css",
+		"./min.css": "./dist/postcard.min.css",
 		"./tokens.css": "./css/tokens.css",
 		"./tokens.json": "./dist/tokens.json",
 		"./css/*": "./css/*",
+		"./icons/*": "./icons/*",
 		"./js": "./js/postcard.js",
-		"./icons/*": "./icons/*"
+		"./package.json": "./package.json"
+	},
+	"publishConfig": {
+		"access": "public",
+		"provenance": true
 	},
 	"scripts": {
 		"dev": "node scripts/serve.mjs",
 		"build": "node scripts/build.mjs",
 		"check": "node scripts/check.mjs",
-		"prepare": "node scripts/build.mjs",
 		"test": "playwright test --grep-invert @visual",
 		"test:visual": "playwright test --grep @visual",
-		"test:visual:update": "playwright test --grep @visual --update-snapshots"
+		"test:visual:update": "playwright test --grep @visual --update-snapshots",
+		"prepublishOnly": "npm run check && npm run build"
 	},
 	"engines": {
 		"node": ">=20.11"

@@ -6,7 +6,7 @@ write the same markup. Below, the same postcard in each framework, then Tailwind
 Load the CSS once, at the app's root:
 
 ```js
-import 'postcard-styleguide'; // dist/postcard.css; a bundler copies the fonts it points to
+import '@jonibach/postcard'; // dist/postcard.css; a bundler copies the fonts it points to
 ```
 
 ## Plain HTML (the reference)
@@ -27,7 +27,7 @@ import 'postcard-styleguide'; // dist/postcard.css; a bundler copies the fonts i
 ## React
 
 ```jsx
-import { dayColor } from 'postcard-styleguide/js';
+import { dayColor } from '@jonibach/postcard/js';
 
 export function DayPostcard({ day, total, href, photo, date, title, current }) {
 	return (
@@ -48,7 +48,7 @@ export function DayPostcard({ day, total, href, photo, date, title, current }) {
 Toasts and the theme are plain functions, so call them from event handlers or an effect:
 
 ```jsx
-import { toast, restoreTheme } from 'postcard-styleguide/js';
+import { toast, restoreTheme } from '@jonibach/postcard/js';
 useEffect(() => void restoreTheme(), []);
 <button className="pc-button pc-button--primary" onClick={() => toast('Saved', { tone: 'success' })}>Save</button>
 ```
@@ -57,7 +57,7 @@ useEffect(() => void restoreTheme(), []);
 
 ```svelte
 <script>
-	import { dayColor } from 'postcard-styleguide/js';
+	import { dayColor } from '@jonibach/postcard/js';
 	let { day, total, href, photo, date, title, current = false } = $props();
 </script>
 
@@ -77,7 +77,7 @@ useEffect(() => void restoreTheme(), []);
 
 ```vue
 <script setup>
-import { dayColor } from 'postcard-styleguide/js';
+import { dayColor } from '@jonibach/postcard/js';
 const props = defineProps(['day', 'total', 'href', 'photo', 'date', 'title', 'current']);
 </script>
 
@@ -135,7 +135,7 @@ Custom properties pass into shadow roots, but class rules don't. Inside a shadow
 
 ```js
 const sheet = new CSSStyleSheet();
-sheet.replaceSync(await (await fetch('/postcard/dist/postcard.css')).text());
+sheet.replaceSync(await (await fetch('https://cdn.jsdelivr.net/npm/@jonibach/postcard@0.2/dist/postcard.css')).text());
 this.shadowRoot.adoptedStyleSheets = [sheet];
 ```
 

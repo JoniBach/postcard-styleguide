@@ -33,25 +33,41 @@ Tests need a Chromium: `npx playwright install chromium`, or point `PW_EXECUTABL
 
 ## Using it
 
-Link the bundle (after `npm run build`), keeping `dist/fonts/` next to it:
-
-```html
-<link rel="stylesheet" href="postcard-styleguide/dist/postcard.css" />
-```
-
-Or, during development, link `postcard.css`, which imports each file in `css/`. You can import single files instead:
-`css/tokens.css` is the only one the others depend on.
-
-Install from GitHub into another project:
+**In an app with a bundler** (SvelteKit, React, Vue, Astro, …):
 
 ```sh
-npm install github:JoniBach/postcard-styleguide
+npm install @jonibach/postcard
 ```
 
 ```js
-import 'postcard-styleguide';                       // dist/postcard.css, through your bundler
-import { setTheme, toast, dayColor } from 'postcard-styleguide/js';
+import '@jonibach/postcard';                                  // dist/postcard.css; the bundler copies its fonts
+import { setTheme, toast, dayColor } from '@jonibach/postcard/js';
 ```
+
+Pin a version range that takes fixes but not breaking changes: `"@jonibach/postcard": "~0.2.1"` (before 1.0, a minor
+version may rename things; see the changelog).
+
+**On a plain HTML page**, straight from a CDN (the fonts load from the same place):
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@jonibach/postcard@0.2/dist/postcard.css" />
+<script type="module">
+	import { setTheme } from 'https://cdn.jsdelivr.net/npm/@jonibach/postcard@0.2/js/postcard.js';
+</script>
+```
+
+**Without npm:** each [GitHub release](https://github.com/JoniBach/postcard-styleguide/releases) has a zip of `dist/`, ready to
+link.
+
+**Only the parts you need:** import single files from `@jonibach/postcard/css/…` (`tokens.css` is the only one the others
+depend on), or read every token per theme from `@jonibach/postcard/tokens.json`.
+
+### Releasing a version
+
+1. Update `version` in `package.json` and add a section to `CHANGELOG.md`.
+2. Merge to `main`, then publish a GitHub release tagged `v` plus the version (`v0.2.1`).
+3. The Release workflow runs the tests and publishes to npm with provenance. There's no npm token: the repo is a trusted
+   publisher for the package.
 
 See [CHANGELOG.md](CHANGELOG.md) for what changed in each version.
 
