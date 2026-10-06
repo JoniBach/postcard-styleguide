@@ -1,0 +1,94 @@
+/*
+  Print: a trip report on paper. Black ink on white, no floating bars or controls, links that show
+  where they go, and cards that don't split across pages. Stamps and day colours keep their colour.
+  Hide anything else that only makes sense on screen with class="pc-no-print".
+*/
+@media print {
+	:root {
+		--pc-paper: #fff;
+		--pc-card: #fff;
+		--pc-sunk: #f4f4f4;
+		--pc-ink: #000;
+		--pc-muted: #333;
+		--pc-line: #bbb;
+		--pc-press: none;
+		--pc-press-hover: none;
+		--pc-shadow: none;
+		--pc-shadow-sm: none;
+		color-scheme: light;
+	}
+	body,
+	.pc-sky {
+		background: #fff !important;
+		color: #000;
+		font-size: 11pt;
+	}
+	.pc-topbar,
+	.pc-skip-link,
+	.pc-toasts,
+	.pc-sheet,
+	.pc-scrim,
+	.pc-dialog,
+	.pc-lightbox,
+	.pc-segmented,
+	.pc-button,
+	.pc-icon-button,
+	.pc-accordion__controls,
+	.pc-no-print,
+	[data-tip]::after {
+		display: none !important;
+	}
+	/* where a link goes, after it, for prose and summaries (not for nav, which is hidden anyway) */
+	.pc-prose a[href^='http']::after,
+	.pc-summary a[href^='http']::after {
+		content: ' (' attr(href) ')';
+		font-size: 0.85em;
+		color: #333;
+		word-break: break-all;
+	}
+	.pc-card,
+	.pc-postcard,
+	.pc-banner,
+	.pc-note,
+	.pc-figure,
+	.pc-summary > div,
+	.pc-table tr,
+	.pc-confirmation,
+	.pc-error-summary {
+		break-inside: avoid;
+	}
+	.pc-h1,
+	.pc-h2,
+	.pc-h3,
+	.pc-prose h1,
+	.pc-prose h2,
+	.pc-prose h3 {
+		break-after: avoid;
+	}
+	.pc-postcard,
+	.pc-card,
+	.pc-table-wrap,
+	.pc-accordion > details {
+		box-shadow: none !important;
+		border: 1pt solid #bbb;
+	}
+	/* open every section so nothing is lost on paper */
+	.pc-accordion > details::details-content,
+	.pc-details::details-content {
+		content-visibility: visible;
+		display: block;
+	}
+	.pc-table-wrap {
+		overflow: visible;
+	}
+	.pc-stamp,
+	.pc-tile,
+	.pc-tag,
+	.pc-note,
+	.pc-postcard__art,
+	.pc-banner,
+	.pc-confirmation {
+		-webkit-print-color-adjust: exact;
+		print-color-adjust: exact;
+	}
+}

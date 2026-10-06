@@ -21,5 +21,9 @@
 @import './css/components/wayfinding.css';
 @import './css/components/table.css';
 @import './css/components/disclosure.css';
+@import './css/components/summary.css';
+@import './css/components/media.css';
+@import './css/components/footer.css';
 @import './css/utilities.css';
 @import './css/forced-colors.css';
+@import './css/print.css';

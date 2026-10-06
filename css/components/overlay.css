@@ -73,14 +73,16 @@
 	color: var(--pc-ink);
 	box-shadow: var(--pc-shadow);
 	padding-bottom: env(safe-area-inset-bottom, 0px);
-	transform: translateY(0);
-	transition: transform var(--pc-dur) var(--pc-ease-out);
+	/* it slides up each time it's shown (hidden is display: none, so the animation restarts) */
+	animation: pc-sheet-up 0.28s var(--pc-ease-out);
 }
 .pc-sheet[hidden] {
-	display: flex !important;
-	transform: translateY(105%);
-	visibility: hidden;
-	transition: transform var(--pc-dur) var(--pc-ease-out), visibility 0s var(--pc-dur);
+	display: none;
+}
+@keyframes pc-sheet-up {
+	from {
+		transform: translateY(100%);
+	}
 }
 .pc-sheet__head {
 	position: relative;

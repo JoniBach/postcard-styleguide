@@ -75,6 +75,10 @@ for (const theme of ['light', 'dusk']) {
 	check(theme, 'paper', 'ink', AAA); // toasts, tooltips, pressed pills
 	check(theme, 'line-strong', 'card', UI); // field borders
 	check(theme, 'accent', 'paper', UI); // the accent as a shape: buttons, the rail's thread
+	for (let i = 1; i <= 6; i++) check(theme, `chart-${i}`, 'paper', UI); // chart marks
+	check(theme, 'div-1', 'paper', UI); // the ends of the diverging scale
+	check(theme, 'div-5', 'paper', UI);
+	check(theme, 'seq-5', 'paper', UI);
 }
 console.log('\nnight (over the dark scene)');
 check('night', 'ink', 'card', AAA);

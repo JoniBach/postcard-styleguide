@@ -289,3 +289,165 @@
 .pc-error-summary a:hover {
 	text-decoration-thickness: 3px;
 }
+
+/*
+  A group of fields or choices under one question, with an optional hint:
+  <fieldset class="pc-fieldset" aria-describedby="units-hint">
+    <legend class="pc-fieldset__legend">Which units?</legend>
+    <p class="pc-field__hint" id="units-hint">You can change this later.</p>
+    <div class="pc-choices">
+      <label class="pc-check"><input type="radio" name="u" /> <span>Miles <span class="pc-check__hint">UK roads</span></span></label>
+    </div>
+  </fieldset>
+  pc-fieldset__legend--page makes the legend the page's heading (one question per page).
+*/
+.pc-fieldset {
+	display: grid;
+	gap: var(--pc-space-2);
+	min-width: 0;
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+.pc-fieldset__legend {
+	margin-bottom: var(--pc-space-1);
+	padding: 0;
+	font-weight: var(--pc-weight-strong);
+	font-size: 1.05rem;
+}
+.pc-fieldset__legend--page {
+	font-family: var(--pc-font-display);
+	font-variation-settings: var(--pc-display-axes);
+	font-weight: var(--pc-weight-display);
+	font-size: var(--pc-text-2xl);
+	line-height: 1.2;
+}
+.pc-choices {
+	display: grid;
+	gap: 0;
+}
+.pc-choices--inline {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0 var(--pc-space-5);
+}
+.pc-check__hint {
+	display: block;
+	font-size: 0.85rem;
+	color: var(--pc-muted);
+}
+.pc-check:has(.pc-check__hint) {
+	align-items: flex-start;
+	padding-block: 0.45rem;
+}
+.pc-check:has(.pc-check__hint) input {
+	margin-top: 0.1rem;
+}
+/* larger radios and checkboxes for a question that's the whole page */
+.pc-choices--large .pc-check {
+	gap: 0.75rem;
+	font-size: 1.05rem;
+}
+.pc-choices--large .pc-check input {
+	width: 1.6rem;
+	height: 1.6rem;
+}
+
+/*
+  Character count under a textarea: the limit, then how many are left as you type
+  (js/postcard.js charCount). Over the limit it turns to the danger colour.
+  <textarea class="pc-textarea" id="note" data-max="200" aria-describedby="note-count"></textarea>
+  <p class="pc-count" id="note-count" aria-live="polite">You can enter up to 200 characters</p>
+*/
+.pc-count {
+	margin: 0;
+	font-size: 0.88rem;
+	color: var(--pc-muted);
+	font-variant-numeric: tabular-nums;
+}
+.pc-count.is-over {
+	color: var(--pc-danger-ink);
+	font-weight: var(--pc-weight-medium);
+}
+
+/*
+  File upload: the native input, its button styled as a Postcard pill.
+  <input class="pc-file" type="file" id="photo" accept="image/*" />
+  For a drop zone, wrap it: <label class="pc-dropzone">Drop photos here or <input class="pc-file" type="file" multiple /></label>
+*/
+.pc-file {
+	width: 100%;
+	max-width: 100%;
+	min-width: 0;
+	font: inherit;
+	font-size: 0.95rem;
+	color: var(--pc-muted);
+}
+.pc-file::file-selector-button {
+	min-height: var(--pc-target);
+	margin-right: var(--pc-space-3);
+	padding: 0 1.1rem;
+	border: 0;
+	border-radius: var(--pc-radius-pill);
+	background: var(--pc-card);
+	color: var(--pc-ink);
+	box-shadow: var(--pc-press), 0 0 0 1px var(--pc-line);
+	font: inherit;
+	font-weight: var(--pc-weight-strong);
+	cursor: pointer;
+}
+.pc-file:hover::file-selector-button {
+	box-shadow: var(--pc-press), 0 0 0 2px var(--pc-accent);
+}
+.pc-file:focus-visible {
+	outline: none;
+}
+.pc-file:focus-visible::file-selector-button {
+	outline: 3px solid color-mix(in srgb, var(--pc-accent) 70%, transparent);
+	outline-offset: 2px;
+}
+.pc-dropzone {
+	display: grid;
+	justify-items: center;
+	gap: var(--pc-space-3);
+	padding: var(--pc-space-8) var(--pc-space-5);
+	border: 2px dashed var(--pc-line-strong);
+	border-radius: var(--pc-radius);
+	background: var(--pc-card);
+	text-align: center;
+	color: var(--pc-muted);
+	transition: background-color var(--pc-dur-quick) var(--pc-ease), border-color var(--pc-dur-quick) var(--pc-ease);
+}
+.pc-dropzone.is-over,
+.pc-dropzone:hover {
+	border-color: var(--pc-accent);
+	background: color-mix(in srgb, var(--pc-accent-soft) 50%, var(--pc-card));
+}
+
+/*
+  Date as three boxes (a birthday, a date someone remembers), not a date picker:
+  <fieldset class="pc-fieldset" role="group" aria-describedby="d-hint">
+    <legend class="pc-fieldset__legend">When did you set off?</legend>
+    <p class="pc-field__hint" id="d-hint">For example, 9 9 2026</p>
+    <div class="pc-date">
+      <div class="pc-field"><label class="pc-field__label" for="d-day">Day</label><input class="pc-input" id="d-day" inputmode="numeric" /></div>
+      <div class="pc-field"><label class="pc-field__label" for="d-month">Month</label><input class="pc-input" id="d-month" inputmode="numeric" /></div>
+      <div class="pc-field pc-date__year"><label class="pc-field__label" for="d-year">Year</label><input class="pc-input" id="d-year" inputmode="numeric" /></div>
+    </div>
+  </fieldset>
+*/
+.pc-date {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--pc-space-3);
+}
+.pc-date .pc-field {
+	width: 4.25rem;
+}
+.pc-date .pc-date__year {
+	width: 5.75rem;
+}
+.pc-date .pc-input {
+	text-align: center;
+	font-variant-numeric: tabular-nums;
+}

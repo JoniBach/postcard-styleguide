@@ -1,0 +1,73 @@
+/*
+  The site footer: a perforated edge, then a few columns of links, a way to follow along, and the
+  small print.
+  <footer class="pc-footer">
+    <div class="pc-footer__inner">
+      <nav class="pc-footer__links" aria-label="Footer">
+        <div><h2 class="pc-footer__heading">The trip</h2><ul><li><a href="/">Globe</a></li>…</ul></div>
+        …
+      </nav>
+      <p class="pc-footer__small">Photos and words © 2026 James. Maps © OpenStreetMap contributors.</p>
+    </div>
+  </footer>
+*/
+.pc-footer {
+	margin-top: var(--pc-space-14);
+	padding: var(--pc-space-8) var(--pc-space-4) calc(var(--pc-space-6) + env(safe-area-inset-bottom, 0px));
+	border-top: 2px dashed var(--pc-line);
+	color: var(--pc-muted);
+	font-size: 0.92rem;
+}
+.pc-footer__inner {
+	display: grid;
+	gap: var(--pc-space-6);
+	max-width: var(--pc-page);
+	margin: 0 auto;
+}
+.pc-footer__links {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr));
+	gap: var(--pc-space-5);
+}
+.pc-footer__heading {
+	margin: 0 0 var(--pc-space-2);
+	font-size: var(--pc-text-2xs);
+	font-weight: var(--pc-weight-heavy);
+	letter-spacing: var(--pc-tracking-label);
+	text-transform: uppercase;
+	color: var(--pc-muted);
+}
+.pc-footer ul {
+	display: grid;
+	gap: 0.1rem;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.pc-footer a {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	min-height: 2.25rem;
+	color: var(--pc-ink);
+	text-decoration: underline;
+	text-decoration-color: var(--pc-line-strong);
+	text-underline-offset: 0.2em;
+}
+.pc-footer a:hover {
+	text-decoration-color: currentColor;
+}
+.pc-footer__small {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--pc-space-2) var(--pc-space-4);
+	margin: 0;
+	padding-top: var(--pc-space-4);
+	border-top: 1px solid var(--pc-line);
+	font-size: var(--pc-text-xs);
+}
+.pc-footer__small .pc-mark {
+	width: 1.6rem;
+	height: 1.6rem;
+}

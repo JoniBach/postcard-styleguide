@@ -19,8 +19,25 @@ Filling the gaps compared with Bootstrap and the GOV.UK Design System.
 - Keyboard behaviour: `tabs()` (roving focus, arrow keys, panels) and `menuButton()` (arrow keys, Esc, click outside).
 - Windows Contrast themes: `css/forced-colors.css`.
 
+- Summaries: `pc-summary` (card and inline) and the `pc-confirmation` panel.
+- Form inputs: `pc-fieldset` with legend and hint, `pc-choices` with per-option hints, character count (`pc-count` and
+  `charCount()`), file upload (`pc-file`, `pc-dropzone`) and a three-box date (`pc-date`).
+- Photos: `pc-figure`, `pc-figure--snapshot`, `pc-gallery` and a `lightbox()` viewer.
+- Site footer: `pc-footer`.
+- Tokens: breakpoints (`--pc-bp-*`) and chart colours (`--pc-chart-1`–`6`, `--pc-seq-1`–`5`, `--pc-div-1`–`5`), all checked
+  for 3:1 on paper; a `token()` helper reads them for chart libraries.
+- Print styles: `css/print.css`.
+- Guidance and copyable code for every section of the style guide, taken from the live examples.
+- A content guide: `docs/content.md`.
+- Tests: behaviour and axe accessibility tests (WCAG 2.2 AA, Paper and Dusk, with the dialog and lightbox open), and
+  screenshot tests of every section; CI runs the check, the build and the tests.
+
 **Changed**
-- The style guide page numbers its sections automatically and gains Icons, Tables, Show and hide, and Accessibility sections.
+- Solid stamps and tiles darken any colour too light for their white number (relative colour, `oklch(from …)`), so they
+  reach 4.5:1 on every day colour.
+- The bottom sheet is `display: none` when hidden and slides up when shown.
+- The style guide page numbers its sections automatically and gains Icons, Tables, Show and hide, Summaries, Photos, Charts
+  and Accessibility sections.
 
 ## 0.1.0 (2026-10-06)
 

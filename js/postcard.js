@@ -287,3 +287,96 @@ export function accordion(el) {
 	for (const d of sections) d.addEventListener('toggle', sync);
 	sync();
 }
+
+/**
+ * A token's value in the theme in effect right now, e.g. for a chart library that wants colours
+ * as strings: token('chart-1') → '#c2562d'.
+ * @param {string} name without the --pc- prefix
+ * @param {Element} [el] where to read it (a .pc-theme-night panel, say); the page by default
+ */
+export function token(name, el = document.documentElement) {
+	return getComputedStyle(el).getPropertyValue(`--pc-${name}`).trim();
+}
+
+/**
+ * The character count under a textarea or input: "You have 12 characters remaining", or how many
+ * too many. The field gets data-max="200" and aria-describedby naming the .pc-count element.
+ * The count is announced politely, and only after typing pauses.
+ * @param {HTMLTextAreaElement | HTMLInputElement} field
+ */
+export function charCount(field) {
+	const max = Number(field.dataset.max);
+	const out = document.getElementById((field.getAttribute('aria-describedby') ?? '').split(/\s+/).find((id) => document.getElementById(id)?.classList.contains('pc-count')) ?? '');
+	if (!max || !out) throw new Error('charCount: needs data-max and a .pc-count named in aria-describedby');
+	let timer;
+	const update = () => {
+		const left = max - field.value.length;
+		out.classList.toggle('is-over', left < 0);
+		field.toggleAttribute('aria-invalid', left < 0);
+		const n = Math.abs(left);
+		out.textContent = left < 0 ? `You have ${n} character${n === 1 ? '' : 's'} too many` : `You have ${n} character${n === 1 ? '' : 's'} remaining`;
+	};
+	field.addEventListener('input', () => {
+		clearTimeout(timer);
+		timer = setTimeout(update, 300);
+	});
+	update();
+}
+
+/**
+ * Open a gallery's links in a lightbox: the photo big, its caption (the image's alt, or the link's
+ * data-caption) and "3 of 12", with previous/next buttons, ← and →, swipe, and Esc or the close
+ * button to go back. Without JavaScript the links still open the photos.
+ * @param {HTMLElement} gallery a .pc-gallery (any element containing links to images)
+ */
+export function lightbox(gallery) {
+	const links = () => [...gallery.querySelectorAll('a[href]:not(.pc-gallery__more)')];
+	const icon = (n) => `<svg class="pc-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="${n}" /></svg>`;
+	const box = document.createElement('dialog');
+	box.className = 'pc-lightbox';
+	box.setAttribute('aria-label', 'Photo viewer');
+	box.innerHTML = `
+		<button class="pc-icon-button pc-lightbox__close" type="button" aria-label="Close">${icon('M6 6l12 12M18 6 6 18')}</button>
+		<div class="pc-lightbox__stage"><img alt="" /></div>
+		<div class="pc-lightbox__bar">
+			<button class="pc-icon-button" type="button" data-step="-1" aria-label="Previous photo">${icon('m15 6-6 6 6 6')}</button>
+			<p class="pc-lightbox__caption" aria-live="polite"><span></span><span class="pc-lightbox__count"></span></p>
+			<button class="pc-icon-button" type="button" data-step="1" aria-label="Next photo">${icon('m9 6 6 6-6 6')}</button>
+		</div>`;
+	document.body.append(box);
+	const img = box.querySelector('img');
+	const [caption, count] = box.querySelectorAll('.pc-lightbox__caption > span');
+	let at = 0;
+	let back = null;
+	const show = (i) => {
+		const list = links();
+		at = (i + list.length) % list.length;
+		const a = list[at];
+		const thumb = a.querySelector('img');
+		img.src = a.href;
+		img.alt = thumb?.alt ?? '';
+		caption.textContent = a.dataset.caption ?? thumb?.alt ?? '';
+		count.textContent = `${at + 1} of ${list.length}`;
+	};
+	gallery.addEventListener('click', (e) => {
+		const a = e.target instanceof Element && e.target.closest('a[href]:not(.pc-gallery__more)');
+		if (!a || e.metaKey || e.ctrlKey || e.shiftKey) return;
+		e.preventDefault();
+		back = a;
+		show(links().indexOf(a));
+		box.showModal();
+	});
+	box.querySelector('.pc-lightbox__close').addEventListener('click', () => box.close());
+	box.querySelectorAll('[data-step]').forEach((b) => b.addEventListener('click', () => show(at + Number(b.dataset.step))));
+	box.addEventListener('keydown', (e) => {
+		if (e.key === 'ArrowRight') show(at + 1);
+		if (e.key === 'ArrowLeft') show(at - 1);
+	});
+	let x0 = null;
+	box.addEventListener('pointerdown', (e) => (x0 = e.clientX));
+	box.addEventListener('pointerup', (e) => {
+		if (x0 !== null && Math.abs(e.clientX - x0) > 50) show(at + (e.clientX < x0 ? 1 : -1));
+		x0 = null;
+	});
+	box.addEventListener('close', () => back?.focus());
+}
