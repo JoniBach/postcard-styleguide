@@ -1,0 +1,95 @@
+/*
+  High-contrast modes (Windows Contrast themes, forced colours). The browser swaps every colour
+  for the user's system colours and drops box-shadows, so anything Postcard draws with a fill or a
+  shadow alone (pills, tags, cards, the selected tab, a progress bar) needs a real border here.
+*/
+@media (forced-colors: active) {
+	.pc-button,
+	.pc-pill,
+	.pc-segmented,
+	.pc-tag,
+	.pc-chip,
+	.pc-postcard,
+	.pc-panel,
+	.pc-menu,
+	.pc-note,
+	.pc-toast,
+	.pc-dialog,
+	.pc-sheet,
+	.pc-accordion > details,
+	.pc-pagination > a,
+	.pc-table-wrap,
+	.pc-progress,
+	[data-tip]::after {
+		border: 1px solid CanvasText;
+	}
+	.pc-button--ghost,
+	.pc-icon-button {
+		border: 1px solid transparent;
+	}
+	.pc-button:hover,
+	.pc-icon-button:hover {
+		border-color: Highlight;
+	}
+	/* the current or chosen thing: system highlight colours instead of ink or sage */
+	.pc-segmented > [aria-current]:not([aria-current='false']),
+	.pc-segmented > [aria-pressed='true'],
+	.pc-segmented > [aria-selected='true'],
+	.pc-pages [aria-current]:not([aria-current='false']),
+	.pc-chip:has(input:checked) {
+		forced-color-adjust: none;
+		background: Highlight;
+		color: HighlightText;
+	}
+	.pc-chip:has(input:checked) .pc-chip__tick {
+		forced-color-adjust: none;
+		background: HighlightText;
+	}
+	.pc-progress::after,
+	.pc-rail::after,
+	.pc-switch input:checked {
+		forced-color-adjust: none;
+		background: Highlight;
+	}
+	.pc-switch input {
+		border: 1px solid CanvasText;
+	}
+	.pc-switch input::after {
+		forced-color-adjust: none;
+		background: CanvasText;
+	}
+	.pc-switch input:checked::after {
+		background: HighlightText;
+	}
+	.pc-rail::before {
+		forced-color-adjust: none;
+		background: GrayText;
+	}
+	.pc-stamp,
+	.pc-tile,
+	.pc-badge {
+		border: 2px solid CanvasText;
+	}
+	.pc-skip-link:focus,
+	.pc-error-summary {
+		border: 3px solid CanvasText;
+	}
+	/* the photo wash would hide the picture behind a flat system colour */
+	.pc-postcard__art::after,
+	.pc-banner::after {
+		display: none;
+	}
+	/* busy: hide the label behind the spinner, which the system colours would otherwise reveal */
+	.pc-button[aria-busy='true'] {
+		forced-color-adjust: none;
+		color: transparent;
+		background: Canvas;
+	}
+	.pc-button[aria-busy='true']::after {
+		border-color: CanvasText;
+		border-right-color: transparent;
+	}
+	:focus-visible {
+		outline: 3px solid Highlight;
+	}
+}

@@ -49,6 +49,8 @@ import 'postcard-styleguide';                       // dist/postcard.css, throug
 import { setTheme, toast, dayColor } from 'postcard-styleguide/js';
 ```
 
+See [CHANGELOG.md](CHANGELOG.md) for what changed in each version.
+
 It relies on modern CSS: custom properties, `color-mix()`, `:has()` and `<dialog>`. That's Safari 16.4+, Chrome/Edge 111+ and
 Firefox 121+, all from 2023 or later.
 
@@ -62,14 +64,20 @@ Firefox 121+, all from 2023 or later.
 | `css/components/button.css` | `pc-button` (primary, ink, soft, ghost; sm, lg, block; disabled, busy) and `pc-icon-button` |
 | `css/components/pillbar.css` | `pc-topbar`, frosted `pc-pill`, `pc-brand` with `pc-mark`, `pc-segmented` (views, tabs, toggles), `pc-menu` |
 | `css/components/chip.css` | `pc-tag` in each pastel, `pc-chip` toggle filters, `pc-badge`, `pc-dot` |
-| `css/components/field.css` | `pc-field` with label, hint and error; `pc-input`, `pc-select`, `pc-textarea`, `pc-check`, `pc-switch`, `pc-slider`, `pc-knobs` |
+| `css/components/field.css` | `pc-field` with label, hint and error; `pc-input`, `pc-select`, `pc-textarea`, `pc-check`, `pc-switch`, `pc-slider`, `pc-knobs`; `pc-error-summary` |
 | `css/components/stamp.css` | `pc-stamp` (tinted, solid, outline; sm, lg; a "land" animation) and `pc-tile` |
 | `css/components/card.css` | `pc-card`, `pc-postcard` (art, stamp, body), `pc-banner`, `pc-panel`, `pc-postcards` grid |
 | `css/components/rail.css` | `pc-rail`, the journey rail: a thread through stamps, filled to where you are; `pc-rail--across` for phones |
 | `css/components/feedback.css` | `pc-note` (info, success, warning, danger, tip), `pc-toast`, `data-tip` tooltips, `pc-progress`, `pc-spinner`, `pc-skeleton`, `pc-empty` |
 | `css/components/overlay.css` | `pc-dialog` on the native `<dialog>`, `pc-sheet` (bottom sheet) and `pc-scrim` |
+| `css/components/icon.css` | `pc-icon` (sm, lg) for the sprite in `icons/icons.svg`, and `pc-icon-disc`, an icon in a tilted tile |
+| `css/components/wayfinding.css` | `pc-skip-link`, `pc-breadcrumbs`, `pc-back-link`, `pc-pagination` (previous and next), `pc-pages` (numbered) |
+| `css/components/table.css` | `pc-table` in a scrolling `pc-table-wrap`: caption, numeric columns, a totals row, compact rows |
+| `css/components/disclosure.css` | `pc-details` (one show-and-hide) and `pc-accordion` (stacked sections), both on native `<details>` |
+| `css/forced-colors.css` | Windows Contrast themes: real borders where Postcard uses fills and shadows, system highlights for the current thing |
+| `icons/icons.svg` | 42 icons on a 24px grid with 2px rounded strokes, as one sprite; a build also writes each one to `dist/icons/` |
 | `css/utilities.css` | `pc-container`, `pc-stack`, `pc-cluster`, `pc-grid`, `pc-sr-only`, `pc-scroll-y/x`, `pc-perforation`, `pc-airmail`, `pc-tilt` |
-| `js/postcard.js` | `setTheme` / `restoreTheme` / `currentTheme`, `toast`, `dayColor`, `sheet`. Plain ES module, nothing runs on import |
+| `js/postcard.js` | `setTheme` / `restoreTheme` / `currentTheme`, `toast`, `dayColor`, `sheet`, and keyboard behaviour: `tabs`, `menuButton`, `errorSummary`, `accordion`. Plain ES module, nothing runs on import |
 | `index.html` | The living style guide: every token and component, in every theme |
 | `dist/tokens.json` | (built) every token per theme, resolved, for Tailwind, native apps or design tools |
 
@@ -108,8 +116,12 @@ The tour site had the theme but used it unevenly. This guide fills those gaps so
   with an AAA ink.
 - **Scales.** Type, space, radius, shadow, motion (including a bouncy ease for things that arrive), z-index layers and reading
   widths are all named tokens.
-- **Missing components.** Notes, toasts, tooltips, progress, spinner, skeletons, empty states, switch, radio and checkbox,
-  textarea, tabs, a menu, the bottom sheet as a reusable piece, the air-mail edge and a perforated divider.
+- **Accessibility basics from the GOV.UK Design System.** A skip link, an error summary that takes focus and links to each
+  field, arrow-key tabs and menus, and support for Windows Contrast themes.
+- **An icon set** in the mark's own line style, replacing the app's text symbols (◍ ⌖ ✎) and one-off SVGs.
+- **Missing components.** Tables, an accordion, breadcrumbs, a back link and pagination, notes, toasts, tooltips, progress,
+  spinner, skeletons, empty states, switch, radio and checkbox, textarea, tabs, a menu, the bottom sheet as a reusable piece,
+  the air-mail edge and a perforated divider.
 
 ## Porting it
 

@@ -226,3 +226,66 @@
 	text-transform: uppercase;
 	color: var(--pc-muted);
 }
+
+/*
+  Error summary: at the top of a form after a failed submit, listing every problem with a link to
+  its field. Focus it on show (js/postcard.js errorSummary does that, and moves focus into the field
+  when a link is used), so screen readers announce it first.
+  <div class="pc-error-summary" tabindex="-1" role="alert" aria-labelledby="es-h">
+    <h2 class="pc-error-summary__title" id="es-h">There's a problem</h2>
+    <ul><li><a href="#email">Enter an email address, like name@example.com</a></li></ul>
+  </div>
+*/
+.pc-error-summary {
+	padding: var(--pc-space-4) var(--pc-space-5);
+	border: 3px solid var(--pc-danger-ink);
+	border-radius: var(--pc-radius);
+	background: var(--pc-card);
+	color: var(--pc-ink);
+	box-shadow: 0 4px 0 color-mix(in srgb, var(--pc-danger-ink) 35%, transparent);
+}
+.pc-error-summary:focus {
+	outline: 3px solid color-mix(in srgb, var(--pc-accent) 70%, transparent);
+	outline-offset: 3px;
+}
+.pc-error-summary__title {
+	display: flex;
+	align-items: center;
+	gap: 0.55rem;
+	margin: 0 0 var(--pc-space-2);
+	font-family: var(--pc-font-display);
+	font-variation-settings: var(--pc-display-axes);
+	font-weight: var(--pc-weight-display);
+	font-size: var(--pc-text-xl);
+	line-height: 1.2;
+}
+.pc-error-summary__title::before {
+	content: '!';
+	display: inline-grid;
+	place-items: center;
+	flex: none;
+	width: 1.7rem;
+	height: 1.7rem;
+	border-radius: 8px;
+	background: var(--pc-danger-ink);
+	color: var(--pc-paper);
+	font-size: 1rem;
+	transform: rotate(var(--pc-tilt));
+}
+.pc-error-summary ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.pc-error-summary li + li {
+	margin-top: 0.3rem;
+}
+.pc-error-summary a {
+	color: var(--pc-danger-ink);
+	font-weight: var(--pc-weight-medium);
+	text-decoration-thickness: 1.5px;
+	text-underline-offset: 0.18em;
+}
+.pc-error-summary a:hover {
+	text-decoration-thickness: 3px;
+}

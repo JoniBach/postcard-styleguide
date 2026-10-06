@@ -142,3 +142,148 @@ export function sheet(el) {
 	(el.querySelector('[autofocus], button, a, input') ?? el).focus({ preventScroll: true });
 	return close;
 }
+
+/**
+ * Tabs with the keyboard behaviour people expect: one tab stop for the whole list, arrow keys
+ * (and Home/End) move between tabs and show each one's panel.
+ * Markup: a role="tablist" (e.g. .pc-segmented) of <button role="tab" aria-controls="panel-id">,
+ * and role="tabpanel" elements with those ids (aria-labelledby the tab's id).
+ * @param {HTMLElement} list the tablist
+ * @returns {(index: number) => void} selects a tab by index
+ */
+export function tabs(list) {
+	const all = () => [...list.querySelectorAll('[role="tab"]')];
+	const select = (i, focus = false) => {
+		const items = all();
+		const next = items[(i + items.length) % items.length];
+		for (const t of items) {
+			const on = t === next;
+			t.setAttribute('aria-selected', String(on));
+			t.tabIndex = on ? 0 : -1;
+			const panel = document.getElementById(t.getAttribute('aria-controls') ?? '');
+			if (panel) panel.hidden = !on;
+		}
+		if (focus) next.focus();
+	};
+	list.addEventListener('click', (e) => {
+		const tab = e.target instanceof Element && e.target.closest('[role="tab"]');
+		if (tab) select(all().indexOf(tab));
+	});
+	list.addEventListener('keydown', (e) => {
+		const items = all();
+		const at = items.indexOf(document.activeElement);
+		if (at < 0) return;
+		const to = { ArrowRight: at + 1, ArrowLeft: at - 1, Home: 0, End: items.length - 1 }[e.key];
+		if (to === undefined) return;
+		e.preventDefault();
+		select(to, true);
+	});
+	const current = all().findIndex((t) => t.getAttribute('aria-selected') === 'true');
+	select(Math.max(0, current));
+	return (i) => select(i);
+}
+
+/**
+ * A button that opens a menu (.pc-menu) of links or buttons. Opens on click, Enter, Space or
+ * ArrowDown; arrow keys move through the items; Esc, Tab or a click elsewhere closes it, and focus
+ * returns to the button. The button needs aria-controls naming the menu, which starts hidden.
+ * @param {HTMLButtonElement} button
+ * @returns {{ open: () => void, close: () => void }}
+ */
+export function menuButton(button) {
+	const menu = document.getElementById(button.getAttribute('aria-controls') ?? '');
+	if (!menu) throw new Error('menuButton: aria-controls must name the menu');
+	const items = () => [...menu.querySelectorAll('a[href], button:not(:disabled)')];
+	button.setAttribute('aria-expanded', 'false');
+	const onOutside = (e) => {
+		if (!menu.contains(e.target) && !button.contains(e.target)) close(false);
+	};
+	function open(focusLast = false) {
+		menu.hidden = false;
+		button.setAttribute('aria-expanded', 'true');
+		const list = items();
+		(focusLast ? list.at(-1) : list[0])?.focus();
+		document.addEventListener('pointerdown', onOutside);
+	}
+	function close(refocus = true) {
+		menu.hidden = true;
+		button.setAttribute('aria-expanded', 'false');
+		document.removeEventListener('pointerdown', onOutside);
+		if (refocus) button.focus();
+	}
+	button.addEventListener('click', () => (menu.hidden ? open() : close()));
+	button.addEventListener('keydown', (e) => {
+		if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+			e.preventDefault();
+			open(e.key === 'ArrowUp');
+		}
+	});
+	menu.addEventListener('keydown', (e) => {
+		const list = items();
+		const at = list.indexOf(document.activeElement);
+		const to = { ArrowDown: at + 1, ArrowUp: at - 1, Home: 0, End: list.length - 1 }[e.key];
+		if (to !== undefined) {
+			e.preventDefault();
+			list[(to + list.length) % list.length]?.focus();
+		} else if (e.key === 'Escape') {
+			e.preventDefault();
+			close();
+		} else if (e.key === 'Tab') close(false);
+	});
+	menu.addEventListener('click', (e) => {
+		if (e.target instanceof Element && e.target.closest('a[href], button')) close();
+	});
+	return { open: () => open(), close: () => close() };
+}
+
+/**
+ * Show an error summary (.pc-error-summary): focus it so it's announced first, and make each link
+ * move focus into its field (scrolling the field's label into view, not just the input).
+ * @param {HTMLElement} el
+ */
+export function errorSummary(el) {
+	el.hidden = false;
+	if (!el.hasAttribute('tabindex')) el.tabIndex = -1;
+	el.focus();
+	// listen once, however many times the form is submitted
+	if (el.dataset.pcBound) return;
+	el.dataset.pcBound = 'true';
+	el.addEventListener('click', (e) => {
+		const link = e.target instanceof Element && e.target.closest('a[href^="#"]');
+		if (!link) return;
+		const field = document.getElementById(decodeURIComponent(link.getAttribute('href').slice(1)));
+		if (!field) return;
+		e.preventDefault();
+		const label = field.closest('fieldset')?.querySelector('legend') ?? document.querySelector(`label[for="${CSS.escape(field.id)}"]`);
+		(label ?? field).scrollIntoView({ block: 'start' });
+		field.focus({ preventScroll: true });
+	});
+}
+
+/**
+ * Add "Show all" / "Hide all" above an accordion (.pc-accordion of <details>), kept in step as
+ * sections open and close.
+ * @param {HTMLElement} el
+ */
+export function accordion(el) {
+	const sections = [...el.querySelectorAll(':scope > details')];
+	const bar = document.createElement('div');
+	bar.className = 'pc-accordion__controls';
+	const button = document.createElement('button');
+	button.type = 'button';
+	button.className = 'pc-button pc-button--ghost pc-button--sm';
+	bar.append(button);
+	el.before(bar);
+	const sync = () => {
+		const allOpen = sections.every((d) => d.open);
+		button.textContent = allOpen ? 'Hide all sections' : 'Show all sections';
+		button.setAttribute('aria-expanded', String(allOpen));
+	};
+	button.addEventListener('click', () => {
+		const open = !sections.every((d) => d.open);
+		for (const d of sections) d.open = open;
+		sync();
+	});
+	for (const d of sections) d.addEventListener('toggle', sync);
+	sync();
+}

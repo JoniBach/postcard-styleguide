@@ -17,4 +17,9 @@
 @import './css/components/rail.css';
 @import './css/components/feedback.css';
 @import './css/components/overlay.css';
+@import './css/components/icon.css';
+@import './css/components/wayfinding.css';
+@import './css/components/table.css';
+@import './css/components/disclosure.css';
 @import './css/utilities.css';
+@import './css/forced-colors.css';

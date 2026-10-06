@@ -278,6 +278,30 @@
 				color: var(--pc-muted);
 				font-size: 0.9rem;
 			}
+			.sg-icons {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(6.5rem, 1fr));
+				gap: var(--pc-space-2);
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			.sg-icons li {
+				display: grid;
+				justify-items: center;
+				gap: 0.4rem;
+				padding: 0.9rem 0.3rem 0.6rem;
+				border-radius: 14px;
+				background: var(--pc-card);
+				box-shadow: 0 0 0 1px var(--pc-line);
+				font-size: 0.72rem;
+				color: var(--pc-muted);
+			}
+			.sg-icons .pc-icon {
+				width: 1.75rem;
+				height: 1.75rem;
+				color: var(--pc-ink);
+			}
 			.sg-sheet-demo .pc-sheet {
 				max-width: 34rem;
 				margin: 0 auto;
@@ -285,6 +309,7 @@
 		</style>
 	</head>
 	<body class="pc-sky">
+		<a class="pc-skip-link" href="#main">Skip to main content</a>
 		<header class="pc-topbar">
 			<a class="pc-pill pc-brand" href="#top">
 				<span class="pc-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M4.5 15c3-1 4-5 7.5-5s3.5 3 7.5 2" /></svg></span>
@@ -303,9 +328,9 @@
 				<ol class="pc-rail" id="toc"></ol>
 			</nav>
 
-			<main class="sg-main">
+			<main class="sg-main" id="main" tabindex="-1">
 				<section class="sg-hero">
-					<p class="pc-eyebrow">Style guide · v0.1</p>
+					<p class="pc-eyebrow">Style guide · v0.2</p>
 					<h1 class="pc-h1">Postcard</h1>
 					<p class="pc-lede">
 						The look of the Parks Tour: warm paper, soft pastel fills, deep slate ink and one terracotta accent. Things are rounded, they
@@ -323,7 +348,7 @@
 				<!-- ======================================================= principles -->
 				<section class="sg-section" id="principles" data-title="Principles">
 					<header>
-						<span class="pc-stamp pc-stamp--sm" style="--pc-c: #d97757">1</span>
+						<span class="pc-stamp pc-stamp--sm" style="--pc-c: #d97757"></span>
 						<div><h2 class="pc-h2">Principles</h2><p>What makes it feel like a postcard, and what keeps it easy to read.</p></div>
 					</header>
 					<ul class="sg-principles">
@@ -349,7 +374,7 @@
 				<!-- ======================================================= colour -->
 				<section class="sg-section" id="colour" data-title="Colour">
 					<header>
-						<span class="pc-stamp pc-stamp--sm" style="--pc-c: #d9a441">2</span>
+						<span class="pc-stamp pc-stamp--sm" style="--pc-c: #d9a441"></span>
 						<div><h2 class="pc-h2">Colour</h2><p>Every colour is a token. Switch to Dusk at the top to see them all change together.</p></div>
 					</header>
 
@@ -376,7 +401,7 @@
 				<!-- ======================================================= type -->
 				<section class="sg-section" id="type" data-title="Type">
 					<header>
-						<span class="pc-stamp pc-stamp--sm" style="--pc-c: #9cad4f">3</span>
+						<span class="pc-stamp pc-stamp--sm" style="--pc-c: #9cad4f"></span>
 						<div><h2 class="pc-h2">Type</h2><p>Fraunces at its softest, with a touch of wonk, for headings. Figtree for everything else.</p></div>
 					</header>
 					<div class="sg-two">
@@ -421,10 +446,30 @@
 					</article>
 				</section>
 
+
+				<!-- ======================================================= icons -->
+				<section class="sg-section" id="icons" data-title="Icons">
+					<header>
+						<span class="pc-stamp pc-stamp--sm" style="--pc-c: #c7a64a"></span>
+						<div><h2 class="pc-h2">Icons</h2><p>Line drawings on a 24px grid with 2px rounded strokes, drawn like the round mark. They take the text colour and size.</p></div>
+					</header>
+					<ul class="sg-icons" id="icon-grid"></ul>
+					<div class="pc-cluster" style="margin-top: var(--pc-space-4)">
+						<button class="pc-button" type="button"><svg class="pc-icon" aria-hidden="true"><use href="icons/icons.svg#pc-share" /></svg> Share this day</button>
+						<button class="pc-button pc-button--primary" type="button"><svg class="pc-icon" aria-hidden="true"><use href="icons/icons.svg#pc-route" /></svg> Ride the route</button>
+						<button class="pc-icon-button pc-icon-button--raised" type="button" aria-label="Search"><svg class="pc-icon" aria-hidden="true"><use href="icons/icons.svg#pc-search" /></svg></button>
+						<span class="pc-icon-disc" style="--pc-c: #5bb08a"><svg class="pc-icon" aria-hidden="true"><use href="icons/icons.svg#pc-mountain" /></svg></span>
+						<span class="pc-icon-disc" style="--pc-c: #4f86b0"><svg class="pc-icon" aria-hidden="true"><use href="icons/icons.svg#pc-rain" /></svg></span>
+						<span class="pc-icon-disc" style="--pc-c: #c2562d"><svg class="pc-icon" aria-hidden="true"><use href="icons/icons.svg#pc-motorbike" /></svg></span>
+					</div>
+					<pre class="sg-code"><code>&lt;svg class="pc-icon" aria-hidden="true"&gt;&lt;use href="icons/icons.svg#pc-globe" /&gt;&lt;/svg&gt;</code></pre>
+					<p class="sg-note">Each icon is also a separate file in <code>dist/icons/</code> after a build. An icon with no visible label needs one on its button: <code>aria-label="Search"</code>.</p>
+				</section>
+
 				<!-- ======================================================= shape -->
 				<section class="sg-section" id="shape" data-title="Shape and motion">
 					<header>
-						<span class="pc-stamp pc-stamp--sm" style="--pc-c: #5bb08a">4</span>
+						<span class="pc-stamp pc-stamp--sm" style="--pc-c: #5bb08a"></span>
 						<div><h2 class="pc-h2">Shape and motion</h2><p>Round corners, short hard shadows, a little tilt and a little bounce.</p></div>
 					</header>
 					<div class="sg-demo sg-shapes">
@@ -451,7 +496,7 @@
 				<!-- ======================================================= buttons -->
 				<section class="sg-section" id="buttons" data-title="Buttons">
 					<header>
-						<span class="pc-stamp pc-stamp--sm" style="--pc-c: #4fa3a8">5</span>
+						<span class="pc-stamp pc-stamp--sm" style="--pc-c: #4fa3a8"></span>
 						<div><h2 class="pc-h2">Buttons</h2><p>Pills on a pressed shadow. One primary per view.</p></div>
 					</header>
 					<div class="sg-demo pc-stack" style="--pc-gap: var(--pc-space-5)">
@@ -476,7 +521,7 @@
 				<!-- ======================================================= navigation -->
 				<section class="sg-section" id="navigation" data-title="Navigation">
 					<header>
-						<span class="pc-stamp pc-stamp--sm" style="--pc-c: #4f86b0">6</span>
+						<span class="pc-stamp pc-stamp--sm" style="--pc-c: #4f86b0"></span>
 						<div><h2 class="pc-h2">Navigation</h2><p>Frosted pills that float over the page, a segmented switch, a menu, and the journey rail.</p></div>
 					</header>
 					<div class="sg-demo sg-demo--paper pc-stack">
@@ -486,9 +531,9 @@
 								<span class="pc-display">Parks Tour 26</span>
 							</a>
 							<nav class="pc-segmented" aria-label="Views">
-								<a href="#navigation">◍ Globe</a>
-								<a href="#navigation">⌖ Map</a>
-								<a href="#navigation" aria-current="page">✎ Blog</a>
+								<a href="#navigation"><svg class="pc-icon" aria-hidden="true"><use href="icons/icons.svg#pc-globe" /></svg> Globe</a>
+								<a href="#navigation"><svg class="pc-icon" aria-hidden="true"><use href="icons/icons.svg#pc-map" /></svg> Map</a>
+								<a href="#navigation" aria-current="page"><svg class="pc-icon" aria-hidden="true"><use href="icons/icons.svg#pc-pen" /></svg> Blog</a>
 							</nav>
 						</div>
 						<div class="sg-two">
@@ -512,12 +557,72 @@
 						</div>
 					</div>
 					<p class="sg-note">On a wide screen, the contents list beside this page is a <code>.pc-rail</code> too: its thread fills as you scroll.</p>
+
+					<h3 class="sg-sub">Menu button</h3>
+					<div class="sg-demo sg-demo--paper" style="position: relative">
+						<button class="pc-button" type="button" id="day-menu-button" aria-controls="day-menu"><svg class="pc-icon" aria-hidden="true"><use href="icons/icons.svg#pc-calendar" /></svg> Jump to a day <svg class="pc-icon" aria-hidden="true"><use href="icons/icons.svg#pc-chevron-down" /></svg></button>
+						<div class="pc-menu" id="day-menu" hidden style="position: absolute; z-index: 3; margin-top: 0.5rem; --pc-c: #4f86b0">
+							<ul>
+								<li><a href="#navigation"><span class="pc-tile" style="--pc-c: #d97757">1</span>Setting off</a></li>
+								<li><a href="#navigation"><span class="pc-tile" style="--pc-c: #c7a64a">2</span>Pembrokeshire Coast → Snowdonia</a></li>
+								<li><a href="#navigation"><span class="pc-tile" style="--pc-c: #96b04f">3</span>Snowdonia · Day 1</a></li>
+								<li><a href="#navigation"><span class="pc-tile" style="--pc-c: #5bb05f">4</span>Snowdonia · Day 2</a></li>
+							</ul>
+						</div>
+					</div>
+					<p class="sg-note">Opens with a click, Enter, Space or ↓. The arrow keys move through it, and Esc closes it and returns focus to the button.</p>
+
+					<h3 class="sg-sub">Tabs</h3>
+					<div class="sg-demo">
+						<div class="pc-segmented" role="tablist" aria-label="Day 7 details" id="day-tabs">
+							<button role="tab" type="button" id="tab-ride" aria-controls="panel-ride" aria-selected="true">Ride</button>
+							<button role="tab" type="button" id="tab-weather" aria-controls="panel-weather" aria-selected="false">Weather</button>
+							<button role="tab" type="button" id="tab-music" aria-controls="panel-music" aria-selected="false">Music</button>
+						</div>
+						<div role="tabpanel" id="panel-ride" aria-labelledby="tab-ride" tabindex="0" style="padding-top: var(--pc-space-4)">
+							<ul class="pc-tags"><li class="pc-tag pc-tag--sage">142 miles</li><li class="pc-tag pc-tag--sky">6 h 05</li><li class="pc-tag pc-tag--butter">2 parks</li></ul>
+						</div>
+						<div role="tabpanel" id="panel-weather" aria-labelledby="tab-weather" tabindex="0" hidden style="padding-top: var(--pc-space-4)">
+							<p style="margin: 0"><svg class="pc-icon" aria-hidden="true"><use href="icons/icons.svg#pc-rain" /></svg> Drizzle at Hawes, <svg class="pc-icon" aria-hidden="true"><use href="icons/icons.svg#pc-sun" /></svg> sunshine by Ullswater. 9 to 16°C.</p>
+						</div>
+						<div role="tabpanel" id="panel-music" aria-labelledby="tab-music" tabindex="0" hidden style="padding-top: var(--pc-space-4)">
+							<p style="margin: 0"><svg class="pc-icon" aria-hidden="true"><use href="icons/icons.svg#pc-music" /></svg> 41 songs on the road, most played over Buttertubs Pass.</p>
+						</div>
+					</div>
+					<p class="sg-note">Tab moves into the tab list once; ← and → (or Home and End) switch tabs.</p>
+
+					<h3 class="sg-sub">Breadcrumbs and back link</h3>
+					<div class="sg-demo pc-stack" style="--pc-gap: var(--pc-space-2)">
+						<nav class="pc-breadcrumbs" aria-label="Breadcrumb">
+							<ol>
+								<li><a href="#navigation">Parks Tour 26</a></li>
+								<li><a href="#navigation">Blog</a></li>
+								<li aria-current="page">Day 7</li>
+							</ol>
+						</nav>
+						<a class="pc-back-link" href="#navigation">Back to the blog</a>
+					</div>
+
+					<h3 class="sg-sub">Pagination</h3>
+					<nav class="pc-pagination" aria-label="Days">
+						<a class="pc-pagination__prev" href="#navigation" rel="prev"><span class="pc-pagination__label">Previous day</span><span class="pc-pagination__title">Peak District · Day 1</span></a>
+						<a class="pc-pagination__next" href="#navigation" rel="next"><span class="pc-pagination__label">Next day</span><span class="pc-pagination__title">Lake District · Day 1</span></a>
+					</nav>
+					<ul class="pc-pages" aria-label="Pages" style="margin-top: var(--pc-space-4)">
+						<li><a href="#navigation" aria-label="Previous page"><svg class="pc-icon" aria-hidden="true"><use href="icons/icons.svg#pc-chevron-left" /></svg></a></li>
+						<li><a href="#navigation">1</a></li>
+						<li><a href="#navigation" aria-current="page">2</a></li>
+						<li><a href="#navigation">3</a></li>
+						<li><span>…</span></li>
+						<li><a href="#navigation">9</a></li>
+						<li><a href="#navigation" aria-label="Next page"><svg class="pc-icon" aria-hidden="true"><use href="icons/icons.svg#pc-chevron-right" /></svg></a></li>
+					</ul>
 				</section>
 
 				<!-- ======================================================= tags -->
 				<section class="sg-section" id="tags" data-title="Tags and chips">
 					<header>
-						<span class="pc-stamp pc-stamp--sm" style="--pc-c: #5a6fc0">7</span>
+						<span class="pc-stamp pc-stamp--sm" style="--pc-c: #5a6fc0"></span>
 						<div><h2 class="pc-h2">Tags, chips and badges</h2><p>Facts in pastels, filters you can toggle, counts.</p></div>
 					</header>
 					<div class="sg-demo pc-stack">
@@ -551,7 +656,7 @@
 				<!-- ======================================================= forms -->
 				<section class="sg-section" id="forms" data-title="Forms">
 					<header>
-						<span class="pc-stamp pc-stamp--sm" style="--pc-c: #8a6fc0">8</span>
+						<span class="pc-stamp pc-stamp--sm" style="--pc-c: #8a6fc0"></span>
 						<div><h2 class="pc-h2">Forms</h2><p>Visible labels, a hint where it helps, and errors that say how to fix them.</p></div>
 					</header>
 					<div class="sg-two">
@@ -594,12 +699,30 @@
 							<label class="pc-slider"><span>Terrain height <output id="f-zoom-out">2×</output></span><input type="range" id="f-zoom" min="1" max="4" step="0.5" value="2" /></label>
 						</form>
 					</div>
+
+					<h3 class="sg-sub">Error summary</h3>
+					<form class="pc-card pc-stack" id="err-form" novalidate style="--pc-gap: var(--pc-space-3); max-width: 34rem">
+						<div class="pc-error-summary" id="err-summary" hidden aria-labelledby="err-h">
+							<h2 class="pc-error-summary__title" id="err-h">There's a problem</h2>
+							<ul id="err-list"></ul>
+						</div>
+						<div class="pc-field">
+							<label class="pc-field__label" for="e-name">Your name</label>
+							<input class="pc-input" id="e-name" autocomplete="name" />
+						</div>
+						<div class="pc-field">
+							<label class="pc-field__label" for="e-email">Email address</label>
+							<input class="pc-input" id="e-email" type="email" autocomplete="email" />
+						</div>
+						<div><button class="pc-button pc-button--primary" type="submit">Send the postcard</button></div>
+					</form>
+					<p class="sg-note">Submit it empty. The summary takes focus so it's read out first, and each link puts you in its field.</p>
 				</section>
 
 				<!-- ======================================================= stamps & cards -->
 				<section class="sg-section" id="cards" data-title="Stamps and cards">
 					<header>
-						<span class="pc-stamp pc-stamp--sm" style="--pc-c: #b06fb5">9</span>
+						<span class="pc-stamp pc-stamp--sm" style="--pc-c: #b06fb5"></span>
 						<div><h2 class="pc-h2">Stamps and cards</h2><p>The postage stamp is the signature piece. Cards you can open lift and wobble.</p></div>
 					</header>
 					<div class="sg-demo sg-demo--paper pc-cluster" style="--pc-gap: var(--pc-space-5)">
@@ -629,10 +752,57 @@
 					</div>
 				</section>
 
+
+				<!-- ======================================================= tables -->
+				<section class="sg-section" id="tables" data-title="Tables">
+					<header>
+						<span class="pc-stamp pc-stamp--sm" style="--pc-c: #5bb0a0"></span>
+						<div><h2 class="pc-h2">Tables</h2><p>For real tabular data. Numbers line up; a wide table scrolls inside its card on a phone.</p></div>
+					</header>
+					<div class="pc-table-wrap" tabindex="0" role="region" aria-labelledby="t-cap">
+						<table class="pc-table">
+							<caption id="t-cap">The first week</caption>
+							<thead>
+								<tr><th scope="col">Day</th><th scope="col">Date</th><th scope="col" class="pc-num">Miles</th><th scope="col" class="pc-num">Riding</th><th scope="col" class="pc-num">Photos</th></tr>
+							</thead>
+							<tbody id="t-body"></tbody>
+							<tfoot>
+								<tr><th scope="row" colspan="2">Week one</th><td class="pc-num">701</td><td class="pc-num">27 h 15</td><td class="pc-num">198</td></tr>
+							</tfoot>
+						</table>
+					</div>
+				</section>
+
+				<!-- ======================================================= show and hide -->
+				<section class="sg-section" id="disclosure" data-title="Show and hide">
+					<header>
+						<span class="pc-stamp pc-stamp--sm" style="--pc-c: #b0a24f"></span>
+						<div><h2 class="pc-h2">Show and hide</h2><p>Built on the native details element: it opens with the keyboard and works without JavaScript.</p></div>
+					</header>
+					<details class="pc-details">
+						<summary>How are the miles counted?</summary>
+						<p>From the GPS track, after dropping every point inside a privacy zone. Ferry crossings aren't counted.</p>
+					</details>
+					<div class="pc-accordion" id="faq" style="margin-top: var(--pc-space-4)">
+						<details style="--pc-c: #96b04f" open>
+							<summary><span class="pc-tile" style="--pc-c: #96b04f">3</span><span><span class="pc-accordion__title">Snowdonia · Day 1</span><br /><span class="pc-accordion__hint">Fri 11 Sept · 4 events</span></span></summary>
+							<div class="pc-accordion__body"><p style="margin: 0">Up the Llanberis Pass in cloud, down the other side in sun. Lunch at Pen-y-Gwryd.</p></div>
+						</details>
+						<details style="--pc-c: #5bb05f">
+							<summary><span class="pc-tile" style="--pc-c: #5bb05f">4</span><span><span class="pc-accordion__title">Snowdonia · Day 2</span><br /><span class="pc-accordion__hint">Sat 12 Sept · 6 events</span></span></summary>
+							<div class="pc-accordion__body"><p style="margin: 0">A loop of the Lleyn peninsula and the coast road to Barmouth.</p></div>
+						</details>
+						<details style="--pc-c: #4fb07f">
+							<summary><span class="pc-tile" style="--pc-c: #4fb07f">5</span><span><span class="pc-accordion__title">Snowdonia → Peak District</span><br /><span class="pc-accordion__hint">Sun 13 Sept · 3 events</span></span></summary>
+							<div class="pc-accordion__body"><p style="margin: 0">Horseshoe Pass, Llangollen, then the long way round Manchester to Edale.</p></div>
+						</details>
+					</div>
+				</section>
+
 				<!-- ======================================================= feedback -->
 				<section class="sg-section" id="feedback" data-title="Feedback">
 					<header>
-						<span class="pc-stamp pc-stamp--sm" style="--pc-c: #c46f9a">10</span>
+						<span class="pc-stamp pc-stamp--sm" style="--pc-c: #c46f9a"></span>
 						<div><h2 class="pc-h2">Feedback</h2><p>Notes, toasts, tooltips, waiting and empty states. Said plainly.</p></div>
 					</header>
 					<div class="pc-stack" style="--pc-gap: var(--pc-space-3)">
@@ -669,7 +839,7 @@
 				<!-- ======================================================= overlays -->
 				<section class="sg-section" id="overlays" data-title="Dialogs and sheets">
 					<header>
-						<span class="pc-stamp pc-stamp--sm" style="--pc-c: #d36f6f">11</span>
+						<span class="pc-stamp pc-stamp--sm" style="--pc-c: #d36f6f"></span>
 						<div><h2 class="pc-h2">Dialogs and sheets</h2><p>The native dialog, softened backdrop and all, and a bottom sheet for phones.</p></div>
 					</header>
 					<div class="pc-cluster">
@@ -712,7 +882,7 @@
 				<!-- ======================================================= night -->
 				<section class="sg-section" id="night" data-title="Night">
 					<header>
-						<span class="pc-stamp pc-stamp--sm" style="--pc-c: #5aa9c9">12</span>
+						<span class="pc-stamp pc-stamp--sm" style="--pc-c: #5aa9c9"></span>
 						<div><h2 class="pc-h2">Night</h2><p>Panels over the 3D globe swap to hologram colours. Add <code class="pc-code">pc-theme-night</code> to any container.</p></div>
 					</header>
 					<div class="sg-scene">
@@ -738,10 +908,25 @@
 					</div>
 				</section>
 
+
+				<!-- ======================================================= accessibility -->
+				<section class="sg-section" id="access" data-title="Accessibility">
+					<header>
+						<span class="pc-stamp pc-stamp--sm" style="--pc-c: #6f86c0"></span>
+						<div><h2 class="pc-h2">Accessibility</h2><p>Built in, so each app doesn't have to remember it.</p></div>
+					</header>
+					<ul class="sg-principles">
+						<li><span class="pc-icon-disc" style="--pc-c: #c2562d"><svg class="pc-icon" aria-hidden="true"><use href="icons/icons.svg#pc-arrow-right" /></svg></span><div><h3 class="pc-display">Skip link</h3><p>Press Tab on this page: a "Skip to main content" pill drops in at the top. Put <code class="pc-code">.pc-skip-link</code> first in the body.</p></div></li>
+						<li><span class="pc-icon-disc" style="--pc-c: #4f86b0"><svg class="pc-icon" aria-hidden="true"><use href="icons/icons.svg#pc-info" /></svg></span><div><h3 class="pc-display">Contrast</h3><p>Text reaches 7:1 in Paper and Dusk, and <code class="pc-code">npm run check</code> fails the build if a change breaks that.</p></div></li>
+						<li><span class="pc-icon-disc" style="--pc-c: #5bb08a"><svg class="pc-icon" aria-hidden="true"><use href="icons/icons.svg#pc-layers" /></svg></span><div><h3 class="pc-display">High contrast</h3><p>In Windows Contrast themes, pills, tags and cards get real borders, and selected things use the system highlight.</p></div></li>
+						<li><span class="pc-icon-disc" style="--pc-c: #8a6fc0"><svg class="pc-icon" aria-hidden="true"><use href="icons/icons.svg#pc-check" /></svg></span><div><h3 class="pc-display">Keyboard and motion</h3><p>Every control has a visible focus ring and a 44px target. Tabs and menus follow the arrow-key patterns. Reduced motion stops the wobble.</p></div></li>
+					</ul>
+				</section>
+
 				<!-- ======================================================= use -->
 				<section class="sg-section" id="use" data-title="Using it">
 					<header>
-						<span class="pc-stamp pc-stamp--sm" style="--pc-c: #c2562d">13</span>
+						<span class="pc-stamp pc-stamp--sm" style="--pc-c: #c2562d"></span>
 						<div><h2 class="pc-h2">Using it</h2><p>Plain CSS classes and custom properties, so any framework can use them as they are.</p></div>
 					</header>
 					<pre class="sg-code"><code>&lt;link rel="stylesheet" href="postcard-styleguide/dist/postcard.css"&gt;
@@ -760,13 +945,13 @@
 
 				<footer class="sg-foot">
 					<hr class="pc-perforation" />
-					<p>Postcard v0.1 · from the Parks Tour 26 site · Fraunces and Figtree under the SIL Open Font License.</p>
+					<p>Postcard v0.2 · from the Parks Tour 26 site · Fraunces and Figtree under the SIL Open Font License.</p>
 				</footer>
 			</main>
 		</div>
 
 		<script type="module">
-			import { setTheme, restoreTheme, toast, dayColor, sheet } from './js/postcard.js';
+			import { setTheme, restoreTheme, toast, dayColor, sheet, tabs, menuButton, errorSummary, accordion } from './js/postcard.js';
 
 			// theme switch
 			const choices = document.querySelectorAll('[data-theme-choice]');
@@ -884,6 +1069,7 @@
 
 			// contents: a vertical rail of the sections, its thread filled as you scroll
 			const sections = [...document.querySelectorAll('.sg-section')];
+			sections.forEach((s, i) => (s.querySelector('header .pc-stamp').textContent = String(i + 1)));
 			const toc = document.getElementById('toc');
 			toc.replaceChildren(
 				...sections.map((s, i) => {
@@ -931,7 +1117,7 @@
 			zoom.addEventListener('input', () => (document.getElementById('f-zoom-out').textContent = `${zoom.value}×`));
 
 			// segmented demos toggle in place
-			document.querySelectorAll('.pc-segmented[role="tablist"], .pc-theme-night .pc-segmented').forEach((group) =>
+			document.querySelectorAll('.pc-segmented[role="tablist"]:not(#day-tabs), .pc-theme-night .pc-segmented').forEach((group) =>
 				group.addEventListener('click', (e) => {
 					const b = e.target.closest('button');
 					if (!b) return;
@@ -939,6 +1125,81 @@
 					group.querySelectorAll('button').forEach((x) => x.setAttribute(attr, String(x === b)));
 				})
 			);
+
+			// icons: every symbol in the sprite, so the grid never drifts from it
+			fetch('icons/icons.svg')
+				.then((r) => r.text())
+				.then((svg) => {
+					const names = [...svg.matchAll(/<symbol id="pc-([\w-]+)"/g)].map((m) => m[1]);
+					document.getElementById('icon-grid').replaceChildren(
+						...names.map((n) => {
+							const li = document.createElement('li');
+							li.innerHTML = `<svg class="pc-icon" aria-hidden="true"><use href="icons/icons.svg#pc-${n}" /></svg>${n}`;
+							return li;
+						})
+					);
+				});
+
+			// the table: the first week
+			const WEEK = [
+				[124, '5 h 10', 18],
+				[98, '4 h 20', 31],
+				[61, '3 h 05', 44],
+				[77, '3 h 40', 27],
+				[118, '4 h 50', 22],
+				[81, '3 h 25', 26],
+				[142, '6 h 05', 30]
+			];
+			document.getElementById('t-body').replaceChildren(
+				...WEEK.map(([miles, time, photos], i) => {
+					const tr = document.createElement('tr');
+					tr.style.setProperty('--pc-c', color(i));
+					tr.innerHTML = `<th scope="row"><span class="pc-tile" style="--pc-c: ${color(i)}">${i + 1}</span>${DAYS[i][0]}</th>
+						<td>${DAYS[i][1]}</td><td class="pc-num">${miles}</td><td class="pc-num">${time}</td><td class="pc-num">${photos}</td>`;
+					return tr;
+				})
+			);
+
+			// keyboard behaviours
+			tabs(document.getElementById('day-tabs'));
+			menuButton(document.getElementById('day-menu-button'));
+			accordion(document.getElementById('faq'));
+
+			// the error summary demo
+			document.getElementById('err-form').addEventListener('submit', (e) => {
+				e.preventDefault();
+				const form = e.currentTarget;
+				const problems = [];
+				const name = form.querySelector('#e-name');
+				const email = form.querySelector('#e-email');
+				for (const el of [name, email]) {
+					el.removeAttribute('aria-invalid');
+					el.parentElement.querySelector('.pc-field__error')?.remove();
+				}
+				if (!name.value.trim()) problems.push([name, 'Enter your name']);
+				if (!/^\S+@\S+\.\S+$/.test(email.value)) problems.push([email, 'Enter an email address, like name@example.com']);
+				const summary = document.getElementById('err-summary');
+				if (!problems.length) {
+					summary.hidden = true;
+					toast('Postcard sent', { tone: 'success' });
+					return;
+				}
+				document.getElementById('err-list').replaceChildren(
+					...problems.map(([el, msg]) => {
+						el.setAttribute('aria-invalid', 'true');
+						const p = document.createElement('p');
+						p.className = 'pc-field__error';
+						p.id = `${el.id}-error`;
+						p.textContent = msg;
+						el.setAttribute('aria-describedby', p.id);
+						el.after(p);
+						const li = document.createElement('li');
+						li.innerHTML = `<a href="#${el.id}">${msg}</a>`;
+						return li;
+					})
+				);
+				errorSummary(summary);
+			});
 
 			// overlays
 			const dialog = document.getElementById('dialog');

@@ -1,0 +1,29 @@
+# Changelog
+
+Postcard follows [semantic versioning](https://semver.org/): a change to a class name, a token name or a helper's signature is
+a major version, new components are minor versions, and fixes are patches. Before 1.0, minor versions may still rename things,
+and every rename is listed here.
+
+## 0.2.0 (2026-10-06)
+
+Filling the gaps compared with Bootstrap and the GOV.UK Design System.
+
+**Added**
+- Icons: 42 line icons in `icons/icons.svg`, drawn like the mark, with `pc-icon` and `pc-icon-disc`. `npm run build` also writes
+  each icon to `dist/icons/`.
+- Skip link: `pc-skip-link`.
+- Error summary: `pc-error-summary`, with the `errorSummary()` helper to focus it and move into each field.
+- Tables: `pc-table` and `pc-table-wrap`.
+- Show and hide: `pc-details` and `pc-accordion` on native `<details>`, with an `accordion()` helper for "Show all".
+- Wayfinding: `pc-breadcrumbs`, `pc-back-link`, `pc-pagination` and `pc-pages`.
+- Keyboard behaviour: `tabs()` (roving focus, arrow keys, panels) and `menuButton()` (arrow keys, Esc, click outside).
+- Windows Contrast themes: `css/forced-colors.css`.
+
+**Changed**
+- The style guide page numbers its sections automatically and gains Icons, Tables, Show and hide, and Accessibility sections.
+
+## 0.1.0 (2026-10-06)
+
+First version, taken from the Parks Tour site: tokens for Paper, Dusk and Night; the fonts; buttons, pill bar, chips and tags,
+fields, stamps, postcards and banners, the journey rail, notes, toasts, tooltips, progress, dialog and sheet; the theme, toast,
+dayColor and sheet helpers; the contrast check and the build.

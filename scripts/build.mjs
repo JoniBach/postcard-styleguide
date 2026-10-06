@@ -40,6 +40,16 @@ fs.writeFileSync(path.join(dist, 'postcard.min.css'), min);
 for (const f of fs.readdirSync(path.join(root, 'fonts'))) fs.copyFileSync(path.join(root, 'fonts', f), path.join(dist, 'fonts', f));
 fs.copyFileSync(path.join(root, 'js', 'postcard.js'), path.join(dist, 'postcard.js'));
 
+// icons: the sprite, plus each symbol as its own file for tools that want single SVGs
+fs.mkdirSync(path.join(dist, 'icons'));
+const sprite = fs.readFileSync(path.join(root, 'icons', 'icons.svg'), 'utf8');
+fs.writeFileSync(path.join(dist, 'icons', 'icons.svg'), sprite);
+let icons = 0;
+for (const m of sprite.matchAll(/<symbol id="pc-([\w-]+)" ([^>]*)>([\s\S]*?)<\/symbol>/g)) {
+	fs.writeFileSync(path.join(dist, 'icons', `${m[1]}.svg`), `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" ${m[2]}>${m[3]}</svg>\n`);
+	icons++;
+}
+
 const { light, dusk, night } = readTokens();
 const strip = (o) => Object.fromEntries(Object.entries(o).map(([k, v]) => [k.replace(/^--pc-/, ''), v]));
 fs.writeFileSync(
@@ -48,4 +58,4 @@ fs.writeFileSync(
 );
 
 const kb = (f) => `${(fs.statSync(path.join(dist, f)).size / 1024).toFixed(1)} kB`;
-console.log(`dist/postcard.css ${kb('postcard.css')}, postcard.min.css ${kb('postcard.min.css')}, tokens.json ${kb('tokens.json')}`);
+console.log(`dist/postcard.css ${kb('postcard.css')}, postcard.min.css ${kb('postcard.min.css')}, tokens.json ${kb('tokens.json')}, ${icons} icons`);
