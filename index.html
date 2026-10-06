@@ -428,7 +428,7 @@
 
 			<main class="sg-main" id="main" tabindex="-1">
 				<section class="sg-hero">
-					<p class="pc-eyebrow">Style guide · v0.3</p>
+					<p class="pc-eyebrow">Style guide · v0.3.1</p>
 					<h1 class="pc-h1">Postcard</h1>
 					<p class="pc-lede">
 						The look of the Parks Tour: warm paper, soft pastel fills, deep slate ink and one terracotta accent. Things are rounded, they
@@ -1186,7 +1186,7 @@
 					<div><h2 class="pc-footer__heading">Postcard</h2><ul><li><a href="https://github.com/JoniBach/postcard-styleguide"><svg class="pc-icon" aria-hidden="true"><use href="icons/icons.svg#pc-external" /></svg> Source on GitHub</a></li><li><a href="https://github.com/JoniBach/postcard-styleguide/blob/main/CHANGELOG.md">Changelog</a></li></ul></div>
 					<div><h2 class="pc-footer__heading">Guides</h2><ul><li><a href="https://github.com/JoniBach/postcard-styleguide/blob/main/docs/porting.md">Porting it</a></li><li><a href="https://github.com/JoniBach/postcard-styleguide/blob/main/docs/content.md">Writing for it</a></li></ul></div>
 				</nav>
-				<p class="pc-footer__small"><span class="pc-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M4.5 15c3-1 4-5 7.5-5s3.5 3 7.5 2" /></svg></span>Postcard v0.3, from the Parks Tour 26 site. Fraunces and Figtree under the SIL Open Font License.</p>
+				<p class="pc-footer__small"><span class="pc-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M4.5 15c3-1 4-5 7.5-5s3.5 3 7.5 2" /></svg></span>Postcard v0.3.1, from the Parks Tour 26 site. Fraunces and Figtree under the SIL Open Font License.</p>
 			</div>
 		</footer>
 
@@ -1371,7 +1371,8 @@
 			fetch('icons/icons.svg')
 				.then((r) => r.text())
 				.then((svg) => {
-					const names = [...svg.matchAll(/<symbol id="pc-([\w-]+)"/g)].map((m) => m[1]);
+					// parse it, so only real symbols are listed (not text that happens to look like one)
+					const names = [...new DOMParser().parseFromString(svg, 'image/svg+xml').querySelectorAll('symbol')].map((el) => el.id.replace(/^pc-/, ''));
 					document.getElementById('icon-grid').replaceChildren(
 						...names.map((n) => {
 							const li = document.createElement('li');

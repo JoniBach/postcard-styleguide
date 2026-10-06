@@ -40,9 +40,12 @@ npm install @jonibach/postcard
 ```
 
 ```js
-import '@jonibach/postcard';                                  // dist/postcard.css; the bundler copies its fonts
+import '@jonibach/postcard/postcard.min.css';                // the bundled CSS; the bundler copies its fonts
 import { setTheme, toast, dayColor } from '@jonibach/postcard/js';
 ```
+
+In TypeScript projects, import the CSS by a path ending in `.css` as above: a bare `import '@jonibach/postcard'` works in
+the bundler, but TypeScript can't tell it's a stylesheet and reports a missing module.
 
 Pin a version range that takes fixes but not breaking changes: `"@jonibach/postcard": "~0.2.1"` (before 1.0, a minor
 version may rename things; see the changelog).
