@@ -82,8 +82,8 @@ Firefox 128+) to stay readable on any colour; older browsers show the colour as 
 | `css/tokens.css` | Every colour, font, size, space, radius, shadow, tilt and timing, as `--pc-*` custom properties, for three themes |
 | `css/fonts.css` | Fraunces (SOFT, WONK and optical-size axes) and Figtree, self-hosted from `fonts/` |
 | `css/base.css` | The page, type classes (`pc-h1`, `pc-eyebrow`, `pc-lede`, `pc-label`), `pc-prose` for long reading, focus, reduced motion |
-| `css/components/button.css` | `pc-button` (primary, ink, soft, ghost; sm, lg, block; disabled, busy) and `pc-icon-button` |
-| `css/components/pillbar.css` | `pc-topbar`, frosted `pc-pill`, `pc-brand` with `pc-mark`, `pc-segmented` (views, tabs, toggles), `pc-menu` |
+| `css/components/button.css` | `pc-button` (primary, ink, soft, ghost; sm, lg, block; disabled, busy) and `pc-icon-button` (raised, glass, pressed) |
+| `css/components/pillbar.css` | `pc-topbar`, frosted `pc-pill`, `pc-brand` with `pc-mark`, `pc-segmented` (views, tabs, toggles), `pc-pills` (wrapping toggles), `pc-menu` |
 | `css/components/chip.css` | `pc-tag` in each pastel, `pc-chip` toggle filters, `pc-badge`, `pc-dot` |
 | `css/components/field.css` | `pc-field` with label, hint and error; `pc-input`, `pc-select`, `pc-textarea`, `pc-check`, `pc-switch`, `pc-slider`, `pc-knobs`; `pc-fieldset` and `pc-choices`, `pc-count`, `pc-file` and `pc-dropzone`, `pc-date`; `pc-error-summary` |
 | `css/components/stamp.css` | `pc-stamp` (tinted, solid, outline; sm, lg; a "land" animation) and `pc-tile` |
@@ -100,7 +100,7 @@ Firefox 128+) to stay readable on any colour; older browsers show the colour as 
 | `css/components/footer.css` | `pc-footer`: link columns, headings and small print below a perforated edge |
 | `css/print.css` | Print: black on white, no floating bars or buttons, every section open, cards kept whole |
 | `css/forced-colors.css` | Windows Contrast themes: real borders where Postcard uses fills and shadows, system highlights for the current thing |
-| `icons/icons.svg` | 42 icons on a 24px grid with 2px rounded strokes, as one sprite; a build also writes each one to `dist/icons/` |
+| `icons/icons.svg` | 48 icons on a 24px grid with 2px rounded strokes, as one sprite; a build also writes each one to `dist/icons/` |
 | `css/utilities.css` | `pc-container`, `pc-stack`, `pc-cluster`, `pc-grid`, `pc-sr-only`, `pc-scroll-y/x`, `pc-perforation`, `pc-airmail`, `pc-tilt` |
 | `js/postcard.js` | `setTheme` / `restoreTheme` / `currentTheme`, `toast`, `dayColor`, `sheet`, keyboard behaviour (`tabs`, `menuButton`, `errorSummary`, `accordion`), `charCount`, `lightbox` and `token`. Plain ES module, nothing runs on import |
 | `index.html` | The living style guide: every token and component in every theme, with guidance and copyable code for each |
@@ -170,7 +170,7 @@ to use `tokens.json` where there's no CSS.
 | `--radius`, `--radius-sm`, `--shadow`, `--press` | `--pc-radius`, `--pc-radius-sm`, `--pc-shadow`, `--pc-press` |
 | `--font-display`, `--font-ui` | `--pc-font-display`, `--pc-font-ui` |
 | `--c` (a day's colour) | `--pc-c` |
-| `.theme-night`, `.display`, `.knobs`, `.pills`, `.chip`, `.slider`, `.scroll-y` | `.pc-theme-night`, `.pc-display`, `.pc-knobs`, `.pc-segmented`, `.pc-chip`, `.pc-slider`, `.pc-scroll-y` |
+| `.theme-night`, `.display`, `.knobs`, `.pills`, `.chip`, `.slider`, `.scroll-y` | `.pc-theme-night`, `.pc-display`, `.pc-knobs`, `.pc-pills`, `.pc-chip`, `.pc-slider`, `.pc-scroll-y` |
 
 ## Writing for it
 

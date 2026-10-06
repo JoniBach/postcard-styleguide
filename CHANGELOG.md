@@ -4,6 +4,17 @@ Postcard follows [semantic versioning](https://semver.org/): a change to a class
 a major version, new components are minor versions, and fixes are patches. Before 1.0, minor versions may still rename things,
 and every rename is listed here.
 
+## 0.3.0 (2026-10-06)
+
+What moving the Parks Tour app onto Postcard needed.
+
+**Added**
+- `pc-pills`: a wrapping group of toggle pills for settings with several short options (the chosen one in ink; hologram
+  colours in night).
+- `pc-icon-button--glass`, a frosted round button for floating over a map or scene, and a pressed state for icon buttons
+  (`aria-pressed="true"`).
+- Icons: `scissors`, `book`, `link`, `sparkle`, `reset` and `arrow-up` (48 in all).
+
 ## 0.2.1 (2026-10-06)
 
 **Changed**

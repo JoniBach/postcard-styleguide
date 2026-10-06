@@ -428,7 +428,7 @@
 
 			<main class="sg-main" id="main" tabindex="-1">
 				<section class="sg-hero">
-					<p class="pc-eyebrow">Style guide · v0.2</p>
+					<p class="pc-eyebrow">Style guide · v0.3</p>
 					<h1 class="pc-h1">Postcard</h1>
 					<p class="pc-lede">
 						The look of the Parks Tour: warm paper, soft pastel fills, deep slate ink and one terracotta accent. Things are rounded, they
@@ -617,6 +617,8 @@
 							<button class="pc-button pc-button--primary" type="button" aria-busy="true">Sending</button>
 							<button class="pc-icon-button" type="button" aria-label="Close">×</button>
 							<button class="pc-icon-button pc-icon-button--raised" type="button" aria-label="Next day">›</button>
+							<button class="pc-icon-button pc-icon-button--glass" type="button" aria-label="Map and view settings"><svg class="pc-icon" aria-hidden="true"><use href="icons/icons.svg#pc-sliders" /></svg></button>
+							<button class="pc-icon-button pc-icon-button--glass" type="button" aria-label="Read as a blog" aria-pressed="true"><svg class="pc-icon" aria-hidden="true"><use href="icons/icons.svg#pc-book" /></svg></button>
 						</div>
 					</div>
 				</section>
@@ -693,6 +695,21 @@
 						</div>
 					</div>
 					<p class="sg-note">Tab moves into the tab list once; ← and → (or Home and End) switch tabs.</p>
+
+					<h3 class="sg-sub">Pills</h3>
+					<div class="sg-demo">
+						<fieldset class="pc-knobs" style="margin: 0" data-example="Pills">
+							<legend>Surface</legend>
+							<div class="pc-pills" id="surface-pills">
+								<button type="button" aria-pressed="true">Satellite</button>
+								<button type="button" aria-pressed="false">Topographic</button>
+								<button type="button" aria-pressed="false">Painted</button>
+								<button type="button" aria-pressed="false">Sentinel-2</button>
+								<button type="button" aria-pressed="false">Plain</button>
+							</div>
+						</fieldset>
+					</div>
+					<p class="sg-note">For settings with several short options. Each is its own pill and the row wraps; use the joined segmented control for two or three options.</p>
 
 					<h3 class="sg-sub">Breadcrumbs and back link</h3>
 					<div class="sg-demo pc-stack" style="--pc-gap: var(--pc-space-2)">
@@ -1104,10 +1121,11 @@
 							<p class="pc-label" style="margin: 0">Customise the globe</p>
 							<fieldset class="pc-knobs">
 								<legend>Colour the route by</legend>
-								<div class="pc-segmented" role="group" aria-label="Colour by">
+								<div class="pc-pills" role="group" aria-label="Colour by">
 									<button type="button" aria-pressed="true">Day</button>
 									<button type="button" aria-pressed="false">Speed</button>
 									<button type="button" aria-pressed="false">Lean</button>
+									<button type="button" aria-pressed="false">Gradient</button>
 								</div>
 							</fieldset>
 							<fieldset class="pc-knobs">
@@ -1168,7 +1186,7 @@
 					<div><h2 class="pc-footer__heading">Postcard</h2><ul><li><a href="https://github.com/JoniBach/postcard-styleguide"><svg class="pc-icon" aria-hidden="true"><use href="icons/icons.svg#pc-external" /></svg> Source on GitHub</a></li><li><a href="https://github.com/JoniBach/postcard-styleguide/blob/main/CHANGELOG.md">Changelog</a></li></ul></div>
 					<div><h2 class="pc-footer__heading">Guides</h2><ul><li><a href="https://github.com/JoniBach/postcard-styleguide/blob/main/docs/porting.md">Porting it</a></li><li><a href="https://github.com/JoniBach/postcard-styleguide/blob/main/docs/content.md">Writing for it</a></li></ul></div>
 				</nav>
-				<p class="pc-footer__small"><span class="pc-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M4.5 15c3-1 4-5 7.5-5s3.5 3 7.5 2" /></svg></span>Postcard v0.2, from the Parks Tour 26 site. Fraunces and Figtree under the SIL Open Font License.</p>
+				<p class="pc-footer__small"><span class="pc-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M4.5 15c3-1 4-5 7.5-5s3.5 3 7.5 2" /></svg></span>Postcard v0.3, from the Parks Tour 26 site. Fraunces and Figtree under the SIL Open Font License.</p>
 			</div>
 		</footer>
 
@@ -1340,7 +1358,7 @@
 			zoom.addEventListener('input', () => (document.getElementById('f-zoom-out').textContent = `${zoom.value}×`));
 
 			// segmented demos toggle in place
-			document.querySelectorAll('.pc-segmented[role="tablist"]:not(#day-tabs), .pc-theme-night .pc-segmented').forEach((group) =>
+			document.querySelectorAll('.pc-segmented[role="tablist"]:not(#day-tabs), .pc-theme-night .pc-segmented, .pc-pills').forEach((group) =>
 				group.addEventListener('click', (e) => {
 					const b = e.target.closest('button');
 					if (!b) return;

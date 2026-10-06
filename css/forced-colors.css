@@ -7,6 +7,7 @@
 	.pc-button,
 	.pc-pill,
 	.pc-segmented,
+	.pc-pills > *,
 	.pc-tag,
 	.pc-chip,
 	.pc-postcard,
@@ -36,6 +37,8 @@
 	.pc-segmented > [aria-pressed='true'],
 	.pc-segmented > [aria-selected='true'],
 	.pc-pages [aria-current]:not([aria-current='false']),
+	.pc-pills > [aria-pressed='true'],
+	.pc-icon-button[aria-pressed='true'],
 	.pc-chip:has(input:checked) {
 		forced-color-adjust: none;
 		background: Highlight;
