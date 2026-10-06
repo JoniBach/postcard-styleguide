@@ -165,7 +165,7 @@ to use `tokens.json` where there's no CSS.
 | --- | --- |
 | `--paper`, `--card`, `--glass` | `--pc-paper`, `--pc-card`, `--pc-glass` |
 | `--ink` / `--text`, `--muted`, `--line` | `--pc-ink`, `--pc-muted`, `--pc-line` |
-| `--accent`, `--accent-ink`, `--accent-soft`, `--on-accent` | `--pc-accent`, `--pc-accent-ink`, `--pc-accent-soft`, `--pc-on-accent` |
+| `--accent`, `--accent-ink`, `--accent-soft`, `--on-accent` | `--pc-accent`, `--pc-accent-ink`, `--pc-accent-soft`, `--pc-on-accent` (and `--pc-primary` for primary buttons) |
 | `--sage` … `--lilac` (+ `-ink`) | `--pc-sage` … `--pc-lilac` (+ `-ink`), plus `--pc-rose` |
 | `--b-bg`, `--b-card`, `--b-text`, `--b-muted` | `--pc-paper`, `--pc-card`, `--pc-ink`, `--pc-muted` |
 | `--b-line`, `--b-line-strong` | `--pc-line`, `--pc-line-strong` |

@@ -4,9 +4,13 @@ import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
 const WCAG = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'];
+// Postcard promises AAA (7:1) text contrast, so the enhanced contrast rule runs too
+const AAA = ['color-contrast-enhanced'];
 
 async function audit(page) {
-	const { violations } = await new AxeBuilder({ page }).withTags(WCAG).analyze();
+	const { violations } = await new AxeBuilder({ page }).withTags([...WCAG, 'wcag2aaa']).analyze();
+	// of the AAA rules, only contrast is part of Postcard's promise
+	violations.splice(0, violations.length, ...violations.filter((v) => !v.tags.includes('wcag2aaa') || AAA.includes(v.id)));
 	// one line per problem, so a failure says what to fix
 	return violations.flatMap((v) => v.nodes.map((n) => `${v.id}: ${n.target.join(' ')} (${n.failureSummary?.split('\n')[1]?.trim() ?? v.help})`));
 }

@@ -23,7 +23,7 @@
 
 	/* ink */
 	--pc-ink: #263238;
-	--pc-muted: #46535a;
+	--pc-muted: #414e55;
 	--pc-line: rgb(38 50 56 / 0.14);
 	/* borders that have to be seen (form fields): 3:1 against card */
 	--pc-line-strong: #8a7d6e;
@@ -34,6 +34,11 @@
 	--pc-accent-soft: #f9e2d6;
 	--pc-accent-deep: #8f3b1c;
 	--pc-on-accent: #fff;
+	/* the primary button: the accent deepened until its white label reaches 7:1 (AAA), with a
+	   darker drop beneath it */
+	--pc-primary: #8f3b1c;
+	--pc-on-primary: #fff;
+	--pc-primary-deep: #5e240e;
 
 	/* pastels, each with an ink that reads on it */
 	--pc-sage: #d5e8d8;
@@ -186,6 +191,9 @@
 		--pc-accent-soft: #4a2b1f;
 		--pc-accent-deep: #a9502c;
 		--pc-on-accent: #1b1410;
+		--pc-primary: #f09a76;
+		--pc-on-primary: #1b1410;
+		--pc-primary-deep: #a9502c;
 		--pc-sage: #233a2c;
 		--pc-sage-ink: #cfe8d4;
 		--pc-sky: #1f3445;
@@ -238,6 +246,9 @@
 	--pc-accent-soft: #4a2b1f;
 	--pc-accent-deep: #a9502c;
 	--pc-on-accent: #1b1410;
+	--pc-primary: #f09a76;
+	--pc-on-primary: #1b1410;
+	--pc-primary-deep: #a9502c;
 	--pc-sage: #233a2c;
 	--pc-sage-ink: #cfe8d4;
 	--pc-sky: #1f3445;
@@ -287,6 +298,9 @@
 	--pc-accent-soft: rgb(124 247 255 / 0.18);
 	--pc-accent-deep: #2bb9c4;
 	--pc-on-accent: #03070c;
+	--pc-primary: #7cf7ff;
+	--pc-on-primary: #03070c;
+	--pc-primary-deep: #2bb9c4;
 	--pc-press: none;
 	--pc-press-hover: none;
 	--pc-shadow: 0 0 24px rgb(124 247 255 / 0.12);

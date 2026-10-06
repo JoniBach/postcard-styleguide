@@ -4,6 +4,21 @@ Postcard follows [semantic versioning](https://semver.org/): a change to a class
 a major version, new components are minor versions, and fixes are patches. Before 1.0, minor versions may still rename things,
 and every rename is listed here.
 
+## 0.4.0 (2026-10-06)
+
+Postcard promised 7:1 (AAA) contrast for all text; moving the Parks Tour blog onto it found three places that fell short.
+
+**Added**
+- `--pc-primary`, `--pc-on-primary` and `--pc-primary-deep`: the colours of primary buttons and the skip link. In Paper the
+  terracotta deepens to brick (`#8f3b1c`) so the white label reaches 7.47:1; Dusk 8.31:1; Night 15.97:1.
+
+**Changed**
+- `pc-button--primary` and `pc-skip-link` use the primary tokens, so they look darker than in 0.3. `--pc-accent` stays as the
+  colour for shapes, icons and large type.
+- `--pc-muted` is a shade darker (`#414e55`) so it reaches 7:1 on `--pc-sunk` too.
+- Solid stamps and tiles cap their colour's lightness lower, so the small "Day" caption reaches 7:1.
+- `npm run check` holds primary buttons and muted-on-sunk to AAA, and the axe tests now include the AAA contrast rule.
+
 ## 0.3.1 (2026-10-06)
 
 **Fixed**

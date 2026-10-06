@@ -51,17 +51,17 @@
 	flex: none;
 }
 .pc-button--primary {
-	--_bg: var(--pc-accent);
-	--_fg: var(--pc-on-accent);
-	--_drop: 0 4px 0 var(--pc-accent-deep);
+	--_bg: var(--pc-primary);
+	--_fg: var(--pc-on-primary);
+	--_drop: 0 4px 0 var(--pc-primary-deep);
 	--_ring: 0 0 0 0 transparent;
 }
 .pc-button--primary:hover {
 	--_ring: 0 0 0 0 transparent;
-	background: color-mix(in srgb, var(--pc-accent) 88%, var(--pc-card));
+	background: color-mix(in srgb, var(--pc-primary) 90%, var(--pc-ink));
 }
 .pc-button--primary:active {
-	--_drop: 0 1px 0 var(--pc-accent-deep);
+	--_drop: 0 1px 0 var(--pc-primary-deep);
 }
 .pc-button--ink {
 	--_bg: var(--pc-ink);

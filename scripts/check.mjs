@@ -68,10 +68,11 @@ for (const theme of ['light', 'dusk']) {
 		check(theme, 'accent-ink', bg, AAA);
 		check(theme, 'danger-ink', bg, AA);
 	}
-	check(theme, 'muted', 'sunk', AA);
+	check(theme, 'muted', 'sunk', AAA);
 	for (const p of ['sage', 'sky', 'butter', 'lilac', 'peach', 'rose']) check(theme, `${p}-ink`, p, AAA);
 	check(theme, 'accent-ink', 'accent-soft', AAA);
-	check(theme, 'on-accent', 'accent', AA);
+	check(theme, 'on-accent', 'accent', AA); // the accent behind white text only in large type or icons
+	check(theme, 'on-primary', 'primary', AAA); // primary buttons and the skip link: text, so AAA
 	check(theme, 'paper', 'ink', AAA); // toasts, tooltips, pressed pills
 	check(theme, 'line-strong', 'card', UI); // field borders
 	check(theme, 'accent', 'paper', UI); // the accent as a shape: buttons, the rail's thread
@@ -85,6 +86,7 @@ check('night', 'ink', 'card', AAA);
 check('night', 'muted', 'card', AA);
 check('night', 'accent', 'card', AAA);
 check('night', 'on-accent', 'accent', AAA);
+check('night', 'on-primary', 'primary', AAA);
 
 console.log(failures ? `\n${failures} failed` : '\nAll pairs pass');
 process.exit(failures ? 1 : 0);
