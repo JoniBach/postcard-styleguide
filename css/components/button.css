@@ -158,6 +158,26 @@
 	color: var(--pc-ink);
 	box-shadow: var(--pc-press), 0 0 0 1px var(--pc-line);
 }
+/* frosted, for round buttons floating over a map or the scene */
+.pc-icon-button--glass {
+	background: var(--pc-glass);
+	color: var(--pc-ink);
+	-webkit-backdrop-filter: blur(12px);
+	backdrop-filter: blur(12px);
+	box-shadow: var(--pc-press), 0 0 0 1px var(--pc-line);
+}
+.pc-icon-button--glass:hover {
+	background: var(--pc-card);
+}
+.pc-icon-button[aria-pressed='true'] {
+	background: var(--pc-ink);
+	color: var(--pc-paper);
+}
+.pc-theme-night .pc-icon-button[aria-pressed='true'] {
+	background: var(--pc-accent-soft);
+	color: var(--pc-ink);
+	box-shadow: 0 0 0 1px var(--pc-accent);
+}
 .pc-icon-button svg {
 	width: 1.25rem;
 	height: 1.25rem;

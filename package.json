@@ -1,6 +1,6 @@
 {
 	"name": "@jonibach/postcard",
-	"version": "0.2.1",
+	"version": "0.3.0",
 	"description": "Postcard: a warm, playful, framework-agnostic style guide (CSS tokens, components and a few vanilla helpers) from the GT Retrospective tour site.",
 	"keywords": [
 		"design-system",

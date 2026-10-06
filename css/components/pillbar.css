@@ -177,3 +177,55 @@ a:hover > .pc-mark,
 	background: color-mix(in srgb, var(--pc-c) 22%, transparent);
 	font-weight: var(--pc-weight-strong);
 }
+
+/*
+  Pills: a wrapping group of toggle buttons for settings with several short options (a drawer's
+  "Surface" or "Colour by"). Each is its own pill; the chosen one is ink. For two or three options
+  in a bar, the joined pc-segmented reads better.
+  <div class="pc-pills" role="group" aria-label="Surface">
+    <button type="button" aria-pressed="true">Satellite</button><button type="button" aria-pressed="false">Topo</button>
+  </div>
+*/
+.pc-pills {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.4rem;
+}
+.pc-pills > button,
+.pc-pills > a {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	min-height: 2.15rem;
+	padding: 0 0.8rem;
+	border: 0;
+	border-radius: var(--pc-radius-pill);
+	background: var(--pc-card);
+	color: var(--pc-ink);
+	box-shadow: 0 0 0 1px var(--pc-line);
+	font: inherit;
+	font-size: var(--pc-text-sm);
+	text-decoration: none;
+	cursor: pointer;
+	transition: background-color var(--pc-dur-quick) var(--pc-ease);
+}
+.pc-pills > :hover {
+	background: var(--pc-accent-soft);
+}
+.pc-pills > [aria-pressed='true'],
+.pc-pills > [aria-current]:not([aria-current='false']) {
+	background: var(--pc-ink);
+	color: var(--pc-paper);
+	box-shadow: none;
+	font-weight: var(--pc-weight-strong);
+}
+.pc-pills > :disabled {
+	opacity: 0.45;
+	cursor: not-allowed;
+}
+.pc-theme-night .pc-pills > [aria-pressed='true'],
+.pc-theme-night .pc-pills > [aria-current]:not([aria-current='false']) {
+	background: var(--pc-accent-soft);
+	color: var(--pc-ink);
+	box-shadow: 0 0 0 1px var(--pc-accent);
+}
