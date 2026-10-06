@@ -6,7 +6,7 @@ write the same markup. Below, the same postcard in each framework, then Tailwind
 Load the CSS once, at the app's root:
 
 ```js
-import '@jonibach/postcard'; // dist/postcard.css; a bundler copies the fonts it points to
+import '@jonibach/postcard/postcard.min.css'; // the bundled CSS; a bundler copies the fonts it points to
 ```
 
 ## Plain HTML (the reference)

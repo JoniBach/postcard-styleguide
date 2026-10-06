@@ -1,6 +1,6 @@
 {
 	"name": "@jonibach/postcard",
-	"version": "0.3.0",
+	"version": "0.3.1",
 	"description": "Postcard: a warm, playful, framework-agnostic style guide (CSS tokens, components and a few vanilla helpers) from the GT Retrospective tour site.",
 	"keywords": [
 		"design-system",
@@ -37,6 +37,7 @@
 	"exports": {
 		".": "./dist/postcard.css",
 		"./postcard.css": "./postcard.css",
+		"./postcard.min.css": "./dist/postcard.min.css",
 		"./min.css": "./dist/postcard.min.css",
 		"./tokens.css": "./css/tokens.css",
 		"./tokens.json": "./dist/tokens.json",

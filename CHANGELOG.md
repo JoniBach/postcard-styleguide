@@ -4,6 +4,17 @@ Postcard follows [semantic versioning](https://semver.org/): a change to a class
 a major version, new components are minor versions, and fixes are patches. Before 1.0, minor versions may still rename things,
 and every rename is listed here.
 
+## 0.3.1 (2026-10-06)
+
+**Fixed**
+- The six icons added in 0.3.0 (`scissors`, `book`, `link`, `sparkle`, `reset`, `arrow-up`) had landed inside the sprite's
+  comment, so they drew nothing. They're real symbols now, and a new test parses the sprite and checks every icon draws.
+- The style guide lists icons by parsing the sprite, not by searching its text.
+
+**Added**
+- `@jonibach/postcard/postcard.min.css`, an import path ending in `.css` that TypeScript accepts. The README and porting
+  guide use it.
+
 ## 0.3.0 (2026-10-06)
 
 What moving the Parks Tour app onto Postcard needed.
