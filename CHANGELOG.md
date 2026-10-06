@@ -4,6 +4,15 @@ Postcard follows [semantic versioning](https://semver.org/): a change to a class
 a major version, new components are minor versions, and fixes are patches. Before 1.0, minor versions may still rename things,
 and every rename is listed here.
 
+## 0.2.1 (2026-10-06)
+
+**Changed**
+- Published to npm as `@jonibach/postcard`, which also puts it on the jsDelivr and unpkg CDNs. Install with
+  `npm install @jonibach/postcard`; the GitHub install still works but is no longer the recommended way.
+- The package ships built: `dist/` is made just before publishing, not on install, so installs don't need the test tools.
+- New export `@jonibach/postcard/min.css`. CSS files are marked as side effects, so bundlers keep the imports.
+- Releases publish from GitHub Actions with provenance, through npm trusted publishing.
+
 ## 0.2.0 (2026-10-06)
 
 Filling the gaps compared with Bootstrap and the GOV.UK Design System.
