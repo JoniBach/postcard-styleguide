@@ -51,8 +51,8 @@
 .pc-stamp--solid {
 	border-color: var(--pc-card);
 	background: var(--pc-c);
-	/* whatever colour it's given, dark enough for the white number to read (4.5:1 or more) */
-	background: oklch(from var(--pc-c) min(l, 0.5) c h);
+	/* whatever colour it's given, dark enough for the white number and caption to reach 7:1 */
+	background: oklch(from var(--pc-c) min(l, 0.45) c h);
 	color: #fff;
 	text-shadow: 0 1px 1px rgb(0 0 0 / 0.25);
 }
@@ -94,7 +94,7 @@ a:hover > .pc-stamp,
 	height: 2rem;
 	border-radius: 10px;
 	background: var(--pc-c);
-	background: oklch(from var(--pc-c) min(l, 0.5) c h);
+	background: oklch(from var(--pc-c) min(l, 0.45) c h);
 	color: #fff;
 	font-family: var(--pc-font-display);
 	font-variation-settings: var(--pc-display-axes);

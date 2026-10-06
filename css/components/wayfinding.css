@@ -18,9 +18,9 @@
 	left: var(--pc-space-3);
 	padding: 0.7rem 1.2rem;
 	border-radius: var(--pc-radius-pill);
-	background: var(--pc-accent);
-	color: var(--pc-on-accent);
-	box-shadow: 0 4px 0 var(--pc-accent-deep);
+	background: var(--pc-primary);
+	color: var(--pc-on-primary);
+	box-shadow: 0 4px 0 var(--pc-primary-deep);
 	font-weight: var(--pc-weight-strong);
 	text-decoration: none;
 	transform: translateY(calc(-100% - 2rem));
