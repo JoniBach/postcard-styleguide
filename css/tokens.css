@@ -139,6 +139,31 @@
 	/* reading widths */
 	--pc-measure: 36em;
 	--pc-page: 74rem;
+
+	/* breakpoints. Media queries can't read custom properties, so these are here for scripts,
+	   tokens.json and reference; write the same values in @media: (max-width: 30rem) and so on */
+	--pc-bp-phone: 30rem;
+	--pc-bp-tablet: 48rem;
+	--pc-bp-wide: 68rem;
+
+	/* charts: six categories that stay apart and reach 3:1 on paper; a one-hue sequential scale;
+	   a diverging scale (cool below, warm above, paper in the middle) */
+	--pc-chart-1: #c2562d;
+	--pc-chart-2: #3d74ad;
+	--pc-chart-3: #3f8a5c;
+	--pc-chart-4: #9a7612;
+	--pc-chart-5: #7c5fb8;
+	--pc-chart-6: #b8435f;
+	--pc-seq-1: #f9e2d6;
+	--pc-seq-2: #f0b99d;
+	--pc-seq-3: #e08a63;
+	--pc-seq-4: #c2562d;
+	--pc-seq-5: #8f3b1c;
+	--pc-div-1: #1f4560;
+	--pc-div-2: #8cb8d8;
+	--pc-div-3: #f3ecdf;
+	--pc-div-4: #f0a98a;
+	--pc-div-5: #8f3b1c;
 }
 
 /* dusk: the same postcard after sundown. Deep slate paper, cream ink, pastels turned to dusk tones */
@@ -176,6 +201,22 @@
 		--pc-press-hover: 0 6px 0 rgb(0 0 0 / 0.3);
 		--pc-shadow: 0 10px 30px rgb(0 0 0 / 0.35), 0 2px 6px rgb(0 0 0 / 0.2);
 		--pc-shadow-sm: 0 2px 6px rgb(0 0 0 / 0.35);
+		--pc-chart-1: #e7835b;
+		--pc-chart-2: #7fb3e6;
+		--pc-chart-3: #7cc495;
+		--pc-chart-4: #e3c158;
+		--pc-chart-5: #b9a3ea;
+		--pc-chart-6: #ec8aa5;
+		--pc-seq-1: #3d2a22;
+		--pc-seq-2: #6e3a25;
+		--pc-seq-3: #a9502c;
+		--pc-seq-4: #e7835b;
+		--pc-seq-5: #f5bea4;
+		--pc-div-1: #9ccbf0;
+		--pc-div-2: #3f6f94;
+		--pc-div-3: #2a333a;
+		--pc-div-4: #a9502c;
+		--pc-div-5: #f5a882;
 	}
 }
 :root[data-theme='dusk'],
@@ -212,6 +253,22 @@
 	--pc-press-hover: 0 6px 0 rgb(0 0 0 / 0.3);
 	--pc-shadow: 0 10px 30px rgb(0 0 0 / 0.35), 0 2px 6px rgb(0 0 0 / 0.2);
 	--pc-shadow-sm: 0 2px 6px rgb(0 0 0 / 0.35);
+	--pc-chart-1: #e7835b;
+	--pc-chart-2: #7fb3e6;
+	--pc-chart-3: #7cc495;
+	--pc-chart-4: #e3c158;
+	--pc-chart-5: #b9a3ea;
+	--pc-chart-6: #ec8aa5;
+	--pc-seq-1: #3d2a22;
+	--pc-seq-2: #6e3a25;
+	--pc-seq-3: #a9502c;
+	--pc-seq-4: #e7835b;
+	--pc-seq-5: #f5bea4;
+	--pc-div-1: #9ccbf0;
+	--pc-div-2: #3f6f94;
+	--pc-div-3: #2a333a;
+	--pc-div-4: #a9502c;
+	--pc-div-5: #f5a882;
 }
 
 /* night: the 3D view's hologram panels, over a dark scene. Scoped to an element, not the page */

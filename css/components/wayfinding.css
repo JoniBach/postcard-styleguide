@@ -1,0 +1,198 @@
+/*
+  Finding your way: skip link, breadcrumbs, back link and pagination.
+  <a class="pc-skip-link" href="#main">Skip to main content</a>          first thing in <body>
+  <nav class="pc-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="/">Tour</a></li><li><a href="/blog">Blog</a></li><li aria-current="page">Day 7</li></ol></nav>
+  <a class="pc-back-link" href="/blog">Back to the blog</a>
+  <nav class="pc-pagination" aria-label="Days">
+    <a class="pc-pagination__prev" href="/day/6" rel="prev"><span class="pc-pagination__label">Previous day</span><span class="pc-pagination__title">Peak District</span></a>
+    <a class="pc-pagination__next" href="/day/8" rel="next">…</a>
+  </nav>
+  Numbered pages: <ul class="pc-pages"><li><a href="?p=1">1</a></li><li><a href="?p=2" aria-current="page">2</a></li>…</ul>
+*/
+
+/* hidden until a keyboard user tabs to it, then a primary pill in the top corner */
+.pc-skip-link {
+	position: absolute;
+	z-index: var(--pc-z-toast);
+	top: calc(var(--pc-space-3) + env(safe-area-inset-top, 0px));
+	left: var(--pc-space-3);
+	padding: 0.7rem 1.2rem;
+	border-radius: var(--pc-radius-pill);
+	background: var(--pc-accent);
+	color: var(--pc-on-accent);
+	box-shadow: 0 4px 0 var(--pc-accent-deep);
+	font-weight: var(--pc-weight-strong);
+	text-decoration: none;
+	transform: translateY(calc(-100% - 2rem));
+	transition: transform var(--pc-dur) var(--pc-ease-bounce);
+}
+.pc-skip-link:focus,
+.pc-skip-link:focus-visible {
+	transform: translateY(0) rotate(-1deg);
+}
+
+.pc-breadcrumbs ol {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.15rem 0;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	font-size: 0.9rem;
+	color: var(--pc-muted);
+}
+.pc-breadcrumbs li {
+	display: inline-flex;
+	align-items: center;
+}
+.pc-breadcrumbs li + li::before {
+	content: '';
+	width: 0.4rem;
+	height: 0.4rem;
+	margin: 0 0.6rem 0 0.35rem;
+	border-top: 2px solid currentColor;
+	border-right: 2px solid currentColor;
+	border-radius: 1px;
+	opacity: 0.6;
+	transform: rotate(45deg);
+}
+.pc-breadcrumbs a {
+	display: inline-flex;
+	align-items: center;
+	min-height: 2rem;
+	color: var(--pc-ink);
+	text-decoration: underline;
+	text-decoration-color: var(--pc-line-strong);
+	text-underline-offset: 0.2em;
+}
+.pc-breadcrumbs a:hover {
+	text-decoration-color: currentColor;
+	text-decoration-thickness: 2px;
+}
+.pc-breadcrumbs [aria-current]:not([aria-current='false']) {
+	font-weight: var(--pc-weight-medium);
+	color: var(--pc-ink);
+}
+
+.pc-back-link {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	min-height: var(--pc-target);
+	color: var(--pc-ink);
+	font-weight: var(--pc-weight-medium);
+	text-decoration: underline;
+	text-decoration-color: var(--pc-line-strong);
+	text-underline-offset: 0.2em;
+}
+.pc-back-link::before {
+	content: '';
+	width: 0.5rem;
+	height: 0.5rem;
+	margin: 0 0.15rem 0 0.25rem;
+	border-bottom: 2px solid currentColor;
+	border-left: 2px solid currentColor;
+	border-radius: 1px;
+	transform: rotate(45deg);
+	transition: transform var(--pc-dur-quick) var(--pc-ease);
+}
+.pc-back-link:hover {
+	text-decoration-color: currentColor;
+}
+.pc-back-link:hover::before {
+	transform: translateX(-3px) rotate(45deg);
+}
+
+/* previous and next: two postcards' worth of link, the direction in small capitals */
+.pc-pagination {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: var(--pc-space-3);
+}
+.pc-pagination > a {
+	display: flex;
+	flex-direction: column;
+	gap: 0.15rem;
+	min-width: 0;
+	padding: var(--pc-space-3) var(--pc-space-4);
+	border-radius: var(--pc-radius);
+	background: var(--pc-card);
+	color: var(--pc-ink);
+	box-shadow: var(--pc-press), 0 0 0 1px var(--pc-line);
+	text-decoration: none;
+	transition: transform var(--pc-dur) var(--pc-ease), box-shadow var(--pc-dur) var(--pc-ease);
+}
+.pc-pagination > a:hover {
+	transform: translateY(-2px) rotate(-0.3deg);
+	box-shadow: var(--pc-press-hover), 0 0 0 1px var(--pc-line), var(--pc-shadow);
+}
+.pc-pagination__next {
+	grid-column: 2;
+	text-align: right;
+}
+.pc-pagination__label {
+	font-size: var(--pc-text-2xs);
+	font-weight: var(--pc-weight-heavy);
+	letter-spacing: var(--pc-tracking-label);
+	text-transform: uppercase;
+	color: var(--pc-accent-ink);
+}
+.pc-pagination__prev .pc-pagination__label::before {
+	content: '← ';
+}
+.pc-pagination__next .pc-pagination__label::after {
+	content: ' →';
+}
+.pc-pagination__title {
+	font-family: var(--pc-font-display);
+	font-variation-settings: var(--pc-display-axes);
+	font-weight: var(--pc-weight-display);
+	font-size: 1.05rem;
+	line-height: 1.25;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+@media (max-width: 30rem) {
+	.pc-pagination {
+		grid-template-columns: minmax(0, 1fr);
+	}
+	.pc-pagination__next {
+		grid-column: auto;
+	}
+}
+
+/* numbered pages: round pills, the current one in ink */
+.pc-pages {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.3rem;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.pc-pages a,
+.pc-pages span {
+	display: inline-grid;
+	place-items: center;
+	min-width: var(--pc-target);
+	height: var(--pc-target);
+	padding: 0 0.6rem;
+	border-radius: var(--pc-radius-pill);
+	color: var(--pc-ink);
+	font-weight: var(--pc-weight-medium);
+	font-variant-numeric: tabular-nums;
+	text-decoration: none;
+}
+.pc-pages a:hover {
+	background: var(--pc-accent-soft);
+}
+.pc-pages [aria-current]:not([aria-current='false']) {
+	background: var(--pc-ink);
+	color: var(--pc-paper);
+}
+.pc-pages span {
+	color: var(--pc-muted);
+}

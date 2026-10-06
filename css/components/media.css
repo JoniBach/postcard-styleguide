@@ -1,0 +1,159 @@
+/*
+  Photos: a figure with a caption, a gallery grid, and a lightbox to look at one big.
+  <figure class="pc-figure"><img src="…" alt="…" /><figcaption>Buttertubs Pass, 11:42</figcaption></figure>
+  pc-figure--snapshot: a printed photo with a white border, tipped a little (use one or two per page).
+  <ul class="pc-gallery"><li><a href="big.jpg"><img src="small.jpg" alt="…" /></a></li>…</ul>
+  pc-gallery--large for bigger tiles. js/postcard.js lightbox(gallery) opens the links in a viewer
+  with arrow keys, a counter and Esc; without JavaScript the links still open the photo.
+*/
+.pc-figure {
+	margin: 0;
+}
+.pc-figure img,
+.pc-figure picture,
+.pc-figure video {
+	display: block;
+	width: 100%;
+	height: auto;
+	border-radius: var(--pc-radius);
+}
+.pc-figure figcaption {
+	margin-top: var(--pc-space-2);
+	font-size: 0.9rem;
+	color: var(--pc-muted);
+}
+.pc-figure--snapshot {
+	padding: 0.6rem 0.6rem 0.4rem;
+	border-radius: 6px;
+	background: #fffdf8;
+	box-shadow: var(--pc-shadow);
+	transform: rotate(-1.2deg);
+}
+.pc-figure--snapshot:nth-of-type(even) {
+	transform: rotate(1deg);
+}
+.pc-figure--snapshot img {
+	border-radius: 2px;
+}
+/* the caption handwritten-ish, in the soft wonky face, always dark on the white print */
+.pc-figure--snapshot figcaption {
+	margin-top: 0.4rem;
+	font-family: var(--pc-font-display);
+	font-variation-settings: var(--pc-display-axes);
+	font-style: italic;
+	font-size: 1rem;
+	color: #263238;
+	text-align: center;
+}
+
+.pc-gallery {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(6.5rem, 1fr));
+	gap: 0.4rem;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.pc-gallery--large {
+	grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+}
+.pc-gallery a {
+	display: block;
+	border-radius: var(--pc-radius-sm);
+	overflow: hidden;
+	background: var(--pc-sunk);
+}
+.pc-gallery img {
+	display: block;
+	width: 100%;
+	height: auto;
+	aspect-ratio: 4 / 3;
+	object-fit: cover;
+	transition: transform var(--pc-dur) var(--pc-ease);
+}
+.pc-gallery a:hover img {
+	transform: scale(1.04);
+}
+/* the last tile: "+12 more" */
+.pc-gallery__more {
+	display: grid !important;
+	place-items: center;
+	height: 100%;
+	min-height: 4.5rem;
+	border: 1px solid var(--pc-line);
+	background: var(--pc-card) !important;
+	color: var(--pc-ink);
+	font-weight: var(--pc-weight-medium);
+	text-decoration: none;
+}
+
+/* the lightbox: the photo big on a dark ground, caption and counter below, round arrow buttons */
+.pc-lightbox {
+	width: 100vw;
+	max-width: none;
+	height: 100dvh;
+	max-height: none;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: rgb(10 14 18 / 0.94);
+	color: #f4ede0;
+}
+.pc-lightbox::backdrop {
+	background: rgb(10 14 18 / 0.6);
+}
+.pc-lightbox[open] {
+	display: grid;
+	grid-template-rows: minmax(0, 1fr) auto;
+	animation: pc-fade var(--pc-dur) var(--pc-ease);
+}
+.pc-lightbox__stage {
+	display: grid;
+	place-items: center;
+	min-height: 0;
+	padding: var(--pc-space-14) var(--pc-space-4) var(--pc-space-2);
+}
+.pc-lightbox__stage img {
+	max-width: 100%;
+	max-height: 100%;
+	border-radius: var(--pc-radius-sm);
+	object-fit: contain;
+	box-shadow: 0 20px 60px rgb(0 0 0 / 0.5);
+}
+.pc-lightbox__bar {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--pc-space-4);
+	padding: var(--pc-space-3) var(--pc-space-4) calc(var(--pc-space-4) + env(safe-area-inset-bottom, 0px));
+	text-align: center;
+}
+.pc-lightbox__caption {
+	min-width: 0;
+	flex: 0 1 36rem;
+	font-size: 0.95rem;
+}
+.pc-lightbox__count {
+	display: block;
+	font-size: var(--pc-text-xs);
+	opacity: 0.75;
+	font-variant-numeric: tabular-nums;
+}
+.pc-lightbox .pc-icon-button {
+	color: #f4ede0;
+	background: rgb(255 255 255 / 0.1);
+}
+.pc-lightbox .pc-icon-button:hover {
+	background: rgb(255 255 255 / 0.2);
+	color: #fff;
+}
+.pc-lightbox__close {
+	position: absolute;
+	top: calc(var(--pc-space-3) + env(safe-area-inset-top, 0px));
+	right: var(--pc-space-3);
+}
+@keyframes pc-fade {
+	from {
+		opacity: 0;
+	}
+}

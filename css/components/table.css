@@ -1,0 +1,86 @@
+/*
+  Tables, for real tabular data (a day-by-day log, not layout). Wrap it so a wide table scrolls
+  inside its card on a phone instead of pushing the page sideways:
+  <div class="pc-table-wrap" tabindex="0" role="region" aria-labelledby="t-cap">
+    <table class="pc-table">
+      <caption id="t-cap">Miles by day</caption>
+      <thead><tr><th scope="col">Day</th><th scope="col" class="pc-num">Miles</th></tr></thead>
+      <tbody><tr><th scope="row">Setting off</th><td class="pc-num">124</td></tr></tbody>
+      <tfoot><tr><th scope="row">Total</th><td class="pc-num">2,448</td></tr></tfoot>
+    </table>
+  </div>
+  Numbers: class="pc-num" on the cell (right-aligned, digits line up). Tighter rows: pc-table--compact.
+*/
+.pc-table-wrap {
+	max-width: 100%;
+	overflow-x: auto;
+	border-radius: var(--pc-radius);
+	background: var(--pc-card);
+	box-shadow: 0 0 0 1px var(--pc-line);
+	overscroll-behavior-x: contain;
+}
+.pc-table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 0.95rem;
+	line-height: 1.4;
+}
+.pc-table caption {
+	padding: var(--pc-space-4) var(--pc-space-4) var(--pc-space-2);
+	font-family: var(--pc-font-display);
+	font-variation-settings: var(--pc-display-axes);
+	font-weight: var(--pc-weight-display);
+	font-size: var(--pc-text-xl);
+	text-align: left;
+	color: var(--pc-ink);
+}
+.pc-table th,
+.pc-table td {
+	padding: 0.65rem var(--pc-space-4);
+	border-bottom: 1px dashed var(--pc-line);
+	text-align: left;
+	vertical-align: top;
+}
+.pc-table thead th {
+	padding-block: 0.55rem;
+	border-bottom: 2px solid var(--pc-line);
+	font-size: var(--pc-text-2xs);
+	font-weight: var(--pc-weight-heavy);
+	letter-spacing: var(--pc-tracking-label);
+	text-transform: uppercase;
+	color: var(--pc-muted);
+	white-space: nowrap;
+}
+.pc-table tbody th {
+	font-weight: var(--pc-weight-medium);
+}
+.pc-table tbody tr:last-child > * {
+	border-bottom: 0;
+}
+.pc-table tbody tr:hover {
+	background: color-mix(in srgb, var(--pc-c, var(--pc-accent)) 7%, transparent);
+}
+.pc-table tfoot > tr > * {
+	border-top: 2px solid var(--pc-line);
+	border-bottom: 0;
+	font-weight: var(--pc-weight-strong);
+}
+.pc-table .pc-num {
+	text-align: right;
+	font-variant-numeric: tabular-nums;
+	white-space: nowrap;
+}
+.pc-table--compact th,
+.pc-table--compact td {
+	padding-block: 0.35rem;
+}
+/* a row's own colour in its first cell: a small tilted tile beside the label */
+.pc-table td > .pc-tile,
+.pc-table th > .pc-tile {
+	width: 1.6rem;
+	height: 1.6rem;
+	margin-right: 0.55rem;
+	border-radius: 8px;
+	font-size: 0.85rem;
+	vertical-align: middle;
+}

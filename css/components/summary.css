@@ -1,0 +1,115 @@
+/*
+  Summaries: facts as label and value pairs, and the panel that confirms something is done.
+  <dl class="pc-summary">
+    <div><dt>Distance</dt><dd>142 miles</dd></div>
+    <div><dt>Riding time</dt><dd>6 h 05</dd><dd class="pc-summary__action"><a href="#">Change<span class="pc-sr-only"> riding time</span></a></dd></div>
+  </dl>
+  pc-summary--card puts it in a card; pc-summary--inline lays short facts across (a day's stats).
+  <div class="pc-confirmation" role="status"><span class="pc-stamp pc-stamp--lg pc-stamp--land" style="--pc-c: var(--pc-sage-ink)">✓</span>
+    <h1 class="pc-confirmation__title">You're subscribed</h1><p>…</p></div>
+*/
+.pc-summary {
+	margin: 0;
+}
+.pc-summary > div {
+	display: grid;
+	grid-template-columns: minmax(8rem, 30%) minmax(0, 1fr) auto;
+	gap: var(--pc-space-1) var(--pc-space-4);
+	align-items: baseline;
+	padding: 0.7rem 0;
+	border-bottom: 1px dashed var(--pc-line);
+}
+.pc-summary > div:last-child {
+	border-bottom: 0;
+}
+.pc-summary dt {
+	font-weight: var(--pc-weight-medium);
+}
+.pc-summary dd {
+	min-width: 0;
+	margin: 0;
+	overflow-wrap: anywhere;
+}
+.pc-summary__action {
+	text-align: right;
+}
+.pc-summary__action a {
+	color: var(--pc-accent-ink);
+	font-weight: var(--pc-weight-medium);
+	text-underline-offset: 0.18em;
+}
+.pc-summary--card {
+	padding: var(--pc-space-2) var(--pc-space-5);
+	border-radius: var(--pc-radius);
+	background: var(--pc-card);
+	box-shadow: 0 0 0 1px var(--pc-line);
+}
+@media (max-width: 30rem) {
+	.pc-summary > div {
+		grid-template-columns: minmax(0, 1fr) auto;
+	}
+	.pc-summary dt {
+		grid-column: 1 / -1;
+	}
+}
+/* short facts laid across, each a label over a big number */
+.pc-summary--inline {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--pc-space-2) var(--pc-space-8);
+}
+.pc-summary--inline > div {
+	display: flex;
+	flex-direction: column-reverse;
+	gap: 0;
+	padding: 0;
+	border: 0;
+}
+.pc-summary--inline dt {
+	font-size: var(--pc-text-2xs);
+	font-weight: var(--pc-weight-heavy);
+	letter-spacing: var(--pc-tracking-label);
+	text-transform: uppercase;
+	color: var(--pc-muted);
+}
+.pc-summary--inline dd {
+	font-family: var(--pc-font-display);
+	font-variation-settings: var(--pc-display-axes);
+	font-weight: var(--pc-weight-display);
+	font-size: var(--pc-text-2xl);
+	line-height: 1.1;
+	font-variant-numeric: lining-nums tabular-nums;
+}
+
+/* done: a big sage card with a stamp landing on it, for the end of a task */
+.pc-confirmation {
+	display: grid;
+	justify-items: center;
+	gap: var(--pc-space-2);
+	padding: var(--pc-space-10) var(--pc-space-6) var(--pc-space-8);
+	border-radius: var(--pc-radius-lg);
+	background: var(--pc-success);
+	color: var(--pc-success-ink);
+	text-align: center;
+}
+.pc-confirmation .pc-stamp {
+	--pc-c: var(--pc-success-ink);
+	margin-bottom: var(--pc-space-3);
+}
+.pc-confirmation__title {
+	margin: 0;
+	font-family: var(--pc-font-display);
+	font-variation-settings: var(--pc-display-axes);
+	font-weight: var(--pc-weight-display);
+	font-size: var(--pc-text-3xl);
+	line-height: var(--pc-leading-tight);
+	text-wrap: balance;
+}
+.pc-confirmation p {
+	max-width: 30rem;
+	margin: 0;
+	font-size: var(--pc-text-lg);
+}
+.pc-confirmation strong {
+	font-weight: var(--pc-weight-heavy);
+}

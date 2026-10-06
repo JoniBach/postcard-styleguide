@@ -1,0 +1,124 @@
+/*
+  Show and hide, on the native <details>: it opens with the keyboard and works without JavaScript.
+  One on its own (help text, "how is this measured?"):
+    <details class="pc-details"><summary>How are miles counted?</summary><div>…</div></details>
+  A stack of sections, each a card (a day's events, FAQs):
+    <div class="pc-accordion">
+      <details><summary><span class="pc-accordion__title">Snowdonia</span><span class="pc-accordion__hint">3 events</span></summary><div class="pc-accordion__body">…</div></details>
+      …
+    </div>
+  js/postcard.js accordion(el) adds a "Show all" / "Hide all" button above it.
+*/
+.pc-details > summary,
+.pc-accordion > details > summary {
+	list-style: none;
+	cursor: pointer;
+}
+.pc-details > summary::-webkit-details-marker,
+.pc-accordion > details > summary::-webkit-details-marker {
+	display: none;
+}
+
+/* on its own: an underlined link with a little turning triangle */
+.pc-details > summary {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.45rem;
+	min-height: var(--pc-target);
+	color: var(--pc-accent-ink);
+	font-weight: var(--pc-weight-medium);
+	text-decoration: underline;
+	text-decoration-thickness: 1.5px;
+	text-underline-offset: 0.2em;
+}
+.pc-details > summary::before {
+	content: '';
+	flex: none;
+	border-style: solid;
+	border-width: 0.32rem 0 0.32rem 0.5rem;
+	border-color: transparent transparent transparent currentColor;
+	transition: transform var(--pc-dur) var(--pc-ease-bounce);
+}
+.pc-details[open] > summary::before {
+	transform: rotate(90deg);
+}
+.pc-details > summary:hover {
+	text-decoration-thickness: 3px;
+}
+.pc-details > :not(summary) {
+	margin: 0.25rem 0 var(--pc-space-4) 0.4rem;
+	padding-left: var(--pc-space-4);
+	border-left: 4px solid var(--pc-line);
+	color: var(--pc-ink);
+}
+
+/* the accordion: rounded sections that open like an envelope */
+.pc-accordion {
+	display: grid;
+	gap: var(--pc-space-2);
+}
+.pc-accordion > details {
+	border-radius: var(--pc-radius);
+	background: var(--pc-card);
+	box-shadow: var(--pc-press), 0 0 0 1px var(--pc-line);
+	overflow: hidden;
+}
+.pc-accordion > details > summary {
+	display: flex;
+	align-items: center;
+	gap: var(--pc-space-3);
+	min-height: 3.25rem;
+	padding: 0.6rem var(--pc-space-4);
+}
+.pc-accordion > details > summary:hover {
+	background: color-mix(in srgb, var(--pc-c, var(--pc-accent)) 8%, transparent);
+}
+.pc-accordion > details > summary:focus-visible {
+	outline-offset: -3px;
+}
+/* the turn-down chevron, in a little round button */
+.pc-accordion > details > summary::after {
+	content: '';
+	flex: none;
+	margin-left: auto;
+	width: 0.55rem;
+	height: 0.55rem;
+	margin-right: 0.3rem;
+	border-right: 2.5px solid var(--pc-ink);
+	border-bottom: 2.5px solid var(--pc-ink);
+	border-radius: 1px;
+	transform: translateY(-2px) rotate(45deg);
+	transition: transform var(--pc-dur) var(--pc-ease-bounce);
+}
+.pc-accordion > details[open] > summary::after {
+	transform: translateY(2px) rotate(-135deg);
+}
+.pc-accordion__title {
+	font-family: var(--pc-font-display);
+	font-variation-settings: var(--pc-display-axes);
+	font-weight: var(--pc-weight-display);
+	font-size: 1.1rem;
+	line-height: 1.25;
+}
+.pc-accordion__hint {
+	font-size: 0.85rem;
+	color: var(--pc-muted);
+}
+.pc-accordion__body,
+.pc-accordion > details > div {
+	padding: 0 var(--pc-space-4) var(--pc-space-4);
+}
+.pc-accordion > details[open] > summary + * {
+	animation: pc-unfold var(--pc-dur) var(--pc-ease-out);
+}
+.pc-accordion__controls {
+	display: flex;
+	justify-content: flex-end;
+	margin-bottom: var(--pc-space-1);
+}
+@keyframes pc-unfold {
+	from {
+		opacity: 0;
+		transform: translateY(-4px);
+	}
+}

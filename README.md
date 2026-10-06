@@ -11,10 +11,14 @@ It's plain CSS (custom properties and `pc-` classes) plus a few optional vanilla
 dependencies. A React, Svelte, Vue or native app can use it as it is or port it piece by piece.
 
 ```sh
-npm run dev     # the living style guide on http://localhost:4321
-npm run check   # contrast check for every theme
-npm run build   # dist/: one bundled CSS file, the fonts, the helpers and tokens.json
+npm run dev           # the living style guide on http://localhost:4321
+npm run check         # contrast check for every theme
+npm run build         # dist/: one bundled CSS file, the fonts, the icons, the helpers and tokens.json
+npm test              # behaviour and accessibility (axe, WCAG 2.2 AA) tests in Chromium; CI runs these
+npm run test:visual   # screenshots of every section in Paper and Dusk, against the saved ones
 ```
+
+Tests need a Chromium: `npx playwright install chromium`, or point `PW_EXECUTABLE_PATH` at Chrome, Brave or Edge.
 
 ## What makes it Postcard
 
@@ -49,8 +53,11 @@ import 'postcard-styleguide';                       // dist/postcard.css, throug
 import { setTheme, toast, dayColor } from 'postcard-styleguide/js';
 ```
 
-It relies on modern CSS: custom properties, `color-mix()`, `:has()` and `<dialog>`. That's Safari 16.4+, Chrome/Edge 111+ and
-Firefox 121+, all from 2023 or later.
+See [CHANGELOG.md](CHANGELOG.md) for what changed in each version.
+
+It relies on modern CSS: custom properties, `color-mix()`, `:has()` and `<dialog>`, which means Safari 16.4+, Chrome/Edge 111+
+and Firefox 121+ (all 2023 or later). Solid stamps also use relative colours (`oklch(from …)`, Chrome 119+, Safari 18+,
+Firefox 128+) to stay readable on any colour; older browsers show the colour as given.
 
 ## What's inside
 
@@ -62,15 +69,27 @@ Firefox 121+, all from 2023 or later.
 | `css/components/button.css` | `pc-button` (primary, ink, soft, ghost; sm, lg, block; disabled, busy) and `pc-icon-button` |
 | `css/components/pillbar.css` | `pc-topbar`, frosted `pc-pill`, `pc-brand` with `pc-mark`, `pc-segmented` (views, tabs, toggles), `pc-menu` |
 | `css/components/chip.css` | `pc-tag` in each pastel, `pc-chip` toggle filters, `pc-badge`, `pc-dot` |
-| `css/components/field.css` | `pc-field` with label, hint and error; `pc-input`, `pc-select`, `pc-textarea`, `pc-check`, `pc-switch`, `pc-slider`, `pc-knobs` |
+| `css/components/field.css` | `pc-field` with label, hint and error; `pc-input`, `pc-select`, `pc-textarea`, `pc-check`, `pc-switch`, `pc-slider`, `pc-knobs`; `pc-fieldset` and `pc-choices`, `pc-count`, `pc-file` and `pc-dropzone`, `pc-date`; `pc-error-summary` |
 | `css/components/stamp.css` | `pc-stamp` (tinted, solid, outline; sm, lg; a "land" animation) and `pc-tile` |
 | `css/components/card.css` | `pc-card`, `pc-postcard` (art, stamp, body), `pc-banner`, `pc-panel`, `pc-postcards` grid |
 | `css/components/rail.css` | `pc-rail`, the journey rail: a thread through stamps, filled to where you are; `pc-rail--across` for phones |
 | `css/components/feedback.css` | `pc-note` (info, success, warning, danger, tip), `pc-toast`, `data-tip` tooltips, `pc-progress`, `pc-spinner`, `pc-skeleton`, `pc-empty` |
 | `css/components/overlay.css` | `pc-dialog` on the native `<dialog>`, `pc-sheet` (bottom sheet) and `pc-scrim` |
+| `css/components/icon.css` | `pc-icon` (sm, lg) for the sprite in `icons/icons.svg`, and `pc-icon-disc`, an icon in a tilted tile |
+| `css/components/wayfinding.css` | `pc-skip-link`, `pc-breadcrumbs`, `pc-back-link`, `pc-pagination` (previous and next), `pc-pages` (numbered) |
+| `css/components/table.css` | `pc-table` in a scrolling `pc-table-wrap`: caption, numeric columns, a totals row, compact rows |
+| `css/components/disclosure.css` | `pc-details` (one show-and-hide) and `pc-accordion` (stacked sections), both on native `<details>` |
+| `css/components/summary.css` | `pc-summary` (label and value pairs; card and inline stats) and `pc-confirmation`, the "done" panel |
+| `css/components/media.css` | `pc-figure` (and the tilted `--snapshot`), `pc-gallery`, and the `pc-lightbox` viewer |
+| `css/components/footer.css` | `pc-footer`: link columns, headings and small print below a perforated edge |
+| `css/print.css` | Print: black on white, no floating bars or buttons, every section open, cards kept whole |
+| `css/forced-colors.css` | Windows Contrast themes: real borders where Postcard uses fills and shadows, system highlights for the current thing |
+| `icons/icons.svg` | 42 icons on a 24px grid with 2px rounded strokes, as one sprite; a build also writes each one to `dist/icons/` |
 | `css/utilities.css` | `pc-container`, `pc-stack`, `pc-cluster`, `pc-grid`, `pc-sr-only`, `pc-scroll-y/x`, `pc-perforation`, `pc-airmail`, `pc-tilt` |
-| `js/postcard.js` | `setTheme` / `restoreTheme` / `currentTheme`, `toast`, `dayColor`, `sheet`. Plain ES module, nothing runs on import |
-| `index.html` | The living style guide: every token and component, in every theme |
+| `js/postcard.js` | `setTheme` / `restoreTheme` / `currentTheme`, `toast`, `dayColor`, `sheet`, keyboard behaviour (`tabs`, `menuButton`, `errorSummary`, `accordion`), `charCount`, `lightbox` and `token`. Plain ES module, nothing runs on import |
+| `index.html` | The living style guide: every token and component in every theme, with guidance and copyable code for each |
+| `tests/` | Behaviour, accessibility (axe) and screenshot tests, run with Playwright |
+| `docs/content.md` | How to write for it: voice, labels, errors, numbers, dates, alt text |
 | `dist/tokens.json` | (built) every token per theme, resolved, for Tailwind, native apps or design tools |
 
 ### Themes
@@ -106,10 +125,16 @@ The tour site had the theme but used it unevenly. This guide fills those gaps so
   and focus states, and an error state with a message.
 - **Meanings for colour.** Success, info, warning and danger map onto the pastels (sage, sky, butter and a new **rose**), each
   with an AAA ink.
-- **Scales.** Type, space, radius, shadow, motion (including a bouncy ease for things that arrive), z-index layers and reading
-  widths are all named tokens.
-- **Missing components.** Notes, toasts, tooltips, progress, spinner, skeletons, empty states, switch, radio and checkbox,
-  textarea, tabs, a menu, the bottom sheet as a reusable piece, the air-mail edge and a perforated divider.
+- **Scales.** Type, space, radius, shadow, motion (including a bouncy ease for things that arrive), z-index layers, reading
+  widths, breakpoints and chart colours (six categories, a sequential and a diverging scale) are all named tokens.
+- **Readable solid stamps.** White numbers on light day colours (yellows, teals) fell below 3:1 in the app. Solid stamps and
+  tiles now darken any colour that's too light for white text.
+- **Accessibility basics from the GOV.UK Design System.** A skip link, an error summary that takes focus and links to each
+  field, arrow-key tabs and menus, and support for Windows Contrast themes.
+- **An icon set** in the mark's own line style, replacing the app's text symbols (◍ ⌖ ✎) and one-off SVGs.
+- **Missing components.** Tables, an accordion, breadcrumbs, a back link and pagination, notes, toasts, tooltips, progress,
+  spinner, skeletons, empty states, switch, radio and checkbox, textarea, tabs, a menu, the bottom sheet as a reusable piece,
+  the air-mail edge and a perforated divider.
 
 ## Porting it
 
@@ -135,7 +160,7 @@ to use `tokens.json` where there's no CSS.
 
 The voice matches the look: friendly, plain and specific. Name things the way people know them ("Ride from day 1", "Maybe later"),
 say what happened ("Subscribed. Check your inbox and click the link to confirm."), and have errors say how to fix the problem
-("That postcode is too short. It looks like LL55 4UR.").
+("That postcode is too short. It looks like LL55 4UR."). [docs/content.md](docs/content.md) has the full guide.
 
 ## Fonts
 
