@@ -1,0 +1,32 @@
+{
+	"name": "postcard-styleguide",
+	"version": "0.1.0",
+	"description": "Postcard: a warm, playful, framework-agnostic style guide (CSS tokens, components and a few vanilla helpers) from the GT Retrospective tour site.",
+	"type": "module",
+	"private": true,
+	"files": [
+		"postcard.css",
+		"css",
+		"fonts",
+		"js",
+		"dist",
+		"assets"
+	],
+	"exports": {
+		".": "./dist/postcard.css",
+		"./postcard.css": "./postcard.css",
+		"./tokens.css": "./css/tokens.css",
+		"./tokens.json": "./dist/tokens.json",
+		"./css/*": "./css/*",
+		"./js": "./js/postcard.js"
+	},
+	"scripts": {
+		"dev": "node scripts/serve.mjs",
+		"build": "node scripts/build.mjs",
+		"check": "node scripts/check.mjs",
+		"prepare": "node scripts/build.mjs"
+	},
+	"engines": {
+		"node": ">=20.11"
+	}
+}

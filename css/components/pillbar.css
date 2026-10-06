@@ -1,0 +1,179 @@
+/*
+  The floating pill bar: frosted glass pills over the page or the scene.
+  <header class="pc-topbar">
+    <a class="pc-pill pc-brand" href="/"><span class="pc-mark">…svg…</span><span class="pc-brand__name pc-display">Parks Tour 26</span></a>
+    <nav class="pc-pill pc-segmented" aria-label="Views">
+      <a href="/globe">Globe</a> <a href="/blog" aria-current="page">Blog</a>
+    </nav>
+  </header>
+  A segmented control marks its current option with aria-current, aria-pressed="true" or
+  aria-selected="true" (tabs), so it works for links, toggle buttons and tablists alike.
+*/
+.pc-topbar {
+	position: sticky;
+	top: 0;
+	z-index: var(--pc-z-sticky);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: var(--pc-space-3);
+	max-width: var(--pc-page);
+	margin: 0 auto;
+	padding: calc(var(--pc-space-3) + env(safe-area-inset-top, 0px)) var(--pc-space-4) var(--pc-space-2);
+	pointer-events: none;
+}
+.pc-topbar > * {
+	pointer-events: auto;
+}
+.pc-pill {
+	display: inline-flex;
+	align-items: center;
+	border-radius: var(--pc-radius-pill);
+	background: var(--pc-glass);
+	-webkit-backdrop-filter: blur(12px);
+	backdrop-filter: blur(12px);
+	box-shadow: var(--pc-press), 0 0 0 1px var(--pc-line);
+	color: var(--pc-ink);
+}
+
+/* the brand: a round terracotta mark that tips its hat on hover */
+.pc-brand {
+	gap: 0.55rem;
+	min-height: 3rem;
+	padding: 0 1.1rem 0 0.45rem;
+	font-size: 1.1rem;
+	color: var(--pc-ink);
+	text-decoration: none;
+	white-space: nowrap;
+}
+.pc-mark {
+	display: inline-grid;
+	place-items: center;
+	flex: none;
+	width: 2.15rem;
+	height: 2.15rem;
+	border-radius: 50%;
+	background: var(--pc-accent);
+	color: var(--pc-on-accent);
+	transition: transform var(--pc-dur) var(--pc-ease-bounce);
+}
+.pc-mark svg {
+	width: 62%;
+	height: 62%;
+	fill: none;
+	stroke: currentColor;
+	stroke-width: 2;
+	stroke-linecap: round;
+}
+.pc-mark circle {
+	stroke-opacity: 0.55;
+}
+a:hover > .pc-mark,
+.pc-brand:hover .pc-mark {
+	transform: rotate(var(--pc-tilt-mark));
+}
+/* on a phone the brand keeps only its mark, so the bar fits on one row */
+@media (max-width: 30rem) {
+	.pc-brand:has(.pc-brand__name) {
+		padding: 0 0.45rem;
+	}
+	.pc-brand__name {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		clip-path: inset(50%);
+		white-space: nowrap;
+	}
+}
+
+/* segmented: views, tabs, a units switch */
+.pc-segmented {
+	display: inline-flex;
+	gap: 0.15rem;
+	padding: 0.25rem;
+	border-radius: var(--pc-radius-pill);
+	background: var(--pc-glass);
+	box-shadow: var(--pc-press), 0 0 0 1px var(--pc-line);
+}
+.pc-segmented > a,
+.pc-segmented > button {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	min-height: 2.5rem;
+	padding: 0 1rem;
+	border: 0;
+	border-radius: var(--pc-radius-pill);
+	background: none;
+	color: var(--pc-muted);
+	font: inherit;
+	font-size: 0.95rem;
+	font-weight: var(--pc-weight-strong);
+	text-decoration: none;
+	cursor: pointer;
+	transition: background-color var(--pc-dur-quick) var(--pc-ease), color var(--pc-dur-quick) var(--pc-ease);
+}
+.pc-segmented > :hover {
+	color: var(--pc-ink);
+}
+.pc-segmented > [aria-current]:not([aria-current='false']),
+.pc-segmented > [aria-pressed='true'],
+.pc-segmented > [aria-selected='true'] {
+	background: var(--pc-ink);
+	color: var(--pc-paper);
+}
+.pc-theme-night .pc-segmented > [aria-pressed='true'],
+.pc-theme-night .pc-segmented > [aria-selected='true'],
+.pc-theme-night .pc-segmented > [aria-current]:not([aria-current='false']) {
+	background: var(--pc-accent-soft);
+	color: var(--pc-ink);
+	box-shadow: 0 0 0 1px var(--pc-accent);
+}
+.pc-segmented svg {
+	width: 1.05em;
+	height: 1.05em;
+}
+
+/* the floating menu that drops from a pill */
+.pc-menu {
+	min-width: 14rem;
+	max-height: min(62vh, 560px);
+	overflow-y: auto;
+	padding: var(--pc-space-2);
+	border-radius: var(--pc-radius);
+	background: var(--pc-card);
+	box-shadow: var(--pc-shadow), 0 0 0 1px var(--pc-line);
+}
+.pc-menu ul,
+.pc-menu ol {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.pc-menu a,
+.pc-menu button {
+	display: flex;
+	align-items: center;
+	gap: var(--pc-space-3);
+	width: 100%;
+	min-height: var(--pc-target);
+	padding: 0.4rem 0.6rem;
+	border: 0;
+	border-radius: 14px;
+	background: none;
+	color: var(--pc-ink);
+	font: inherit;
+	text-align: left;
+	text-decoration: none;
+	cursor: pointer;
+}
+.pc-menu a:hover,
+.pc-menu button:hover {
+	background: color-mix(in srgb, var(--pc-c) 14%, transparent);
+}
+.pc-menu [aria-current]:not([aria-current='false']) {
+	background: color-mix(in srgb, var(--pc-c) 22%, transparent);
+	font-weight: var(--pc-weight-strong);
+}

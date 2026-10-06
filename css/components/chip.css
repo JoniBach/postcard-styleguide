@@ -1,0 +1,145 @@
+/*
+  Small round things: tags (facts in pastels), toggle chips (filters), badges (counts).
+  <ul class="pc-tags"><li class="pc-tag pc-tag--sage">18 days</li><li class="pc-tag pc-tag--sky">2,448 miles</li></ul>
+  <div class="pc-chips">
+    <label class="pc-chip"><input type="checkbox" checked /><span class="pc-chip__tick"></span>Photos</label>
+  </div>
+  <span class="pc-badge">3</span>
+*/
+.pc-tags,
+.pc-chips {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.45rem;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.pc-tag {
+	--_bg: var(--pc-card);
+	--_fg: var(--pc-ink);
+	display: inline-flex;
+	align-items: center;
+	gap: 0.35rem;
+	padding: 0.3rem 0.85rem;
+	border-radius: var(--pc-radius-pill);
+	background: var(--_bg);
+	color: var(--_fg);
+	box-shadow: 0 0 0 1px var(--pc-line);
+	font-size: 0.95rem;
+	line-height: 1.35;
+	white-space: nowrap;
+}
+.pc-tag strong {
+	font-weight: var(--pc-weight-heavy);
+}
+.pc-tag--sage { --_bg: var(--pc-sage); --_fg: var(--pc-sage-ink); box-shadow: none; }
+.pc-tag--sky { --_bg: var(--pc-sky); --_fg: var(--pc-sky-ink); box-shadow: none; }
+.pc-tag--butter { --_bg: var(--pc-butter); --_fg: var(--pc-butter-ink); box-shadow: none; }
+.pc-tag--lilac { --_bg: var(--pc-lilac); --_fg: var(--pc-lilac-ink); box-shadow: none; }
+.pc-tag--peach { --_bg: var(--pc-peach); --_fg: var(--pc-peach-ink); box-shadow: none; }
+.pc-tag--rose { --_bg: var(--pc-rose); --_fg: var(--pc-rose-ink); box-shadow: none; }
+/* a tag in an item's own colour (--pc-c), tinted so dark ink still reads */
+.pc-tag--tint {
+	--_bg: color-mix(in srgb, var(--pc-c) 28%, var(--pc-card));
+	box-shadow: 0 0 0 1px color-mix(in srgb, var(--pc-c) 45%, transparent);
+}
+.pc-tag--sm {
+	padding: 0.1rem 0.6rem;
+	font-size: var(--pc-text-xs);
+	font-weight: var(--pc-weight-medium);
+}
+
+/* toggle chips: the checkbox is hidden but is still the control (and takes focus) */
+.pc-chip {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	min-height: 2.15rem;
+	padding: 0 0.8rem;
+	border-radius: var(--pc-radius-pill);
+	background: var(--pc-card);
+	color: var(--pc-ink);
+	box-shadow: 0 0 0 1px var(--pc-line);
+	font-size: var(--pc-text-sm);
+	cursor: pointer;
+	user-select: none;
+	transition: background-color var(--pc-dur-quick) var(--pc-ease);
+}
+.pc-chip:hover {
+	background: var(--pc-accent-soft);
+}
+.pc-chip input {
+	position: absolute;
+	opacity: 0;
+	width: 1px;
+	height: 1px;
+	margin: 0;
+}
+.pc-chip:has(input:focus-visible) {
+	outline: 3px solid color-mix(in srgb, var(--pc-accent) 70%, transparent);
+	outline-offset: 2px;
+}
+.pc-chip__tick {
+	width: 14px;
+	height: 14px;
+	flex: none;
+	border-radius: 50%;
+	box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--pc-ink) 35%, transparent);
+	transition: box-shadow var(--pc-dur-quick) var(--pc-ease-bounce);
+}
+.pc-chip:has(input:checked) {
+	background: var(--pc-sage);
+	color: var(--pc-sage-ink);
+	box-shadow: none;
+	font-weight: var(--pc-weight-strong);
+}
+.pc-chip:has(input:checked) .pc-chip__tick {
+	background: var(--pc-sage-ink);
+	box-shadow: inset 0 0 0 3px var(--pc-sage);
+}
+.pc-chip:has(input:disabled) {
+	opacity: 0.45;
+	cursor: not-allowed;
+}
+.pc-theme-night .pc-chip:has(input:checked) {
+	background: var(--pc-accent-soft);
+	color: var(--pc-ink);
+}
+.pc-theme-night .pc-chip:has(input:checked) .pc-chip__tick {
+	background: var(--pc-accent);
+	box-shadow: none;
+}
+
+.pc-badge {
+	display: inline-grid;
+	place-items: center;
+	min-width: 1.5rem;
+	height: 1.5rem;
+	padding: 0 0.35rem;
+	border-radius: var(--pc-radius-pill);
+	background: var(--pc-accent-ink);
+	color: var(--pc-paper);
+	font-size: 0.8rem;
+	font-weight: var(--pc-weight-heavy);
+	font-variant-numeric: tabular-nums;
+	line-height: 1;
+}
+/* a dot that says "new" or "live" */
+.pc-dot {
+	display: inline-block;
+	width: 0.6rem;
+	height: 0.6rem;
+	border-radius: 50%;
+	background: var(--pc-accent);
+	box-shadow: 0 0 0 3px var(--pc-accent-soft);
+}
+.pc-dot--live {
+	animation: pc-pulse 1.8s var(--pc-ease) infinite;
+}
+@keyframes pc-pulse {
+	50% {
+		box-shadow: 0 0 0 6px color-mix(in srgb, var(--pc-accent) 15%, transparent);
+	}
+}

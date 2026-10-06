@@ -1,0 +1,102 @@
+/*
+  The postage stamp: the signature piece. A scalloped edge from a dotted border, a number in
+  soft wonky Fraunces, tipped a few degrees. Its colour comes from --pc-c.
+  <span class="pc-stamp" style="--pc-c: #d97757"><small>Day</small>1</span>
+  Variants:
+    pc-stamp--solid    the colour as a solid fill with white text (on photos)
+    pc-stamp--outline  a ringed tile (a list or a rail), filled once it's done: add .is-done
+    pc-stamp--sm / --lg
+  A stamp that "lands" (a new item, a success): add pc-stamp--land.
+*/
+.pc-stamp {
+	--_size: 3.3rem;
+	position: relative;
+	display: inline-grid;
+	place-items: center;
+	align-content: center;
+	flex: none;
+	width: var(--_size);
+	height: calc(var(--_size) * 1.12);
+	border: 3px dotted var(--pc-c);
+	border-radius: 7px;
+	/* the colour as a tint with dark ink: the number stays at AAA contrast */
+	background: color-mix(in srgb, var(--pc-c) 30%, var(--pc-card));
+	color: var(--pc-ink);
+	box-shadow: var(--pc-shadow-sm);
+	font-family: var(--pc-font-display);
+	font-variation-settings: var(--pc-display-axes);
+	font-size: calc(var(--_size) * 0.47);
+	font-weight: 700;
+	line-height: 1;
+	font-variant-numeric: lining-nums;
+	transform: rotate(var(--pc-tilt));
+	transition: transform var(--pc-dur) var(--pc-ease-bounce);
+}
+.pc-stamp small {
+	display: block;
+	margin-bottom: 0.1em;
+	font-family: var(--pc-font-ui);
+	font-size: max(0.55rem, calc(var(--_size) * 0.18));
+	font-weight: var(--pc-weight-heavy);
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+.pc-stamp--sm {
+	--_size: 2.6rem;
+}
+.pc-stamp--lg {
+	--_size: 4.4rem;
+}
+/* on a photo: solid colour, white number with a little shadow, paper-coloured perforations */
+.pc-stamp--solid {
+	border-color: var(--pc-card);
+	background: var(--pc-c);
+	color: #fff;
+	text-shadow: 0 1px 1px rgb(0 0 0 / 0.25);
+}
+/* in a list: a ringed tile, filled with the colour once it's been visited */
+.pc-stamp--outline {
+	--_size: 1.9rem;
+	height: var(--_size);
+	border: 0;
+	border-radius: 9px;
+	background: var(--pc-card);
+	box-shadow: 0 0 0 2px var(--pc-c);
+	font-size: 0.95rem;
+}
+.pc-stamp--outline.is-done,
+.pc-stamp--outline[aria-current]:not([aria-current='false']) {
+	background: color-mix(in srgb, var(--pc-c) 45%, var(--pc-card));
+}
+a:hover > .pc-stamp,
+.pc-stamp--hover:hover {
+	transform: rotate(calc(var(--pc-tilt) - 3deg)) scale(1.06);
+}
+/* it lands: drops in from a little higher, overshoots, settles at its tilt */
+.pc-stamp--land {
+	animation: pc-stamp-land 0.5s var(--pc-ease-bounce) both;
+}
+@keyframes pc-stamp-land {
+	from {
+		opacity: 0;
+		transform: translateY(-10px) rotate(8deg) scale(1.25);
+	}
+}
+
+/* the square badge on a pill: a small, solid tilted tile (the trip bar's day) */
+.pc-tile {
+	display: inline-grid;
+	place-items: center;
+	flex: none;
+	width: 2rem;
+	height: 2rem;
+	border-radius: 10px;
+	background: var(--pc-c);
+	color: #fff;
+	font-family: var(--pc-font-display);
+	font-variation-settings: var(--pc-display-axes);
+	font-weight: 700;
+	font-size: 1rem;
+	text-shadow: 0 1px 1px rgb(0 0 0 / 0.25);
+	transform: rotate(var(--pc-tilt));
+}

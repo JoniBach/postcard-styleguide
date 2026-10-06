@@ -1,0 +1,953 @@
+<!doctype html>
+<html lang="en-GB">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+		<title>Postcard Style Guide</title>
+		<meta name="description" content="Postcard: warm paper, soft pastels, deep slate ink and one terracotta accent. Tokens, components and patterns from the GT Retrospective tour site." />
+		<link rel="icon" href="assets/mark.svg" type="image/svg+xml" />
+		<link rel="stylesheet" href="postcard.css" />
+		<script type="module">
+			import { restoreTheme } from './js/postcard.js';
+			restoreTheme();
+		</script>
+		<style>
+			/* the style guide's own layout; everything inside the examples is Postcard */
+			.sg {
+				display: grid;
+				grid-template-columns: minmax(0, 1fr);
+				gap: var(--pc-space-8);
+				max-width: var(--pc-page);
+				margin: 0 auto;
+				padding: var(--pc-space-4) var(--pc-space-4) var(--pc-space-14);
+			}
+			@media (min-width: 68rem) {
+				.sg {
+					grid-template-columns: 15rem minmax(0, 1fr);
+				}
+			}
+			.sg-toc {
+				display: none;
+			}
+			@media (min-width: 68rem) {
+				.sg-toc {
+					display: block;
+					position: sticky;
+					top: 5rem;
+					align-self: start;
+					max-height: calc(100vh - 6rem);
+				}
+			}
+			.sg-toc h2 {
+				margin: 0 0 0.6rem 0.4rem;
+				font-size: 1.05rem;
+			}
+			.sg-main {
+				min-width: 0;
+			}
+			.sg-hero {
+				padding-block: var(--pc-space-8) var(--pc-space-4);
+			}
+			.sg-hero .pc-h1 {
+				margin: 0 0 0.6rem;
+				font-size: clamp(2.6rem, 8vw, 4.6rem);
+			}
+			.sg-hero .pc-lede {
+				margin: 0 0 var(--pc-space-5);
+			}
+			.sg-section {
+				margin-top: var(--pc-space-14);
+				scroll-margin-top: 5rem;
+			}
+			.sg-section > header {
+				display: flex;
+				align-items: center;
+				gap: var(--pc-space-4);
+				margin-bottom: var(--pc-space-5);
+			}
+			.sg-section > header .pc-h2 {
+				margin: 0;
+			}
+			.sg-section > header p {
+				margin: 0.15rem 0 0;
+				color: var(--pc-muted);
+			}
+			.sg-sub {
+				margin: var(--pc-space-8) 0 var(--pc-space-3);
+				font-size: var(--pc-text-2xs);
+				font-weight: var(--pc-weight-heavy);
+				letter-spacing: var(--pc-tracking-label);
+				text-transform: uppercase;
+				color: var(--pc-muted);
+			}
+			.sg-demo {
+				padding: var(--pc-space-5);
+				border-radius: var(--pc-radius);
+				background: var(--pc-card);
+				box-shadow: 0 0 0 1px var(--pc-line);
+			}
+			.sg-demo--paper {
+				background: var(--pc-paper);
+			}
+			.sg-note {
+				max-width: 44rem;
+				margin: var(--pc-space-3) 0 0;
+				font-size: 0.92rem;
+				color: var(--pc-muted);
+			}
+			.sg-note code {
+				font-size: 0.85em;
+			}
+			.sg-two {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr));
+				gap: var(--pc-space-4);
+			}
+			/* principles */
+			.sg-principles {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+				gap: var(--pc-space-4);
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			.sg-principles li {
+				display: grid;
+				grid-template-columns: auto minmax(0, 1fr);
+				gap: var(--pc-space-3);
+				align-items: start;
+			}
+			.sg-principles h3 {
+				margin: 0.1rem 0 0.2rem;
+				font-size: 1.1rem;
+			}
+			.sg-principles p {
+				margin: 0;
+				font-size: 0.95rem;
+				color: var(--pc-muted);
+			}
+			/* swatches */
+			.sg-swatches {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(10.5rem, 1fr));
+				gap: var(--pc-space-3);
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			.sg-swatch {
+				overflow: hidden;
+				border-radius: 16px;
+				background: var(--pc-card);
+				box-shadow: 0 0 0 1px var(--pc-line);
+			}
+			.sg-swatch__chip {
+				display: flex;
+				align-items: flex-end;
+				height: 4.5rem;
+				padding: 0.5rem 0.7rem;
+				font-family: var(--pc-font-display);
+				font-variation-settings: var(--pc-display-axes);
+				font-weight: 650;
+				font-size: 1.15rem;
+				box-shadow: inset 0 -1px 0 var(--pc-line);
+			}
+			.sg-swatch__name {
+				display: block;
+				padding: 0.45rem 0.7rem 0.55rem;
+				font-size: 0.8rem;
+				line-height: 1.35;
+			}
+			.sg-swatch__name code {
+				display: block;
+				font-size: 0.78rem;
+				font-weight: 650;
+				color: var(--pc-ink);
+			}
+			.sg-swatch__name span {
+				color: var(--pc-muted);
+			}
+			.sg-days {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.6rem 0.35rem;
+				padding: 0.4rem 0.2rem;
+			}
+			/* type */
+			.sg-specimen {
+				display: grid;
+				gap: var(--pc-space-2);
+			}
+			.sg-specimen__big {
+				margin: 0;
+				font-family: var(--pc-font-display);
+				font-variation-settings: var(--pc-display-axes);
+				font-weight: 650;
+				font-size: clamp(3rem, 10vw, 6rem);
+				line-height: 0.95;
+				letter-spacing: -0.02em;
+			}
+			.sg-specimen__big em {
+				font-style: italic;
+				color: var(--pc-accent);
+			}
+			.sg-scale {
+				display: grid;
+				gap: 0.15rem;
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			.sg-scale li {
+				display: grid;
+				grid-template-columns: 7.5rem minmax(0, 1fr);
+				align-items: baseline;
+				gap: var(--pc-space-3);
+				padding: 0.45rem 0;
+				border-bottom: 1px dashed var(--pc-line);
+			}
+			.sg-scale code {
+				font-size: 0.78rem;
+				color: var(--pc-muted);
+			}
+			.sg-scale span {
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+			/* shape */
+			.sg-shapes {
+				display: flex;
+				flex-wrap: wrap;
+				gap: var(--pc-space-5);
+				align-items: end;
+			}
+			.sg-shape {
+				display: grid;
+				justify-items: center;
+				gap: 0.5rem;
+				font-size: 0.8rem;
+				color: var(--pc-muted);
+			}
+			.sg-shape i {
+				display: block;
+				width: 4.5rem;
+				height: 3.5rem;
+				background: var(--pc-sky);
+				box-shadow: 0 0 0 1px var(--pc-line);
+			}
+			/* a fake scene behind the night panel */
+			.sg-scene {
+				position: relative;
+				display: grid;
+				place-items: center;
+				min-height: 21rem;
+				padding: var(--pc-space-5);
+				overflow: hidden;
+				border-radius: var(--pc-radius-lg);
+				background:
+					radial-gradient(60% 50% at 70% 30%, rgb(124 247 255 / 0.18), transparent 70%),
+					radial-gradient(40% 40% at 20% 80%, rgb(80 120 255 / 0.18), transparent 70%),
+					#03070c;
+			}
+			.sg-scene::before {
+				content: '';
+				position: absolute;
+				inset: 0;
+				background-image: radial-gradient(rgb(223 246 255 / 0.5) 1px, transparent 1px);
+				background-size: 28px 28px;
+				opacity: 0.25;
+			}
+			.sg-scene .pc-panel {
+				position: relative;
+				width: min(100%, 21rem);
+			}
+			.sg-code {
+				margin: var(--pc-space-3) 0 0;
+				padding: var(--pc-space-4);
+				overflow-x: auto;
+				border-radius: 16px;
+				background: var(--pc-sunk);
+				font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+				font-size: 0.82rem;
+				line-height: 1.55;
+			}
+			.sg-foot {
+				margin-top: var(--pc-space-14);
+				color: var(--pc-muted);
+				font-size: 0.9rem;
+			}
+			.sg-sheet-demo .pc-sheet {
+				max-width: 34rem;
+				margin: 0 auto;
+			}
+		</style>
+	</head>
+	<body class="pc-sky">
+		<header class="pc-topbar">
+			<a class="pc-pill pc-brand" href="#top">
+				<span class="pc-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M4.5 15c3-1 4-5 7.5-5s3.5 3 7.5 2" /></svg></span>
+				<span class="pc-brand__name pc-display">Postcard</span>
+			</a>
+			<div class="pc-segmented" role="group" aria-label="Theme">
+				<button type="button" data-theme-choice="light">Paper</button>
+				<button type="button" data-theme-choice="dusk">Dusk</button>
+				<button type="button" data-theme-choice="system">Auto</button>
+			</div>
+		</header>
+
+		<div class="sg" id="top">
+			<nav class="sg-toc pc-scroll-y" aria-label="Contents">
+				<h2 class="pc-display">Contents</h2>
+				<ol class="pc-rail" id="toc"></ol>
+			</nav>
+
+			<main class="sg-main">
+				<section class="sg-hero">
+					<p class="pc-eyebrow">Style guide · v0.1</p>
+					<h1 class="pc-h1">Postcard</h1>
+					<p class="pc-lede">
+						The look of the Parks Tour: warm paper, soft pastel fills, deep slate ink and one terracotta accent. Things are rounded, they
+						lean a little, and they press down when you touch them. Plain CSS and a few vanilla helpers, ready to carry into any framework.
+					</p>
+					<ul class="pc-tags" aria-label="At a glance">
+						<li class="pc-tag pc-tag--sage"><strong>3</strong> themes</li>
+						<li class="pc-tag pc-tag--sky"><strong>2</strong> typefaces</li>
+						<li class="pc-tag pc-tag--butter"><strong>AAA</strong> text contrast</li>
+						<li class="pc-tag pc-tag--lilac"><strong>0</strong> dependencies</li>
+						<li class="pc-tag pc-tag--peach"><strong>1</strong> accent</li>
+					</ul>
+				</section>
+
+				<!-- ======================================================= principles -->
+				<section class="sg-section" id="principles" data-title="Principles">
+					<header>
+						<span class="pc-stamp pc-stamp--sm" style="--pc-c: #d97757">1</span>
+						<div><h2 class="pc-h2">Principles</h2><p>What makes it feel like a postcard, and what keeps it easy to read.</p></div>
+					</header>
+					<ul class="sg-principles">
+						<li>
+							<span class="pc-tile" style="--pc-c: #c2562d">♥</span>
+							<div><h3 class="pc-display">One strong colour</h3><p>Terracotta marks the thing to do next and where you are. Everything else is paper, ink and soft pastels.</p></div>
+						</li>
+						<li>
+							<span class="pc-tile" style="--pc-c: #5b9a72">↻</span>
+							<div><h3 class="pc-display">Things lean</h3><p>Stamps sit at −4°, cards wobble when you reach for them, the mark tips its hat. A little tilt, used in a few places.</p></div>
+						</li>
+						<li>
+							<span class="pc-tile" style="--pc-c: #4f86b0">↓</span>
+							<div><h3 class="pc-display">Pressable</h3><p>Buttons and pills sit on a short hard shadow and sink into it when pressed, like a key.</p></div>
+						</li>
+						<li>
+							<span class="pc-tile" style="--pc-c: #8a6fc0">Aa</span>
+							<div><h3 class="pc-display">Readable first</h3><p>Body and muted text reach 7:1 contrast in every theme. Targets are at least 44px. Motion stops when you ask it to.</p></div>
+						</li>
+					</ul>
+				</section>
+
+				<!-- ======================================================= colour -->
+				<section class="sg-section" id="colour" data-title="Colour">
+					<header>
+						<span class="pc-stamp pc-stamp--sm" style="--pc-c: #d9a441">2</span>
+						<div><h2 class="pc-h2">Colour</h2><p>Every colour is a token. Switch to Dusk at the top to see them all change together.</p></div>
+					</header>
+
+					<h3 class="sg-sub">Surfaces and ink</h3>
+					<ul class="sg-swatches" id="swatches-base"></ul>
+
+					<h3 class="sg-sub">Pastels, each with its ink</h3>
+					<ul class="sg-swatches" id="swatches-pastel"></ul>
+					<p class="sg-note">
+						Each pastel has an <code>-ink</code> that reaches 7:1 on it. They double as meanings: <code>success</code> is sage, <code>info</code> sky,
+						<code>warning</code> butter and <code>danger</code> rose.
+					</p>
+
+					<h3 class="sg-sub">A colour per day</h3>
+					<div class="sg-demo sg-demo--paper">
+						<div class="sg-days" id="days"></div>
+					</div>
+					<p class="sg-note">
+						<code>dayColor(i, total)</code> spreads items round the hue wheel from terracotta through sage and sky to lilac. Set the result as
+						<code>--pc-c</code> and stamps, cards, tags and the rail tint themselves from it.
+					</p>
+				</section>
+
+				<!-- ======================================================= type -->
+				<section class="sg-section" id="type" data-title="Type">
+					<header>
+						<span class="pc-stamp pc-stamp--sm" style="--pc-c: #9cad4f">3</span>
+						<div><h2 class="pc-h2">Type</h2><p>Fraunces at its softest, with a touch of wonk, for headings. Figtree for everything else.</p></div>
+					</header>
+					<div class="sg-two">
+						<div class="sg-demo sg-specimen">
+							<p class="pc-label">Fraunces · SOFT 100 · WONK 1</p>
+							<p class="sg-specimen__big">Wild <em>&amp;</em> wonky</p>
+							<p class="pc-muted" style="margin: 0">Rounded terminals and a few wayward letters. Use it for titles and numbers on stamps, never for long text.</p>
+						</div>
+						<div class="sg-demo sg-specimen">
+							<p class="pc-label">Figtree · 400 to 750</p>
+							<p style="margin: 0; font-size: 2.2rem; font-weight: 750; line-height: 1.1">Plain, friendly, clear.</p>
+							<p class="pc-muted" style="margin: 0">For reading and for controls. Weights: 400 for text, 600 for labels, 650 for buttons, 750 for small capitals.</p>
+						</div>
+					</div>
+
+					<h3 class="sg-sub">Scale</h3>
+					<ul class="sg-scale">
+						<li><code>--pc-text-3xl</code><span class="pc-display" style="font-size: var(--pc-text-3xl)">A tour of the parks</span></li>
+						<li><code>--pc-text-2xl</code><span class="pc-display" style="font-size: var(--pc-text-2xl)">Snowdonia, day two</span></li>
+						<li><code>--pc-text-xl</code><span class="pc-display" style="font-size: var(--pc-text-xl)">Over the Horseshoe Pass</span></li>
+						<li><code>--pc-text-lg</code><span style="font-size: var(--pc-text-lg)">18 days from Pembrokeshire to the Cairngorms and back</span></li>
+						<li><code>--pc-text-read</code><span style="font-size: var(--pc-text-read)">Long reading sits at 17px with 1.6 line height</span></li>
+						<li><code>--pc-text-base</code><span>Interface text, 16px</span></li>
+						<li><code>--pc-text-sm</code><span style="font-size: var(--pc-text-sm)">Controls and chips, 13px</span></li>
+						<li><code>--pc-text-xs</code><span style="font-size: var(--pc-text-xs)">Dates and small facts, 12px</span></li>
+						<li><code>.pc-label</code><span class="pc-label">Group labels, 11px capitals</span></li>
+					</ul>
+
+					<h3 class="sg-sub">Reading</h3>
+					<article class="sg-demo pc-prose">
+						<p class="pc-eyebrow">Day 7 · Tue 15 Sept</p>
+						<h2>Yorkshire Dales to the Lake District</h2>
+						<p>
+							The morning started in drizzle at Hawes and finished in sunshine on the shore of Ullswater. In between: Buttertubs Pass, a
+							<a href="#type">tea stop in Sedbergh</a>, and a long climb out of Kirkby Stephen with the whole of the Eden valley below.
+						</p>
+						<blockquote>The Dales do a very particular green after rain.</blockquote>
+						<ul>
+							<li>142 miles, 6 hours in the saddle</li>
+							<li>Two national parks in one day</li>
+						</ul>
+					</article>
+				</section>
+
+				<!-- ======================================================= shape -->
+				<section class="sg-section" id="shape" data-title="Shape and motion">
+					<header>
+						<span class="pc-stamp pc-stamp--sm" style="--pc-c: #5bb08a">4</span>
+						<div><h2 class="pc-h2">Shape and motion</h2><p>Round corners, short hard shadows, a little tilt and a little bounce.</p></div>
+					</header>
+					<div class="sg-demo sg-shapes">
+						<div class="sg-shape"><i style="border-radius: var(--pc-radius-xs)"></i>xs · 6</div>
+						<div class="sg-shape"><i style="border-radius: var(--pc-radius-sm)"></i>sm · 12</div>
+						<div class="sg-shape"><i style="border-radius: var(--pc-radius)"></i>base · 20</div>
+						<div class="sg-shape"><i style="border-radius: var(--pc-radius-lg)"></i>lg · 26</div>
+						<div class="sg-shape"><i style="border-radius: var(--pc-radius-pill); width: 6.5rem"></i>pill</div>
+						<div class="sg-shape"><i style="border-radius: var(--pc-radius); background: var(--pc-card); box-shadow: var(--pc-press), 0 0 0 1px var(--pc-line)"></i>press</div>
+						<div class="sg-shape"><i style="border-radius: var(--pc-radius); background: var(--pc-card); box-shadow: var(--pc-shadow)"></i>shadow</div>
+						<div class="sg-shape"><i class="pc-tilt" style="border-radius: var(--pc-radius-xs); background: var(--pc-butter)"></i>tilt −4°</div>
+					</div>
+					<div class="pc-cluster" style="margin-top: var(--pc-space-4)">
+						<button class="pc-button" type="button" id="land">Land a stamp</button>
+						<button class="pc-button" type="button" id="toast-demo">Pop a toast</button>
+						<span id="landing" class="pc-cluster"></span>
+					</div>
+					<p class="sg-note">
+						<code>--pc-ease-bounce</code> overshoots a little: for things that arrive. Everything else eases plainly in 0.15 to 0.4s. With
+						reduced motion switched on, it all stops.
+					</p>
+				</section>
+
+				<!-- ======================================================= buttons -->
+				<section class="sg-section" id="buttons" data-title="Buttons">
+					<header>
+						<span class="pc-stamp pc-stamp--sm" style="--pc-c: #4fa3a8">5</span>
+						<div><h2 class="pc-h2">Buttons</h2><p>Pills on a pressed shadow. One primary per view.</p></div>
+					</header>
+					<div class="sg-demo pc-stack" style="--pc-gap: var(--pc-space-5)">
+						<div class="pc-cluster">
+							<button class="pc-button pc-button--primary" type="button">Ride from day 1 →</button>
+							<button class="pc-button" type="button">Read the blog</button>
+							<button class="pc-button pc-button--ink" type="button">Show all days</button>
+							<button class="pc-button pc-button--soft" type="button">Maybe later</button>
+							<button class="pc-button pc-button--ghost" type="button">No thanks</button>
+						</div>
+						<div class="pc-cluster">
+							<button class="pc-button pc-button--primary pc-button--lg" type="button">Subscribe</button>
+							<button class="pc-button pc-button--sm" type="button">Small</button>
+							<button class="pc-button" type="button" disabled>Disabled</button>
+							<button class="pc-button pc-button--primary" type="button" aria-busy="true">Sending</button>
+							<button class="pc-icon-button" type="button" aria-label="Close">×</button>
+							<button class="pc-icon-button pc-icon-button--raised" type="button" aria-label="Next day">›</button>
+						</div>
+					</div>
+				</section>
+
+				<!-- ======================================================= navigation -->
+				<section class="sg-section" id="navigation" data-title="Navigation">
+					<header>
+						<span class="pc-stamp pc-stamp--sm" style="--pc-c: #4f86b0">6</span>
+						<div><h2 class="pc-h2">Navigation</h2><p>Frosted pills that float over the page, a segmented switch, a menu, and the journey rail.</p></div>
+					</header>
+					<div class="sg-demo sg-demo--paper pc-stack">
+						<div class="pc-cluster" style="justify-content: space-between">
+							<a class="pc-pill pc-brand" href="#navigation">
+								<span class="pc-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M4.5 15c3-1 4-5 7.5-5s3.5 3 7.5 2" /></svg></span>
+								<span class="pc-display">Parks Tour 26</span>
+							</a>
+							<nav class="pc-segmented" aria-label="Views">
+								<a href="#navigation">◍ Globe</a>
+								<a href="#navigation">⌖ Map</a>
+								<a href="#navigation" aria-current="page">✎ Blog</a>
+							</nav>
+						</div>
+						<div class="sg-two">
+							<div class="pc-menu" style="--pc-c: #4f86b0">
+								<ul>
+									<li><a href="#navigation"><span class="pc-tile" style="--pc-c: #d97757">1</span>Setting off</a></li>
+									<li><a href="#navigation" aria-current="page"><span class="pc-tile" style="--pc-c: #c7a64a">2</span>Pembrokeshire Coast → Snowdonia</a></li>
+									<li><a href="#navigation"><span class="pc-tile" style="--pc-c: #96b04f">3</span>Snowdonia · Day 1</a></li>
+								</ul>
+							</div>
+							<div>
+								<p class="pc-label" style="margin: 0 0 0.5rem">Rail, across (phones)</p>
+								<ol class="pc-rail pc-rail--across" id="rail-across" style="--p: 0.5"></ol>
+								<p class="pc-label" style="margin: 1.2rem 0 0.5rem">Tabs</p>
+								<div class="pc-segmented" role="tablist" aria-label="Colour by">
+									<button role="tab" aria-selected="true" type="button">Day</button>
+									<button role="tab" aria-selected="false" type="button">Speed</button>
+									<button role="tab" aria-selected="false" type="button">Gradient</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<p class="sg-note">On a wide screen, the contents list beside this page is a <code>.pc-rail</code> too: its thread fills as you scroll.</p>
+				</section>
+
+				<!-- ======================================================= tags -->
+				<section class="sg-section" id="tags" data-title="Tags and chips">
+					<header>
+						<span class="pc-stamp pc-stamp--sm" style="--pc-c: #5a6fc0">7</span>
+						<div><h2 class="pc-h2">Tags, chips and badges</h2><p>Facts in pastels, filters you can toggle, counts.</p></div>
+					</header>
+					<div class="sg-demo pc-stack">
+						<ul class="pc-tags">
+							<li class="pc-tag pc-tag--sage">18 days</li>
+							<li class="pc-tag pc-tag--sky">2,448 miles</li>
+							<li class="pc-tag pc-tag--butter">15 national parks</li>
+							<li class="pc-tag pc-tag--lilac">459 photos</li>
+							<li class="pc-tag pc-tag--peach">1 story</li>
+							<li class="pc-tag pc-tag--rose">2 punctures</li>
+							<li class="pc-tag">Plain</li>
+							<li class="pc-tag pc-tag--tint" style="--pc-c: #4f86b0">Day colour</li>
+							<li class="pc-tag pc-tag--sm pc-tag--sky">small</li>
+						</ul>
+						<fieldset class="pc-knobs" style="margin: 0">
+							<legend>Show on the map</legend>
+							<div class="pc-chips">
+								<label class="pc-chip"><input type="checkbox" checked /><span class="pc-chip__tick"></span>Photos</label>
+								<label class="pc-chip"><input type="checkbox" checked /><span class="pc-chip__tick"></span>Stories</label>
+								<label class="pc-chip"><input type="checkbox" /><span class="pc-chip__tick"></span>Weather</label>
+								<label class="pc-chip"><input type="checkbox" /><span class="pc-chip__tick"></span>Fuel stops</label>
+							</div>
+						</fieldset>
+						<div class="pc-cluster">
+							<button class="pc-button" type="button">Filter and group <span class="pc-badge">3</span></button>
+							<span class="pc-cluster" style="--pc-gap: 0.5rem"><span class="pc-dot pc-dot--live"></span>Live from the road</span>
+						</div>
+					</div>
+				</section>
+
+				<!-- ======================================================= forms -->
+				<section class="sg-section" id="forms" data-title="Forms">
+					<header>
+						<span class="pc-stamp pc-stamp--sm" style="--pc-c: #8a6fc0">8</span>
+						<div><h2 class="pc-h2">Forms</h2><p>Visible labels, a hint where it helps, and errors that say how to fix them.</p></div>
+					</header>
+					<div class="sg-two">
+						<form class="pc-card pc-stack" style="--pc-gap: var(--pc-space-3)" onsubmit="event.preventDefault()">
+							<h3 class="pc-h3" style="margin: 0">Get the next story by email</h3>
+							<p class="pc-muted" style="margin: 0">One email when a new story goes out, nothing else.</p>
+							<div class="pc-field">
+								<label class="pc-field__label" for="f-email">Your email address</label>
+								<div class="pc-inline-form">
+									<input class="pc-input" id="f-email" type="email" placeholder="you@example.com" autocomplete="email" />
+									<button class="pc-button pc-button--primary" type="submit">Subscribe</button>
+								</div>
+							</div>
+							<div class="pc-field">
+								<label class="pc-field__label" for="f-bad">Postcode</label>
+								<input class="pc-input" id="f-bad" value="LL55 4" aria-invalid="true" aria-describedby="f-bad-err" />
+								<p class="pc-field__error" id="f-bad-err">That postcode is too short. It looks like LL55 4UR.</p>
+							</div>
+						</form>
+						<form class="pc-card pc-stack" style="--pc-gap: var(--pc-space-3)" onsubmit="event.preventDefault()">
+							<div class="pc-field">
+								<label class="pc-field__label" for="f-park">Favourite park</label>
+								<select class="pc-select" id="f-park">
+									<option>Snowdonia</option>
+									<option>Lake District</option>
+									<option>Cairngorms</option>
+								</select>
+							</div>
+							<div class="pc-field">
+								<label class="pc-field__label" for="f-note">A note for the postcard</label>
+								<textarea class="pc-textarea" id="f-note" aria-describedby="f-note-hint">Weather is here, wish you were lovely.</textarea>
+								<p class="pc-field__hint" id="f-note-hint">Up to 200 characters.</p>
+							</div>
+							<div class="pc-checks">
+								<label class="pc-check"><input type="checkbox" checked /> Photos</label>
+								<label class="pc-check"><input type="radio" name="units" checked /> Miles</label>
+								<label class="pc-check"><input type="radio" name="units" /> Kilometres</label>
+							</div>
+							<label class="pc-switch"><input type="checkbox" role="switch" checked /> Show speed on the route</label>
+							<label class="pc-slider"><span>Terrain height <output id="f-zoom-out">2×</output></span><input type="range" id="f-zoom" min="1" max="4" step="0.5" value="2" /></label>
+						</form>
+					</div>
+				</section>
+
+				<!-- ======================================================= stamps & cards -->
+				<section class="sg-section" id="cards" data-title="Stamps and cards">
+					<header>
+						<span class="pc-stamp pc-stamp--sm" style="--pc-c: #b06fb5">9</span>
+						<div><h2 class="pc-h2">Stamps and cards</h2><p>The postage stamp is the signature piece. Cards you can open lift and wobble.</p></div>
+					</header>
+					<div class="sg-demo sg-demo--paper pc-cluster" style="--pc-gap: var(--pc-space-5)">
+						<span class="pc-stamp pc-stamp--lg" style="--pc-c: #d97757"><small>Day</small>1</span>
+						<span class="pc-stamp" style="--pc-c: #96b04f"><small>Day</small>3</span>
+						<span class="pc-stamp pc-stamp--sm" style="--pc-c: #4f86b0">7</span>
+						<span class="pc-stamp pc-stamp--solid" style="--pc-c: #5bb08a"><small>Day</small>12</span>
+						<span class="pc-stamp pc-stamp--outline" style="--pc-c: #8a6fc0">4</span>
+						<span class="pc-stamp pc-stamp--outline is-done" style="--pc-c: #8a6fc0">5</span>
+						<span class="pc-tile" style="--pc-c: #c2562d">18</span>
+					</div>
+
+					<h3 class="sg-sub">Postcards</h3>
+					<div class="pc-postcards" id="postcards"></div>
+
+					<h3 class="sg-sub">Banner</h3>
+					<a class="pc-banner" href="#cards" style="--pc-c: #4f86b0">
+						<span class="pc-stamp" style="--pc-c: #4f86b0"><small>Day</small>8</span>
+						<svg class="pc-banner__inset" viewBox="0 0 100 100" aria-hidden="true"><path d="M14 80 C 30 70, 26 46, 44 42 S 70 50, 74 30 S 86 14, 88 18" fill="none" stroke="#4f86b0" stroke-width="4" stroke-linecap="round" /><circle cx="14" cy="80" r="5" fill="#4f86b0" /></svg>
+					</a>
+
+					<h3 class="sg-sub">Plain cards</h3>
+					<div class="sg-two">
+						<div class="pc-card"><h3 class="pc-h3">A plain card</h3><p class="pc-muted">For a form, a note, a group of settings. A border and nothing else.</p></div>
+						<div class="pc-card pc-card--sunk"><h3 class="pc-h3">Sunk</h3><p class="pc-muted">Pressed into the page: for something secondary, like code or a summary.</p></div>
+						<div class="pc-card pc-airmail"><h3 class="pc-h3">Air mail</h3><p class="pc-muted">The striped edge, for one special thing: the welcome, a thank-you.</p></div>
+					</div>
+				</section>
+
+				<!-- ======================================================= feedback -->
+				<section class="sg-section" id="feedback" data-title="Feedback">
+					<header>
+						<span class="pc-stamp pc-stamp--sm" style="--pc-c: #c46f9a">10</span>
+						<div><h2 class="pc-h2">Feedback</h2><p>Notes, toasts, tooltips, waiting and empty states. Said plainly.</p></div>
+					</header>
+					<div class="pc-stack" style="--pc-gap: var(--pc-space-3)">
+						<div class="pc-note" role="status"><p><strong>Tiles are loading.</strong> The terrain sharpens as you zoom in.</p></div>
+						<div class="pc-note pc-note--success" role="status"><p><strong>Subscribed.</strong> Check your inbox and click the link to confirm.</p></div>
+						<div class="pc-note pc-note--warning"><p><strong>No signal on day 11.</strong> The route between Glencoe and Fort William is drawn from the plan, not GPS.</p></div>
+						<div class="pc-note pc-note--danger" role="alert"><p><strong>That photo didn't upload.</strong> It's over 20 MB. Resize it and try again.</p></div>
+						<div class="pc-note pc-note--tip"><p><strong>Tip:</strong> press <code class="pc-code">←</code> and <code class="pc-code">→</code> to move between days.</p></div>
+					</div>
+					<div class="sg-two" style="margin-top: var(--pc-space-4)">
+						<div class="sg-demo pc-stack">
+							<div class="pc-cluster">
+								<button class="pc-button" type="button" data-tip="Copies a link to this day">Share</button>
+								<button class="pc-button" type="button" id="toast-undo">Delete a photo</button>
+								<span class="pc-spinner" role="status" aria-label="Loading"></span>
+							</div>
+							<div class="pc-progress" role="progressbar" aria-label="Upload" aria-valuenow="62" aria-valuemin="0" aria-valuemax="100" style="--value: 62%"></div>
+							<div class="pc-progress" role="progressbar" aria-label="Loading tiles"></div>
+							<div aria-hidden="true">
+								<span class="pc-skeleton" style="height: 6rem"></span>
+								<span class="pc-skeleton pc-skeleton--text" style="width: 70%"></span>
+								<span class="pc-skeleton pc-skeleton--text" style="width: 45%"></span>
+							</div>
+						</div>
+						<div class="pc-empty">
+							<span class="pc-stamp pc-stamp--hover" style="--pc-c: #c9a227">?</span>
+							<h3 class="pc-empty__title">No stories yet</h3>
+							<p>Stories you write from the road show up here, in the order you rode them.</p>
+							<button class="pc-button pc-button--primary pc-button--sm" type="button">Write the first one</button>
+						</div>
+					</div>
+				</section>
+
+				<!-- ======================================================= overlays -->
+				<section class="sg-section" id="overlays" data-title="Dialogs and sheets">
+					<header>
+						<span class="pc-stamp pc-stamp--sm" style="--pc-c: #d36f6f">11</span>
+						<div><h2 class="pc-h2">Dialogs and sheets</h2><p>The native dialog, softened backdrop and all, and a bottom sheet for phones.</p></div>
+					</header>
+					<div class="pc-cluster">
+						<button class="pc-button pc-button--primary" type="button" id="open-dialog">Open the dialog</button>
+						<button class="pc-button" type="button" id="open-sheet">Open the sheet</button>
+					</div>
+					<dialog class="pc-dialog" id="dialog" aria-labelledby="dlg-h">
+						<form method="dialog">
+							<button class="pc-icon-button pc-dialog__close" value="later" aria-label="Close (maybe later)">×</button>
+						</form>
+						<p class="pc-eyebrow">Parks Tour 26 · September 2026</p>
+						<h2 class="pc-h3" id="dlg-h" style="margin-top: 0">Follow the trip by email?</h2>
+						<p>Each new story from a motorcycle tour of Britain's national parks, sent to your inbox as it goes out. One email per story, nothing else.</p>
+						<form method="dialog" class="pc-stack" style="--pc-gap: var(--pc-space-3)">
+							<div class="pc-field">
+								<label class="pc-field__label" for="dlg-email">Your email address</label>
+								<input class="pc-input" id="dlg-email" type="email" placeholder="you@example.com" />
+							</div>
+							<div class="pc-dialog__actions" style="margin-top: 0">
+								<button class="pc-button pc-button--primary" value="yes" style="flex-basis: 100%">Yes, subscribe</button>
+								<button class="pc-button" value="later">Maybe later</button>
+								<button class="pc-button pc-button--ghost" value="no">No thanks</button>
+							</div>
+						</form>
+					</dialog>
+					<div class="pc-scrim" hidden></div>
+					<section class="pc-sheet" id="sheet" hidden aria-labelledby="sheet-h">
+						<div class="pc-sheet__head">
+							<h2 id="sheet-h">Day 9 · Lake District → East Lothian</h2>
+							<button class="pc-icon-button" type="button" data-close aria-label="Close">×</button>
+						</div>
+						<div class="pc-sheet__body pc-stack" style="--pc-gap: var(--pc-space-3)">
+							<ul class="pc-tags"><li class="pc-tag pc-tag--sage">168 miles</li><li class="pc-tag pc-tag--sky">5 h 40</li><li class="pc-tag pc-tag--butter">2 parks</li></ul>
+							<p style="margin: 0">Over Shap, up the A68 through the Borders, and down to the coast at Dunbar for fish and chips.</p>
+							<button class="pc-button pc-button--primary pc-button--block" type="button" data-close>Ride this day</button>
+						</div>
+					</section>
+				</section>
+
+				<!-- ======================================================= night -->
+				<section class="sg-section" id="night" data-title="Night">
+					<header>
+						<span class="pc-stamp pc-stamp--sm" style="--pc-c: #5aa9c9">12</span>
+						<div><h2 class="pc-h2">Night</h2><p>Panels over the 3D globe swap to hologram colours. Add <code class="pc-code">pc-theme-night</code> to any container.</p></div>
+					</header>
+					<div class="sg-scene">
+						<div class="pc-panel pc-panel--glass pc-theme-night">
+							<p class="pc-label" style="margin: 0">Customise the globe</p>
+							<fieldset class="pc-knobs">
+								<legend>Colour the route by</legend>
+								<div class="pc-segmented" role="group" aria-label="Colour by">
+									<button type="button" aria-pressed="true">Day</button>
+									<button type="button" aria-pressed="false">Speed</button>
+									<button type="button" aria-pressed="false">Lean</button>
+								</div>
+							</fieldset>
+							<fieldset class="pc-knobs">
+								<legend>Layers</legend>
+								<div class="pc-chips">
+									<label class="pc-chip"><input type="checkbox" checked /><span class="pc-chip__tick"></span>Parks</label>
+									<label class="pc-chip"><input type="checkbox" /><span class="pc-chip__tick"></span>Weather</label>
+								</div>
+							</fieldset>
+							<label class="pc-slider" style="margin-top: var(--pc-space-4)"><span>Terrain height <output>1.5×</output></span><input type="range" min="1" max="4" step="0.5" value="1.5" /></label>
+						</div>
+					</div>
+				</section>
+
+				<!-- ======================================================= use -->
+				<section class="sg-section" id="use" data-title="Using it">
+					<header>
+						<span class="pc-stamp pc-stamp--sm" style="--pc-c: #c2562d">13</span>
+						<div><h2 class="pc-h2">Using it</h2><p>Plain CSS classes and custom properties, so any framework can use them as they are.</p></div>
+					</header>
+					<pre class="sg-code"><code>&lt;link rel="stylesheet" href="postcard-styleguide/dist/postcard.css"&gt;
+
+&lt;a class="pc-postcard" href="/day/1" style="--pc-c: #d97757"&gt;
+  &lt;span class="pc-postcard__art"&gt;
+    &lt;span class="pc-stamp pc-stamp--solid"&gt;&lt;small&gt;Day&lt;/small&gt;1&lt;/span&gt;
+  &lt;/span&gt;
+  &lt;span class="pc-postcard__body"&gt;
+    &lt;span class="pc-postcard__meta"&gt;Wed 9 Sept&lt;/span&gt;
+    &lt;span class="pc-postcard__title pc-display"&gt;Setting off&lt;/span&gt;
+  &lt;/span&gt;
+&lt;/a&gt;</code></pre>
+					<p class="sg-note">The README covers the whole kit, and <code>docs/porting.md</code> shows the same card in React, Svelte, Vue and Tailwind.</p>
+				</section>
+
+				<footer class="sg-foot">
+					<hr class="pc-perforation" />
+					<p>Postcard v0.1 · from the Parks Tour 26 site · Fraunces and Figtree under the SIL Open Font License.</p>
+				</footer>
+			</main>
+		</div>
+
+		<script type="module">
+			import { setTheme, restoreTheme, toast, dayColor, sheet } from './js/postcard.js';
+
+			// theme switch
+			const choices = document.querySelectorAll('[data-theme-choice]');
+			const mark = (t) => choices.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.themeChoice === t)));
+			mark(restoreTheme());
+			choices.forEach((b) =>
+				b.addEventListener('click', () => {
+					setTheme(b.dataset.themeChoice);
+					mark(b.dataset.themeChoice);
+					paintSwatches();
+				})
+			);
+
+			// swatches: names and the live value of each token in the current theme
+			const BASE = [
+				['paper', 'ink'],
+				['card', 'ink'],
+				['sunk', 'muted'],
+				['ink', 'paper'],
+				['muted', 'paper'],
+				['accent', 'on-accent'],
+				['accent-soft', 'accent-ink'],
+				['gold', 'ink']
+			];
+			const PASTEL = ['sage', 'sky', 'butter', 'lilac', 'peach', 'rose'];
+			function swatch(bg, fg, sample, note) {
+				const li = document.createElement('li');
+				li.className = 'sg-swatch';
+				const value = getComputedStyle(document.documentElement).getPropertyValue(`--pc-${bg}`).trim();
+				li.innerHTML = `<span class="sg-swatch__chip" style="background: var(--pc-${bg}); color: var(--pc-${fg})">${sample}</span>
+					<span class="sg-swatch__name"><code>--pc-${bg}</code><span>${note ?? value}</span></span>`;
+				return li;
+			}
+			function paintSwatches() {
+				const base = document.getElementById('swatches-base');
+				const pastel = document.getElementById('swatches-pastel');
+				base.replaceChildren(...BASE.map(([bg, fg]) => swatch(bg, fg, 'Aa')));
+				pastel.replaceChildren(...PASTEL.map((p) => swatch(p, `${p}-ink`, p[0].toUpperCase() + p.slice(1), `ink: --pc-${p}-ink`)));
+			}
+			paintSwatches();
+			matchMedia('(prefers-color-scheme: dark)').addEventListener('change', paintSwatches);
+
+			// a stamp per day of the tour
+			const DAYS = [
+				['Setting off', 'Wed 9 Sept'],
+				['Pembrokeshire Coast → Snowdonia', 'Thu 10 Sept'],
+				['Snowdonia · Day 1', 'Fri 11 Sept'],
+				['Snowdonia · Day 2', 'Sat 12 Sept'],
+				['Snowdonia → Peak District', 'Sun 13 Sept'],
+				['Peak District · Day 1', 'Mon 14 Sept'],
+				['Yorkshire Dales → Lake District', 'Tue 15 Sept'],
+				['Lake District · Day 1', 'Wed 16 Sept'],
+				['Lake District → East Lothian', 'Thu 17 Sept'],
+				['East Lothian → Cairngorms', 'Fri 18 Sept'],
+				['Cairngorms → Loch Lomond', 'Sat 19 Sept'],
+				['Loch Lomond & The Trossachs', 'Sun 20 Sept'],
+				['Northumberland · Day 1', 'Mon 21 Sept'],
+				['Northumberland → North York Moors', 'Tue 22 Sept'],
+				['North York Moors · Day 1', 'Wed 23 Sept'],
+				['North York Moors → Broads', 'Thu 24 Sept'],
+				['The Broads → South Downs', 'Fri 25 Sept'],
+				['Home', 'Sat 26 Sept']
+			];
+			const color = (i) => dayColor(i, DAYS.length);
+			document.getElementById('days').replaceChildren(
+				...DAYS.map((_, i) => {
+					const s = document.createElement('span');
+					s.className = 'pc-stamp pc-stamp--sm pc-stamp--solid';
+					s.style.setProperty('--pc-c', color(i));
+					s.textContent = String(i + 1);
+					return s;
+				})
+			);
+
+			// postcards: the first few days, each with a little route sketch instead of a photo
+			const SKETCHES = [
+				'M10 70 C 25 60, 30 40, 48 44 S 70 30, 90 26',
+				'M12 30 C 30 34, 36 60, 54 56 S 72 70, 88 78',
+				'M14 60 C 22 30, 46 24, 50 46 S 78 62, 86 34',
+				'M10 50 C 28 70, 40 30, 58 40 S 80 64, 90 50'
+			];
+			document.getElementById('postcards').replaceChildren(
+				...DAYS.slice(0, 4).map(([title, date], i) => {
+					const a = document.createElement('a');
+					a.className = 'pc-postcard';
+					a.href = '#cards';
+					if (i === 1) a.setAttribute('aria-current', 'true');
+					a.style.setProperty('--pc-c', color(i));
+					a.innerHTML = `<span class="pc-postcard__art">
+							<span class="pc-stamp pc-stamp--solid"><small>Day</small>${i + 1}</span>
+							<svg viewBox="0 0 100 100" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%" aria-hidden="true">
+								<path d="${SKETCHES[i]}" fill="none" stroke="${color(i)}" stroke-width="3" stroke-linecap="round" vector-effect="non-scaling-stroke" />
+							</svg>
+						</span>
+						<span class="pc-postcard__body">
+							<span class="pc-postcard__meta">${date}</span>
+							<span class="pc-postcard__title pc-display">${title}</span>
+							<span class="pc-postcard__facts">${[124, 98, 61, 77][i]} miles · ${[18, 31, 44, 27][i]} photos</span>
+						</span>`;
+					return a;
+				})
+			);
+
+			// the rail across: the first eight days, on day 4
+			document.getElementById('rail-across').replaceChildren(
+				...DAYS.slice(0, 8).map((_, i) => {
+					const li = document.createElement('li');
+					li.style.setProperty('--pc-c', color(i));
+					if (i < 3) li.className = 'is-done';
+					if (i === 3) li.setAttribute('aria-current', 'step');
+					li.innerHTML = `<a href="#navigation" aria-label="Day ${i + 1}"><span class="pc-stamp pc-stamp--outline">${i + 1}</span></a>`;
+					return li;
+				})
+			);
+
+			// contents: a vertical rail of the sections, its thread filled as you scroll
+			const sections = [...document.querySelectorAll('.sg-section')];
+			const toc = document.getElementById('toc');
+			toc.replaceChildren(
+				...sections.map((s, i) => {
+					const li = document.createElement('li');
+					li.style.setProperty('--pc-c', s.querySelector('header .pc-stamp').style.getPropertyValue('--pc-c'));
+					li.innerHTML = `<a href="#${s.id}"><span class="pc-stamp pc-stamp--outline">${i + 1}</span><span class="pc-rail__text"><span class="pc-rail__title">${s.dataset.title}</span></span></a>`;
+					return li;
+				})
+			);
+			const items = [...toc.children];
+			function follow() {
+				const y = innerHeight * 0.35;
+				let on = 0;
+				sections.forEach((s, i) => {
+					if (s.getBoundingClientRect().top < y) on = i;
+				});
+				items.forEach((li, i) => {
+					li.classList.toggle('is-done', i < on);
+					if (i === on) li.setAttribute('aria-current', 'step');
+					else li.removeAttribute('aria-current');
+				});
+				toc.style.setProperty('--p', String(on / Math.max(1, sections.length - 1)));
+			}
+			addEventListener('scroll', follow, { passive: true });
+			follow();
+
+			// motion demos
+			let n = 0;
+			document.getElementById('land').addEventListener('click', () => {
+				const s = document.createElement('span');
+				s.className = 'pc-stamp pc-stamp--sm pc-stamp--land';
+				s.style.setProperty('--pc-c', color(n % DAYS.length));
+				s.textContent = String(++n);
+				const shelf = document.getElementById('landing');
+				shelf.append(s);
+				if (shelf.children.length > 6) shelf.firstElementChild.remove();
+			});
+			document.getElementById('toast-demo').addEventListener('click', () => toast('Postcard sent from Snowdonia', { tone: 'success' }));
+			document.getElementById('toast-undo').addEventListener('click', () =>
+				toast('Photo deleted', { action: { label: 'Undo', run: () => toast('Photo back where it was', { tone: 'success' }) } })
+			);
+
+			// slider readout
+			const zoom = document.getElementById('f-zoom');
+			zoom.addEventListener('input', () => (document.getElementById('f-zoom-out').textContent = `${zoom.value}×`));
+
+			// segmented demos toggle in place
+			document.querySelectorAll('.pc-segmented[role="tablist"], .pc-theme-night .pc-segmented').forEach((group) =>
+				group.addEventListener('click', (e) => {
+					const b = e.target.closest('button');
+					if (!b) return;
+					const attr = b.hasAttribute('aria-selected') ? 'aria-selected' : 'aria-pressed';
+					group.querySelectorAll('button').forEach((x) => x.setAttribute(attr, String(x === b)));
+				})
+			);
+
+			// overlays
+			const dialog = document.getElementById('dialog');
+			document.getElementById('open-dialog').addEventListener('click', () => dialog.showModal());
+			dialog.addEventListener('close', () => {
+				const said = { yes: 'Check your inbox to confirm', later: "We'll ask again in a few days", no: "We won't ask again" }[dialog.returnValue];
+				if (said) toast(said, { tone: dialog.returnValue === 'yes' ? 'success' : undefined });
+			});
+			document.getElementById('open-sheet').addEventListener('click', () => sheet(document.getElementById('sheet')));
+		</script>
+	</body>
+</html>

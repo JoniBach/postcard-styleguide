@@ -1,0 +1,132 @@
+/*
+  The journey rail: a thread through a list of stamps, filled up to where you are. Works for any
+  ordered progress (days of a trip, steps of a form, chapters). Set --p (0..1) on the list for how
+  far the thread is filled, and --pc-c on each item for its colour.
+  <ol class="pc-rail" style="--p: 0.4">
+    <li class="is-done" style="--pc-c: #d97757"><a href="#d1"><span class="pc-stamp pc-stamp--outline is-done">1</span>
+      <span class="pc-rail__text"><span class="pc-rail__title">Setting off</span><span class="pc-rail__meta">Wed 9 Sept</span></span></a></li>
+    <li aria-current="step" …>…</li>
+  </ol>
+  Add pc-rail--across for a horizontal strip of stamps (phones, a stepper).
+*/
+.pc-rail {
+	position: relative;
+	margin: 0;
+	padding: 0.2rem 0.4rem 0.4rem 0;
+	list-style: none;
+}
+.pc-rail::before,
+.pc-rail::after {
+	content: '';
+	position: absolute;
+	left: 1.35rem;
+	top: 1.2rem;
+	width: 3px;
+	border-radius: 2px;
+}
+.pc-rail::before {
+	bottom: 1.2rem;
+	background: var(--pc-line);
+}
+.pc-rail::after {
+	height: calc((100% - 2.4rem) * var(--p, 0));
+	background: var(--pc-accent);
+	transition: height var(--pc-dur-slow) var(--pc-ease);
+}
+.pc-rail > li > a,
+.pc-rail > li > .pc-rail__row {
+	position: relative;
+	z-index: 1;
+	display: grid;
+	grid-template-columns: 2.7rem minmax(0, 1fr) auto;
+	align-items: center;
+	gap: 0.55rem;
+	min-height: var(--pc-target);
+	padding: 0.3rem 0.4rem 0.3rem 0;
+	border-radius: 14px;
+	color: var(--pc-ink);
+	text-decoration: none;
+}
+.pc-rail > li > a:hover {
+	background: color-mix(in srgb, var(--pc-c) 14%, transparent);
+}
+.pc-rail > li[aria-current]:not([aria-current='false']) > a {
+	background: color-mix(in srgb, var(--pc-c) 22%, var(--pc-card));
+	box-shadow: 0 0 0 1px color-mix(in srgb, var(--pc-c) 45%, transparent);
+}
+.pc-rail .pc-stamp {
+	justify-self: center;
+}
+.pc-rail > li.is-done .pc-stamp--outline,
+.pc-rail > li[aria-current]:not([aria-current='false']) .pc-stamp--outline {
+	background: color-mix(in srgb, var(--pc-c) 45%, var(--pc-card));
+}
+.pc-rail__text {
+	display: flex;
+	flex-direction: column;
+	min-width: 0;
+	line-height: 1.25;
+}
+.pc-rail__title {
+	font-size: 0.9rem;
+	font-weight: var(--pc-weight-strong);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.pc-rail__meta {
+	font-size: 0.78rem;
+	color: var(--pc-muted);
+}
+
+/* across: a strip of stamps on a frosted pill, the thread running behind them */
+.pc-rail--across {
+	display: flex;
+	gap: 0.1rem;
+	width: max-content;
+	max-width: 100%;
+	padding: 0.25rem 0.6rem;
+	border-radius: var(--pc-radius-pill);
+	background: var(--pc-glass);
+	-webkit-backdrop-filter: blur(12px);
+	backdrop-filter: blur(12px);
+	box-shadow: var(--pc-press), 0 0 0 1px var(--pc-line);
+	overflow-x: auto;
+	scrollbar-width: none;
+}
+.pc-rail--across::-webkit-scrollbar {
+	display: none;
+}
+.pc-rail--across::before,
+.pc-rail--across::after {
+	top: calc(50% - 1.5px);
+	left: 1.6rem;
+	width: auto;
+	height: 3px;
+}
+.pc-rail--across::before {
+	right: 1.6rem;
+	bottom: auto;
+}
+.pc-rail--across::after {
+	width: calc((100% - 3.2rem) * var(--p, 0));
+	transition: width var(--pc-dur-slow) var(--pc-ease);
+}
+.pc-rail--across > li > a,
+.pc-rail--across > li > .pc-rail__row {
+	display: grid;
+	place-items: center;
+	grid-template-columns: 1fr;
+	width: var(--pc-target);
+	padding: 0;
+}
+.pc-rail--across > li[aria-current]:not([aria-current='false']) > a {
+	background: none;
+	box-shadow: none;
+}
+.pc-rail--across .pc-rail__text {
+	display: none;
+}
+.pc-rail--across > li[aria-current]:not([aria-current='false']) .pc-stamp {
+	transform: rotate(var(--pc-tilt)) scale(1.18);
+}

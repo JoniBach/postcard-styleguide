@@ -1,0 +1,20 @@
+/*
+  Postcard: the whole style guide in one import.
+    <link rel="stylesheet" href="postcard.css">        (development: each file stays separate)
+    dist/postcard.css                                    (npm run build: one file, fonts alongside)
+  Take only what you need by importing the files below one by one; tokens.css is the only one the
+  others depend on.
+*/
+@import './css/fonts.css';
+@import './css/tokens.css';
+@import './css/base.css';
+@import './css/components/button.css';
+@import './css/components/pillbar.css';
+@import './css/components/chip.css';
+@import './css/components/field.css';
+@import './css/components/stamp.css';
+@import './css/components/card.css';
+@import './css/components/rail.css';
+@import './css/components/feedback.css';
+@import './css/components/overlay.css';
+@import './css/utilities.css';

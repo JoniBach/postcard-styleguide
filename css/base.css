@@ -1,0 +1,195 @@
+/*
+  Base: the page itself, type, focus and motion. Light-touch on purpose: it styles <body>, focus
+  and selection, and leaves everything else to classes, so it sits happily beside a framework's
+  own reset.
+*/
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+body {
+	margin: 0;
+	background: var(--pc-paper);
+	color: var(--pc-ink);
+	font-family: var(--pc-font-ui);
+	font-size: var(--pc-text-base);
+	line-height: var(--pc-leading-body);
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+}
+::selection {
+	background: var(--pc-accent-soft);
+	color: var(--pc-accent-ink);
+}
+:focus-visible {
+	outline: 3px solid color-mix(in srgb, var(--pc-accent) 70%, transparent);
+	outline-offset: 2px;
+}
+img,
+svg,
+video {
+	max-width: 100%;
+}
+
+/* the sky the pages open with, settling into paper (the blog, the error page) */
+.pc-sky {
+	background:
+		linear-gradient(to bottom, var(--pc-sky-top) 0, var(--pc-sky-mid) 18rem, var(--pc-paper) 38rem) no-repeat,
+		var(--pc-paper);
+}
+
+/* ---- type ---- */
+
+/* display type: Fraunces at its softest, with a touch of wonk */
+.pc-display,
+.pc-h1,
+.pc-h2,
+.pc-h3 {
+	font-family: var(--pc-font-display);
+	font-variation-settings: var(--pc-display-axes);
+	font-weight: var(--pc-weight-display);
+	letter-spacing: -0.01em;
+	line-height: var(--pc-leading-tight);
+	text-wrap: balance;
+}
+.pc-h1 {
+	font-size: var(--pc-text-3xl);
+}
+.pc-h2 {
+	font-size: var(--pc-text-2xl);
+	line-height: 1.25;
+}
+.pc-h3 {
+	font-size: var(--pc-text-xl);
+	line-height: var(--pc-leading-snug);
+}
+/* the small capital line above a title */
+.pc-eyebrow {
+	margin: 0 0 var(--pc-space-1);
+	font-size: 0.8rem;
+	font-weight: var(--pc-weight-heavy);
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	color: var(--pc-accent-ink);
+}
+/* the quieter label for groups of controls */
+.pc-label {
+	font-size: var(--pc-text-2xs);
+	font-weight: var(--pc-weight-heavy);
+	letter-spacing: var(--pc-tracking-label);
+	text-transform: uppercase;
+	color: var(--pc-muted);
+}
+.pc-lede {
+	max-width: var(--pc-measure);
+	font-size: var(--pc-text-lg);
+	color: var(--pc-muted);
+	text-wrap: pretty;
+}
+.pc-muted {
+	color: var(--pc-muted);
+}
+.pc-small {
+	font-size: 0.85rem;
+	color: var(--pc-muted);
+}
+.pc-num {
+	font-variant-numeric: tabular-nums;
+}
+
+/* long reading: a story, a page of help. Wrap the content, not the page */
+.pc-prose {
+	max-width: 42rem;
+	font-size: var(--pc-text-read);
+	line-height: var(--pc-leading-body);
+	color: var(--pc-ink);
+}
+.pc-prose > * {
+	margin-block: 0 1.25em;
+}
+.pc-prose h1,
+.pc-prose h2,
+.pc-prose h3 {
+	margin-block: 1.6em 0.5em;
+	font-family: var(--pc-font-display);
+	font-variation-settings: var(--pc-display-axes);
+	font-weight: var(--pc-weight-display);
+	letter-spacing: -0.01em;
+	line-height: var(--pc-leading-tight);
+	text-wrap: balance;
+}
+.pc-prose h1 {
+	font-size: var(--pc-text-3xl);
+}
+.pc-prose h2 {
+	font-size: var(--pc-text-2xl);
+}
+.pc-prose h3 {
+	font-size: var(--pc-text-xl);
+}
+.pc-prose > :first-child {
+	margin-top: 0;
+}
+.pc-prose a,
+.pc-link {
+	color: var(--pc-accent-ink);
+	text-decoration-thickness: 1.5px;
+	text-underline-offset: 0.18em;
+}
+.pc-prose a:hover,
+.pc-link:hover {
+	text-decoration-thickness: 3px;
+}
+.pc-prose ul,
+.pc-prose ol {
+	padding-left: 1.3em;
+}
+.pc-prose li + li {
+	margin-top: 0.3em;
+}
+.pc-prose li::marker {
+	color: var(--pc-accent);
+}
+/* a pull quote, set like a handwritten note on the card */
+.pc-prose blockquote,
+.pc-quote {
+	margin-inline: 0;
+	padding: var(--pc-space-1) 0 var(--pc-space-1) var(--pc-space-5);
+	border-left: 4px solid var(--pc-gold);
+	font-family: var(--pc-font-display);
+	font-variation-settings: var(--pc-display-axes);
+	font-style: italic;
+	font-size: 1.2em;
+	line-height: 1.45;
+	color: var(--pc-ink);
+}
+.pc-prose code,
+.pc-code {
+	padding: 0.1em 0.35em;
+	border-radius: var(--pc-radius-xs);
+	background: var(--pc-sunk);
+	font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+	font-size: 0.88em;
+}
+.pc-prose hr {
+	border: 0;
+	border-top: 2px dashed var(--pc-line);
+	margin-block: 2em;
+}
+.pc-prose img {
+	display: block;
+	height: auto;
+	border-radius: var(--pc-radius);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+}

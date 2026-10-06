@@ -1,0 +1,170 @@
+/*
+  Buttons: pills that sit on a small pressed-down shadow and sink into it when pressed.
+  <button class="pc-button">Secondary</button>
+  <button class="pc-button pc-button--primary">Primary</button>   one per view: the thing to do next
+  <button class="pc-button pc-button--ink">Ink</button>           strong but not the accent
+  <button class="pc-button pc-button--soft">Soft</button>         accent-tinted, quieter
+  <button class="pc-button pc-button--ghost">Ghost</button>       text-only, for toolbars
+  Sizes: pc-button--sm, pc-button--lg. Full width: pc-button--block.
+  Round icon button: <button class="pc-icon-button" aria-label="Close">×</button>
+*/
+.pc-button {
+	--_bg: var(--pc-card);
+	--_fg: var(--pc-ink);
+	--_drop: var(--pc-press);
+	--_ring: 0 0 0 1px var(--pc-line);
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--pc-space-2);
+	min-height: var(--pc-target);
+	padding: 0 1.15rem;
+	border: 0;
+	border-radius: var(--pc-radius-pill);
+	background: var(--_bg);
+	color: var(--_fg);
+	box-shadow: var(--_drop), var(--_ring);
+	font: inherit;
+	font-weight: var(--pc-weight-strong);
+	line-height: 1.1;
+	text-decoration: none;
+	white-space: nowrap;
+	cursor: pointer;
+	-webkit-tap-highlight-color: transparent;
+	transition:
+		transform var(--pc-dur-quick) var(--pc-ease),
+		box-shadow var(--pc-dur-quick) var(--pc-ease),
+		background-color var(--pc-dur-quick) var(--pc-ease);
+}
+.pc-button:hover {
+	--_ring: 0 0 0 2px var(--pc-accent);
+}
+/* pressed: it sinks into its own shadow */
+.pc-button:active {
+	transform: translateY(2px);
+	--_drop: 0 1px 0 rgb(38 50 56 / 0.18);
+}
+.pc-button svg {
+	width: 1.15em;
+	height: 1.15em;
+	flex: none;
+}
+.pc-button--primary {
+	--_bg: var(--pc-accent);
+	--_fg: var(--pc-on-accent);
+	--_drop: 0 4px 0 var(--pc-accent-deep);
+	--_ring: 0 0 0 0 transparent;
+}
+.pc-button--primary:hover {
+	--_ring: 0 0 0 0 transparent;
+	background: color-mix(in srgb, var(--pc-accent) 88%, var(--pc-card));
+}
+.pc-button--primary:active {
+	--_drop: 0 1px 0 var(--pc-accent-deep);
+}
+.pc-button--ink {
+	--_bg: var(--pc-ink);
+	--_fg: var(--pc-paper);
+	--_ring: 0 0 0 0 transparent;
+}
+.pc-button--ink:hover {
+	--_ring: 0 0 0 0 transparent;
+	background: color-mix(in srgb, var(--pc-ink) 85%, var(--pc-accent));
+}
+.pc-button--soft {
+	--_bg: var(--pc-accent-soft);
+	--_fg: var(--pc-accent-ink);
+	--_ring: 0 0 0 0 transparent;
+}
+.pc-button--ghost {
+	--_bg: transparent;
+	--_fg: var(--pc-muted);
+	--_drop: 0 0 0 0 transparent;
+	--_ring: 0 0 0 0 transparent;
+}
+.pc-button--ghost:hover {
+	--_fg: var(--pc-ink);
+	--_ring: 0 0 0 0 transparent;
+	background: var(--pc-accent-soft);
+}
+.pc-button--ghost:active {
+	--_drop: 0 0 0 0 transparent;
+}
+.pc-button--sm {
+	min-height: 2.15rem;
+	padding: 0 0.85rem;
+	font-size: var(--pc-text-sm);
+}
+.pc-button--lg {
+	min-height: 3.25rem;
+	padding: 0 1.6rem;
+	font-size: 1.1rem;
+}
+.pc-button--block {
+	display: flex;
+	width: 100%;
+}
+.pc-button:disabled,
+.pc-button[aria-disabled='true'] {
+	opacity: 0.45;
+	cursor: not-allowed;
+	transform: none;
+	--_ring: 0 0 0 1px var(--pc-line);
+}
+.pc-button--primary:disabled,
+.pc-button--ink:disabled {
+	--_ring: 0 0 0 0 transparent;
+}
+/* busy: keeps its width, shows a spinner in place of the label */
+.pc-button[aria-busy='true'] {
+	color: transparent;
+	pointer-events: none;
+}
+.pc-button[aria-busy='true']::after {
+	content: '';
+	position: absolute;
+	width: 1.1em;
+	height: 1.1em;
+	border: 2.5px solid var(--_fg);
+	border-right-color: transparent;
+	border-radius: 50%;
+	animation: pc-spin 0.7s linear infinite;
+}
+
+.pc-icon-button {
+	display: inline-grid;
+	place-items: center;
+	flex: none;
+	width: var(--pc-target);
+	height: var(--pc-target);
+	padding: 0;
+	border: 0;
+	border-radius: 50%;
+	background: transparent;
+	color: var(--pc-muted);
+	font: inherit;
+	font-size: 1.4rem;
+	line-height: 1;
+	cursor: pointer;
+	transition: background-color var(--pc-dur-quick) var(--pc-ease), color var(--pc-dur-quick) var(--pc-ease);
+}
+.pc-icon-button:hover {
+	background: var(--pc-accent-soft);
+	color: var(--pc-ink);
+}
+.pc-icon-button--raised {
+	background: var(--pc-card);
+	color: var(--pc-ink);
+	box-shadow: var(--pc-press), 0 0 0 1px var(--pc-line);
+}
+.pc-icon-button svg {
+	width: 1.25rem;
+	height: 1.25rem;
+}
+
+@keyframes pc-spin {
+	to {
+		transform: rotate(360deg);
+	}
+}

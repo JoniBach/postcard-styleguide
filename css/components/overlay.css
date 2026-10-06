@@ -1,0 +1,130 @@
+/*
+  Things over the page: the dialog (native <dialog>, modal) and the bottom sheet.
+  <dialog class="pc-dialog" aria-labelledby="d-h">
+    <button class="pc-icon-button pc-dialog__close" aria-label="Close">×</button>
+    <p class="pc-eyebrow">Parks Tour 26</p><h2 class="pc-h3" id="d-h">Follow the trip by email?</h2>
+    …
+    <div class="pc-dialog__actions"><button class="pc-button pc-button--primary">Yes</button>…</div>
+  </dialog>
+  Open with dialog.showModal(): the browser handles focus, Esc and the backdrop.
+*/
+.pc-dialog {
+	width: min(30rem, calc(100vw - 2rem));
+	max-height: calc(100dvh - 2rem);
+	margin: auto;
+	padding: var(--pc-space-6) var(--pc-space-6) var(--pc-space-5);
+	overflow: auto;
+	border: 0;
+	border-radius: var(--pc-radius);
+	background: var(--pc-card);
+	color: var(--pc-ink);
+	box-shadow: 0 24px 60px rgb(38 50 56 / 0.28), 0 0 0 1px var(--pc-line);
+	font-family: var(--pc-font-ui);
+	line-height: 1.5;
+}
+/* the page behind, softened */
+.pc-dialog::backdrop {
+	background: var(--pc-backdrop);
+	-webkit-backdrop-filter: blur(8px) saturate(0.9);
+	backdrop-filter: blur(8px) saturate(0.9);
+}
+.pc-dialog[open] {
+	animation: pc-rise 0.3s var(--pc-ease-bounce);
+}
+.pc-dialog > :first-child:not(.pc-dialog__close),
+.pc-dialog__close + * {
+	margin-top: 0;
+}
+.pc-dialog__close {
+	position: absolute;
+	top: 0.6rem;
+	right: 0.6rem;
+}
+.pc-dialog__actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--pc-space-2);
+	margin-top: var(--pc-space-4);
+}
+.pc-dialog__actions > * {
+	flex: 1 1 auto;
+}
+@keyframes pc-rise {
+	from {
+		opacity: 0;
+		transform: translateY(14px) rotate(-0.6deg);
+	}
+}
+
+/* the bottom sheet (phones): a card that slides up from the bottom edge, with a grab handle */
+.pc-sheet {
+	position: fixed;
+	z-index: calc(var(--pc-z-overlay) + 1);
+	left: 0;
+	right: 0;
+	bottom: 0;
+	display: flex;
+	flex-direction: column;
+	max-height: 85dvh;
+	border: 1px solid var(--pc-line);
+	border-bottom: 0;
+	border-radius: 24px 24px 0 0;
+	background: var(--pc-card);
+	color: var(--pc-ink);
+	box-shadow: var(--pc-shadow);
+	padding-bottom: env(safe-area-inset-bottom, 0px);
+	transform: translateY(0);
+	transition: transform var(--pc-dur) var(--pc-ease-out);
+}
+.pc-sheet[hidden] {
+	display: flex !important;
+	transform: translateY(105%);
+	visibility: hidden;
+	transition: transform var(--pc-dur) var(--pc-ease-out), visibility 0s var(--pc-dur);
+}
+.pc-sheet__head {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 1.1rem 3rem 0.6rem;
+}
+.pc-sheet__head::before {
+	content: '';
+	position: absolute;
+	top: 7px;
+	left: 50%;
+	width: 40px;
+	height: 4px;
+	margin-left: -20px;
+	border-radius: 2px;
+	background: var(--pc-muted);
+	opacity: 0.6;
+}
+.pc-sheet__head h2 {
+	margin: 0;
+	font-family: var(--pc-font-display);
+	font-variation-settings: var(--pc-display-axes);
+	font-size: 1rem;
+}
+.pc-sheet__head .pc-icon-button {
+	position: absolute;
+	top: 0.4rem;
+	right: 0.4rem;
+}
+.pc-sheet__body {
+	flex: 1;
+	min-height: 0;
+	padding: 0 var(--pc-space-4) var(--pc-space-4);
+	overflow-y: auto;
+	overscroll-behavior: contain;
+}
+.pc-scrim {
+	position: fixed;
+	inset: 0;
+	z-index: var(--pc-z-overlay);
+	background: var(--pc-backdrop);
+}
+.pc-scrim[hidden] {
+	display: none;
+}

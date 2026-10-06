@@ -1,0 +1,228 @@
+/*
+  Form fields. Every field is a label you can see, a control, and an optional hint or error.
+  <div class="pc-field">
+    <label class="pc-field__label" for="email">Your email address</label>
+    <input class="pc-input" id="email" type="email" aria-describedby="email-hint" />
+    <p class="pc-field__hint" id="email-hint">One email per story, nothing else.</p>
+  </div>
+  Invalid: aria-invalid="true" on the control and a .pc-field__error under it.
+  Checks and radios: <label class="pc-check"><input type="checkbox" /> Photos</label>
+  Switch:            <label class="pc-switch"><input type="checkbox" role="switch" /> Show speed</label>
+  Slider:            <label class="pc-slider"><span>Zoom <output>2×</output></span><input type="range" /></label>
+  Groups of settings: <fieldset class="pc-knobs"><legend>Colour by</legend>…</fieldset>
+*/
+.pc-field {
+	display: grid;
+	gap: 0.3rem;
+	min-width: 0;
+}
+.pc-field__label {
+	font-weight: var(--pc-weight-medium);
+}
+.pc-field__hint {
+	margin: 0;
+	font-size: 0.85rem;
+	color: var(--pc-muted);
+}
+.pc-field__error {
+	display: flex;
+	align-items: center;
+	gap: 0.35rem;
+	margin: 0;
+	font-size: 0.9rem;
+	font-weight: var(--pc-weight-medium);
+	color: var(--pc-danger-ink);
+}
+.pc-field__error::before {
+	content: '!';
+	display: inline-grid;
+	place-items: center;
+	flex: none;
+	width: 1.1rem;
+	height: 1.1rem;
+	border-radius: 50%;
+	background: var(--pc-danger-ink);
+	color: var(--pc-paper);
+	font-size: 0.75rem;
+	font-weight: var(--pc-weight-heavy);
+}
+
+.pc-input,
+.pc-select,
+.pc-textarea {
+	width: 100%;
+	min-width: 0;
+	min-height: var(--pc-target);
+	padding: 0 0.85rem;
+	border: 1px solid var(--pc-line-strong);
+	border-radius: var(--pc-radius-sm);
+	background: var(--pc-card);
+	color: var(--pc-ink);
+	font: inherit;
+	transition: border-color var(--pc-dur-quick) var(--pc-ease), box-shadow var(--pc-dur-quick) var(--pc-ease);
+}
+.pc-input::placeholder,
+.pc-textarea::placeholder {
+	color: var(--pc-muted);
+	opacity: 0.85;
+}
+.pc-input:hover,
+.pc-select:hover,
+.pc-textarea:hover {
+	border-color: var(--pc-ink);
+}
+.pc-input:focus-visible,
+.pc-select:focus-visible,
+.pc-textarea:focus-visible {
+	outline: none;
+	border-color: var(--pc-accent);
+	box-shadow: var(--pc-focus);
+}
+.pc-input[aria-invalid='true'],
+.pc-select[aria-invalid='true'],
+.pc-textarea[aria-invalid='true'] {
+	border-color: var(--pc-danger-ink);
+	background: color-mix(in srgb, var(--pc-danger) 40%, var(--pc-card));
+}
+.pc-input:disabled,
+.pc-select:disabled,
+.pc-textarea:disabled {
+	opacity: 0.55;
+	cursor: not-allowed;
+}
+.pc-textarea {
+	min-height: 6.5rem;
+	padding-block: 0.65rem;
+	line-height: 1.5;
+	resize: vertical;
+}
+.pc-select {
+	appearance: none;
+	padding-right: 2.4rem;
+	/* the caret, drawn in the ink colour so it follows the theme */
+	background-image:
+		linear-gradient(45deg, transparent 50%, var(--pc-ink) 50%),
+		linear-gradient(135deg, var(--pc-ink) 50%, transparent 50%);
+	background-position:
+		right 1.15rem center,
+		right 0.8rem center;
+	background-size: 0.35rem 0.35rem;
+	background-repeat: no-repeat;
+	cursor: pointer;
+}
+/* a field and its button on one line (the newsletter form) */
+.pc-inline-form {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--pc-space-2);
+}
+.pc-inline-form > .pc-input {
+	flex: 1 1 14rem;
+	width: auto;
+}
+
+/* checkboxes and radios: native controls in the accent colour, with the whole label as the target */
+.pc-check {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.55rem;
+	min-height: var(--pc-target);
+	cursor: pointer;
+}
+.pc-check input {
+	width: 1.25rem;
+	height: 1.25rem;
+	margin: 0;
+	flex: none;
+	accent-color: var(--pc-accent);
+	cursor: pointer;
+}
+.pc-checks {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0 1.2rem;
+}
+
+/* switch: a checkbox with role="switch", drawn as a little pill with a knob */
+.pc-switch {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.65rem;
+	min-height: var(--pc-target);
+	cursor: pointer;
+}
+.pc-switch input {
+	appearance: none;
+	position: relative;
+	flex: none;
+	width: 2.75rem;
+	height: 1.6rem;
+	margin: 0;
+	border-radius: var(--pc-radius-pill);
+	background: color-mix(in srgb, var(--pc-ink) 22%, var(--pc-card));
+	box-shadow: inset 0 2px 0 rgb(0 0 0 / 0.08);
+	cursor: pointer;
+	transition: background-color var(--pc-dur) var(--pc-ease);
+}
+.pc-switch input::after {
+	content: '';
+	position: absolute;
+	top: 0.2rem;
+	left: 0.2rem;
+	width: 1.2rem;
+	height: 1.2rem;
+	border-radius: 50%;
+	background: var(--pc-card);
+	box-shadow: 0 2px 0 rgb(38 50 56 / 0.25);
+	transition: transform var(--pc-dur) var(--pc-ease-bounce);
+}
+.pc-switch input:checked {
+	background: var(--pc-accent);
+}
+.pc-switch input:checked::after {
+	transform: translateX(1.15rem);
+}
+.pc-switch input:focus-visible {
+	outline: 3px solid color-mix(in srgb, var(--pc-accent) 70%, transparent);
+	outline-offset: 2px;
+}
+
+/* sliders: a name and its value above a native range in the accent colour */
+.pc-slider {
+	display: grid;
+	gap: 0.15rem;
+	font-size: var(--pc-text-sm);
+	font-weight: var(--pc-weight-strong);
+}
+.pc-slider > span {
+	display: flex;
+	justify-content: space-between;
+	gap: var(--pc-space-2);
+}
+.pc-slider output {
+	color: var(--pc-muted);
+	font-weight: 500;
+	font-variant-numeric: tabular-nums;
+}
+.pc-slider input {
+	width: 100%;
+	margin: 0;
+	accent-color: var(--pc-accent);
+}
+
+/* a group of settings in a drawer: small uppercase legend, controls underneath */
+.pc-knobs {
+	min-width: 0;
+	margin: var(--pc-space-4) 0 0;
+	padding: 0;
+	border: 0;
+}
+.pc-knobs > legend {
+	margin-bottom: 0.4rem;
+	padding: 0;
+	font-size: var(--pc-text-2xs);
+	font-weight: var(--pc-weight-heavy);
+	letter-spacing: var(--pc-tracking-label);
+	text-transform: uppercase;
+	color: var(--pc-muted);
+}

@@ -1,0 +1,237 @@
+/*
+  Postcard tokens: warm paper, soft pastel fills, deep slate ink, one terracotta accent.
+  Every colour is a custom property on :root (the light "paper" theme). Two more themes swap the
+  same tokens:
+    dusk  — dark mode: the evening version of the same postcard. Follows the OS setting unless a
+            page pins a theme with data-theme="light" | "dusk" on <html>.
+    night — the 3D view's hologram panels: opt in with class="pc-theme-night" on any element.
+  Text colours are checked by `npm run check`: body text and muted text reach 7:1 (WCAG AAA) on
+  paper and card in every theme; each pastel's -ink reaches 7:1 on its own pastel.
+*/
+:root {
+	color-scheme: light;
+
+	/* surfaces */
+	--pc-paper: #fbf6ec;
+	--pc-card: #fffdf8;
+	--pc-glass: rgb(255 253 248 / 0.88);
+	--pc-sunk: #f3ecdf;
+	/* the sky the pages open with, settling into paper */
+	--pc-sky-top: #cfe6f5;
+	--pc-sky-mid: #e6f1f6;
+	--pc-backdrop: rgb(38 50 56 / 0.35);
+
+	/* ink */
+	--pc-ink: #263238;
+	--pc-muted: #46535a;
+	--pc-line: rgb(38 50 56 / 0.14);
+	/* borders that have to be seen (form fields): 3:1 against card */
+	--pc-line-strong: #8a7d6e;
+
+	/* the one strong colour: buttons and the current thing; -ink is for text */
+	--pc-accent: #c2562d;
+	--pc-accent-ink: #7a2e0f;
+	--pc-accent-soft: #f9e2d6;
+	--pc-accent-deep: #8f3b1c;
+	--pc-on-accent: #fff;
+
+	/* pastels, each with an ink that reads on it */
+	--pc-sage: #d5e8d8;
+	--pc-sage-ink: #214a32;
+	--pc-sky: #d9e9f3;
+	--pc-sky-ink: #1f4560;
+	--pc-butter: #f7e9b8;
+	--pc-butter-ink: #524008;
+	--pc-lilac: #e6def3;
+	--pc-lilac-ink: #44356a;
+	--pc-peach: var(--pc-accent-soft);
+	--pc-peach-ink: var(--pc-accent-ink);
+	--pc-rose: #f8dcdc;
+	--pc-rose-ink: #7d1f2a;
+	/* butter's strong partner: the warm gold of a kicker or a star */
+	--pc-gold: #c9a227;
+
+	/* meaning, built from the pastels */
+	--pc-success: var(--pc-sage);
+	--pc-success-ink: var(--pc-sage-ink);
+	--pc-info: var(--pc-sky);
+	--pc-info-ink: var(--pc-sky-ink);
+	--pc-warning: var(--pc-butter);
+	--pc-warning-ink: var(--pc-butter-ink);
+	--pc-danger: var(--pc-rose);
+	--pc-danger-ink: var(--pc-rose-ink);
+
+	/* a per-item colour (a day, a category): set --pc-c on the element; stamps and cards tint from it */
+	--pc-c: var(--pc-accent);
+
+	/* type */
+	--pc-font-display: 'Fraunces', 'Fraunces Variable', Georgia, 'Times New Roman', serif;
+	--pc-font-ui: 'Figtree', 'Figtree Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+	/* Fraunces at its softest, with a touch of wonk */
+	--pc-display-axes: 'SOFT' 100, 'WONK' 1;
+	--pc-text-2xs: 0.6875rem; /* 11: legends, stamp captions */
+	--pc-text-xs: 0.75rem; /* 12: dates, facts */
+	--pc-text-sm: 0.8125rem; /* 13: controls */
+	--pc-text-base: 1rem;
+	--pc-text-read: 1.0625rem; /* 17: long reading */
+	--pc-text-lg: 1.15rem; /* ledes */
+	--pc-text-xl: 1.35rem; /* card headings */
+	--pc-text-2xl: 1.6rem; /* section headings */
+	--pc-text-3xl: clamp(2rem, 5vw, 2.9rem); /* page titles */
+	--pc-leading-tight: 1.15;
+	--pc-leading-snug: 1.3;
+	--pc-leading-body: 1.6;
+	--pc-weight-body: 400;
+	--pc-weight-medium: 600;
+	--pc-weight-strong: 650;
+	--pc-weight-heavy: 750;
+	--pc-weight-display: 650;
+	--pc-tracking-label: 0.1em;
+
+	/* space: a 4px rhythm */
+	--pc-space-1: 0.25rem;
+	--pc-space-2: 0.5rem;
+	--pc-space-3: 0.75rem;
+	--pc-space-4: 1rem;
+	--pc-space-5: 1.25rem;
+	--pc-space-6: 1.5rem;
+	--pc-space-8: 2rem;
+	--pc-space-10: 2.5rem;
+	--pc-space-14: 3.5rem;
+	/* the smallest thing a finger can hit */
+	--pc-target: 2.75rem;
+
+	/* shape */
+	--pc-radius-xs: 6px; /* stamps */
+	--pc-radius-sm: 12px; /* fields, thumbnails */
+	--pc-radius: 20px; /* cards */
+	--pc-radius-lg: 26px; /* banners, sheets */
+	--pc-radius-pill: 999px;
+
+	/* depth: pills and cards sit on a small pressed-down shadow; floating things get a soft lift */
+	--pc-press: 0 3px 0 rgb(38 50 56 / 0.18);
+	--pc-press-hover: 0 6px 0 rgb(38 50 56 / 0.12);
+	--pc-shadow: 0 10px 30px rgb(70 55 30 / 0.12), 0 2px 6px rgb(70 55 30 / 0.06);
+	--pc-shadow-sm: 0 2px 6px rgb(70 55 30 / 0.15);
+	--pc-focus: 0 0 0 3px color-mix(in srgb, var(--pc-accent) 70%, transparent);
+
+	/* the tilt: stamps lean, cards wobble a little when you reach for them */
+	--pc-tilt: -4deg;
+	--pc-tilt-hover: -0.4deg;
+	--pc-tilt-mark: -12deg;
+	--pc-lift: -3px;
+
+	/* motion */
+	--pc-dur-quick: 0.15s;
+	--pc-dur: 0.2s;
+	--pc-dur-slow: 0.4s;
+	--pc-ease: ease;
+	--pc-ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+	/* a little overshoot, for things that arrive (toasts, a stamp landing) */
+	--pc-ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+	/* layers */
+	--pc-z-sticky: 5;
+	--pc-z-float: 110;
+	--pc-z-overlay: 150;
+	--pc-z-toast: 200;
+
+	/* reading widths */
+	--pc-measure: 36em;
+	--pc-page: 74rem;
+}
+
+/* dusk: the same postcard after sundown. Deep slate paper, cream ink, pastels turned to dusk tones */
+@media (prefers-color-scheme: dark) {
+	:root:not([data-theme='light']) {
+		color-scheme: dark;
+		--pc-paper: #192127;
+		--pc-card: #222b32;
+		--pc-glass: rgb(34 43 50 / 0.88);
+		--pc-sunk: #151b20;
+		--pc-sky-top: #2b3552;
+		--pc-sky-mid: #222c3d;
+		--pc-backdrop: rgb(5 9 12 / 0.6);
+		--pc-ink: #f4ede0;
+		--pc-muted: #c3c9c6;
+		--pc-line: rgb(244 237 224 / 0.14);
+		--pc-line-strong: #7f8b8f;
+		--pc-accent: #e7835b;
+		--pc-accent-ink: #f5bea4;
+		--pc-accent-soft: #4a2b1f;
+		--pc-accent-deep: #a9502c;
+		--pc-on-accent: #1b1410;
+		--pc-sage: #233a2c;
+		--pc-sage-ink: #cfe8d4;
+		--pc-sky: #1f3445;
+		--pc-sky-ink: #cfe4f2;
+		--pc-butter: #3b3317;
+		--pc-butter-ink: #f3e2a6;
+		--pc-lilac: #312a45;
+		--pc-lilac-ink: #e2d8f4;
+		--pc-rose: #45232a;
+		--pc-rose-ink: #f6d1d6;
+		--pc-gold: #e3c158;
+		--pc-press: 0 3px 0 rgb(0 0 0 / 0.4);
+		--pc-press-hover: 0 6px 0 rgb(0 0 0 / 0.3);
+		--pc-shadow: 0 10px 30px rgb(0 0 0 / 0.35), 0 2px 6px rgb(0 0 0 / 0.2);
+		--pc-shadow-sm: 0 2px 6px rgb(0 0 0 / 0.35);
+	}
+}
+:root[data-theme='dusk'],
+:root[data-theme='dark'] {
+	color-scheme: dark;
+	--pc-paper: #192127;
+	--pc-card: #222b32;
+	--pc-glass: rgb(34 43 50 / 0.88);
+	--pc-sunk: #151b20;
+	--pc-sky-top: #2b3552;
+	--pc-sky-mid: #222c3d;
+	--pc-backdrop: rgb(5 9 12 / 0.6);
+	--pc-ink: #f4ede0;
+	--pc-muted: #c3c9c6;
+	--pc-line: rgb(244 237 224 / 0.14);
+	--pc-line-strong: #7f8b8f;
+	--pc-accent: #e7835b;
+	--pc-accent-ink: #f5bea4;
+	--pc-accent-soft: #4a2b1f;
+	--pc-accent-deep: #a9502c;
+	--pc-on-accent: #1b1410;
+	--pc-sage: #233a2c;
+	--pc-sage-ink: #cfe8d4;
+	--pc-sky: #1f3445;
+	--pc-sky-ink: #cfe4f2;
+	--pc-butter: #3b3317;
+	--pc-butter-ink: #f3e2a6;
+	--pc-lilac: #312a45;
+	--pc-lilac-ink: #e2d8f4;
+	--pc-rose: #45232a;
+	--pc-rose-ink: #f6d1d6;
+	--pc-gold: #e3c158;
+	--pc-press: 0 3px 0 rgb(0 0 0 / 0.4);
+	--pc-press-hover: 0 6px 0 rgb(0 0 0 / 0.3);
+	--pc-shadow: 0 10px 30px rgb(0 0 0 / 0.35), 0 2px 6px rgb(0 0 0 / 0.2);
+	--pc-shadow-sm: 0 2px 6px rgb(0 0 0 / 0.35);
+}
+
+/* night: the 3D view's hologram panels, over a dark scene. Scoped to an element, not the page */
+.pc-theme-night {
+	color-scheme: dark;
+	--pc-paper: #03070c;
+	--pc-card: rgb(6 16 26 / 0.9);
+	--pc-glass: rgb(4 12 20 / 0.72);
+	--pc-sunk: rgb(2 6 10 / 0.9);
+	--pc-ink: #dff6ff;
+	--pc-muted: #8fb0c0;
+	--pc-line: rgb(124 247 255 / 0.18);
+	--pc-line-strong: rgb(124 247 255 / 0.45);
+	--pc-accent: #7cf7ff;
+	--pc-accent-ink: #7cf7ff;
+	--pc-accent-soft: rgb(124 247 255 / 0.18);
+	--pc-accent-deep: #2bb9c4;
+	--pc-on-accent: #03070c;
+	--pc-press: none;
+	--pc-press-hover: none;
+	--pc-shadow: 0 0 24px rgb(124 247 255 / 0.12);
+	color: var(--pc-ink);
+}

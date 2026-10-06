@@ -1,0 +1,186 @@
+/*
+  Cards. Border, fill and shadow mark something as an object, so use them by role:
+    pc-card       a plain card: a form, a note, a settings group
+    pc-postcard   something you open (a day, a story): art on top, a body below; lifts and
+                  wobbles when you reach for it. Make the whole card the link.
+    pc-banner     a wide picture header for a chapter, with a stamp and an inset map
+    pc-panel      something floating over the page or the scene (a drawer, a popover)
+  <a class="pc-postcard" href="/day/1" style="--pc-c: #d97757">
+    <span class="pc-postcard__art"><img src="…" alt="" /><span class="pc-stamp pc-stamp--solid"><small>Day</small>1</span></span>
+    <span class="pc-postcard__body"><span class="pc-postcard__meta">Wed 9 Sept</span><span class="pc-postcard__title pc-display">Setting off</span></span>
+  </a>
+*/
+.pc-card {
+	padding: var(--pc-space-5) var(--pc-space-5) var(--pc-space-4);
+	border: 1px solid var(--pc-line);
+	border-radius: var(--pc-radius);
+	background: var(--pc-card);
+	color: var(--pc-ink);
+}
+.pc-card > :first-child {
+	margin-top: 0;
+}
+.pc-card > :last-child {
+	margin-bottom: 0;
+}
+.pc-card--sunk {
+	border-color: transparent;
+	background: var(--pc-sunk);
+}
+
+.pc-postcard {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	min-width: 0;
+	border-radius: var(--pc-radius);
+	background: var(--pc-card);
+	color: var(--pc-ink);
+	box-shadow: var(--pc-press), 0 0 0 1px var(--pc-line);
+	text-decoration: none;
+	overflow: hidden;
+	transition:
+		transform var(--pc-dur) var(--pc-ease),
+		box-shadow var(--pc-dur) var(--pc-ease);
+}
+a.pc-postcard:hover,
+.pc-postcard--interactive:hover {
+	transform: translateY(var(--pc-lift)) rotate(var(--pc-tilt-hover));
+	box-shadow: var(--pc-press-hover), 0 0 0 1px var(--pc-line), var(--pc-shadow);
+}
+a.pc-postcard:active {
+	transform: translateY(1px);
+}
+.pc-postcard.is-current,
+.pc-postcard[aria-current]:not([aria-current='false']) {
+	box-shadow: var(--pc-press), 0 0 0 3px var(--pc-c);
+}
+.pc-postcard__art {
+	position: relative;
+	display: block;
+	flex: none;
+	height: 8rem;
+	margin: 8px 8px 0;
+	border-radius: calc(var(--pc-radius) - 8px);
+	/* no photo: the item's colour, washed out */
+	background: color-mix(in srgb, var(--pc-c) 30%, var(--pc-paper));
+	overflow: hidden;
+}
+.pc-postcard__art img {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+/* the photo softened toward the item's colour, so a stamp or sketch reads over it */
+.pc-postcard__art:has(img)::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(160deg, transparent 40%, color-mix(in srgb, var(--pc-c) 45%, transparent));
+}
+.pc-postcard__art .pc-stamp {
+	position: absolute;
+	z-index: 1;
+	top: 8px;
+	left: 8px;
+	--_size: 2.6rem;
+}
+.pc-postcard__body {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	padding: 0.65rem 0.9rem 0.9rem;
+}
+.pc-postcard__meta {
+	font-size: var(--pc-text-xs);
+	font-weight: var(--pc-weight-medium);
+	letter-spacing: 0.02em;
+	color: var(--pc-muted);
+}
+.pc-postcard__title {
+	font-size: 1.06rem;
+	line-height: 1.2;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+.pc-postcard__facts {
+	margin-top: 2px;
+	font-size: var(--pc-text-xs);
+	color: var(--pc-muted);
+}
+
+.pc-banner {
+	position: relative;
+	display: block;
+	height: clamp(9rem, 26vw, 15rem);
+	border-radius: var(--pc-radius-lg);
+	background: color-mix(in srgb, var(--pc-c) 28%, var(--pc-paper));
+	box-shadow: 0 10px 28px rgb(70 55 30 / 0.14);
+	overflow: hidden;
+	transition: transform var(--pc-dur) var(--pc-ease);
+}
+a.pc-banner:hover {
+	transform: translateY(-2px) rotate(-0.25deg);
+}
+.pc-banner > img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+.pc-banner:has(> img)::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(160deg, transparent 45%, color-mix(in srgb, var(--pc-c) 45%, transparent));
+}
+.pc-banner > .pc-stamp {
+	position: absolute;
+	z-index: 1;
+	top: 0.9rem;
+	left: 0.9rem;
+}
+/* the little route map in the corner, on a paper roundel */
+.pc-banner__inset {
+	position: absolute;
+	z-index: 1;
+	right: 0.9rem;
+	bottom: 0.9rem;
+	width: 6rem;
+	height: 6rem;
+	padding: 0.3rem;
+	border-radius: 18px;
+	background: color-mix(in srgb, var(--pc-card) 88%, transparent);
+}
+
+.pc-panel {
+	padding: var(--pc-space-3) var(--pc-space-4) var(--pc-space-4);
+	border-radius: var(--pc-radius);
+	background: var(--pc-card);
+	color: var(--pc-ink);
+	box-shadow: var(--pc-shadow), 0 0 0 1px var(--pc-line);
+}
+.pc-panel--glass {
+	background: var(--pc-glass);
+	-webkit-backdrop-filter: blur(14px);
+	backdrop-filter: blur(14px);
+}
+
+/* a row of postcards that fills the width */
+.pc-postcards {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+	gap: var(--pc-space-4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	a.pc-postcard:hover,
+	a.pc-banner:hover {
+		transform: none;
+	}
+}

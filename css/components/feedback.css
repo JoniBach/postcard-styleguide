@@ -1,0 +1,270 @@
+/*
+  Telling people what happened: notes, toasts, tooltips, progress, waiting and empty states.
+  <div class="pc-note pc-note--success" role="status"><strong>Saved.</strong> Your route is on the map.</div>
+  <div class="pc-toasts" aria-live="polite"></div>   (js/toast.js fills it)
+  <button class="pc-button" data-tip="Copies the link">Share</button>
+  <div class="pc-progress" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="--value: 40%"></div>
+*/
+
+/* a note in the flow of the page, in the pastel that matches its meaning */
+.pc-note {
+	--_bg: var(--pc-info);
+	--_fg: var(--pc-info-ink);
+	display: grid;
+	grid-template-columns: auto minmax(0, 1fr);
+	gap: var(--pc-space-3);
+	align-items: start;
+	padding: var(--pc-space-3) var(--pc-space-4);
+	border-radius: 16px;
+	background: var(--_bg);
+	color: var(--_fg);
+	line-height: 1.5;
+}
+.pc-note::before {
+	content: 'i';
+	display: grid;
+	place-items: center;
+	width: 1.5rem;
+	height: 1.5rem;
+	margin-top: 0.05rem;
+	border-radius: 50%;
+	background: var(--_fg);
+	color: var(--_bg);
+	font-family: var(--pc-font-display);
+	font-variation-settings: var(--pc-display-axes);
+	font-weight: 700;
+	font-size: 0.95rem;
+	line-height: 1;
+	transform: rotate(var(--pc-tilt));
+}
+.pc-note > * {
+	margin: 0;
+}
+.pc-note > * + * {
+	grid-column: 2;
+	margin-top: var(--pc-space-1);
+}
+.pc-note strong {
+	font-weight: var(--pc-weight-heavy);
+}
+.pc-note a {
+	color: inherit;
+	text-underline-offset: 0.18em;
+}
+.pc-note--success { --_bg: var(--pc-success); --_fg: var(--pc-success-ink); }
+.pc-note--success::before { content: '✓'; }
+.pc-note--warning { --_bg: var(--pc-warning); --_fg: var(--pc-warning-ink); }
+.pc-note--warning::before { content: '!'; }
+.pc-note--danger { --_bg: var(--pc-danger); --_fg: var(--pc-danger-ink); }
+.pc-note--danger::before { content: '×'; }
+.pc-note--tip { --_bg: var(--pc-lilac); --_fg: var(--pc-lilac-ink); }
+.pc-note--tip::before { content: '★'; font-size: 0.8rem; }
+
+/* toasts: little cards that pop up from the bottom, then go */
+.pc-toasts {
+	position: fixed;
+	z-index: var(--pc-z-toast);
+	left: 50%;
+	bottom: calc(var(--pc-space-5) + env(safe-area-inset-bottom, 0px));
+	display: grid;
+	justify-items: center;
+	gap: var(--pc-space-2);
+	width: min(26rem, calc(100vw - 2rem));
+	transform: translateX(-50%);
+	pointer-events: none;
+}
+.pc-toast {
+	--_c: var(--pc-accent);
+	display: flex;
+	align-items: center;
+	gap: var(--pc-space-3);
+	width: 100%;
+	min-height: 3rem;
+	padding: 0.55rem 0.6rem 0.55rem 1rem;
+	border-radius: 16px;
+	background: var(--pc-ink);
+	color: var(--pc-paper);
+	box-shadow: var(--pc-shadow);
+	font-weight: var(--pc-weight-medium);
+	pointer-events: auto;
+	animation: pc-toast-in 0.35s var(--pc-ease-bounce) both;
+}
+.pc-toast::before {
+	content: '';
+	flex: none;
+	width: 0.65rem;
+	height: 0.65rem;
+	border-radius: 50%;
+	background: var(--_c);
+}
+.pc-toast > span {
+	flex: 1;
+	min-width: 0;
+}
+.pc-toast button {
+	flex: none;
+	min-height: 2.25rem;
+	padding: 0 0.8rem;
+	border: 0;
+	border-radius: var(--pc-radius-pill);
+	background: color-mix(in srgb, var(--pc-paper) 16%, transparent);
+	color: inherit;
+	font: inherit;
+	font-weight: var(--pc-weight-strong);
+	cursor: pointer;
+}
+.pc-toast button:hover {
+	background: color-mix(in srgb, var(--pc-paper) 26%, transparent);
+}
+.pc-toast--success { --_c: #45a46a; }
+.pc-toast--danger { --_c: #d9534f; }
+.pc-toast.is-leaving {
+	animation: pc-toast-out 0.2s var(--pc-ease) both;
+}
+@keyframes pc-toast-in {
+	from {
+		opacity: 0;
+		transform: translateY(14px) rotate(-1.5deg) scale(0.96);
+	}
+}
+@keyframes pc-toast-out {
+	to {
+		opacity: 0;
+		transform: translateY(8px) scale(0.98);
+	}
+}
+
+/* tooltips: a short label on hover and keyboard focus, from data-tip. For anything longer, use a popover */
+[data-tip] {
+	position: relative;
+}
+[data-tip]::after {
+	content: attr(data-tip);
+	position: absolute;
+	z-index: var(--pc-z-float);
+	left: 50%;
+	bottom: calc(100% + 0.5rem);
+	width: max-content;
+	max-width: 16rem;
+	padding: 0.35rem 0.65rem;
+	border-radius: 10px;
+	background: var(--pc-ink);
+	color: var(--pc-paper);
+	box-shadow: var(--pc-shadow-sm);
+	font-family: var(--pc-font-ui);
+	font-size: var(--pc-text-sm);
+	font-weight: var(--pc-weight-medium);
+	line-height: 1.35;
+	white-space: normal;
+	text-align: center;
+	opacity: 0;
+	pointer-events: none;
+	transform: translate(-50%, 4px);
+	transition:
+		opacity var(--pc-dur-quick) var(--pc-ease),
+		transform var(--pc-dur-quick) var(--pc-ease-bounce);
+}
+[data-tip]:hover::after,
+[data-tip]:focus-visible::after {
+	opacity: 1;
+	transform: translate(-50%, 0);
+	transition-delay: 0.25s;
+}
+
+/* progress: a rounded track with the thread colour; indeterminate when no --value is set */
+.pc-progress {
+	position: relative;
+	height: 0.6rem;
+	border-radius: var(--pc-radius-pill);
+	background: var(--pc-sunk);
+	box-shadow: inset 0 0 0 1px var(--pc-line);
+	overflow: hidden;
+}
+.pc-progress::after {
+	content: '';
+	position: absolute;
+	inset: 0 auto 0 0;
+	width: var(--value, 35%);
+	border-radius: inherit;
+	background: var(--pc-accent);
+	transition: width var(--pc-dur-slow) var(--pc-ease-out);
+}
+.pc-progress:not([aria-valuenow])::after {
+	animation: pc-progress-roam 1.4s var(--pc-ease) infinite;
+}
+@keyframes pc-progress-roam {
+	from {
+		transform: translateX(-100%);
+	}
+	to {
+		transform: translateX(300%);
+	}
+}
+
+/* the spinner: a wheel that rolls along */
+.pc-spinner {
+	display: inline-block;
+	width: 1.6rem;
+	height: 1.6rem;
+	border: 3px solid var(--pc-accent-soft);
+	border-top-color: var(--pc-accent);
+	border-radius: 50%;
+	animation: pc-spin 0.8s linear infinite;
+	vertical-align: middle;
+}
+
+/* skeletons: the shape of what's coming, shimmering gently */
+.pc-skeleton {
+	display: block;
+	min-height: 1em;
+	border-radius: var(--pc-radius-sm);
+	background: linear-gradient(
+			100deg,
+			transparent 30%,
+			color-mix(in srgb, var(--pc-card) 70%, transparent) 50%,
+			transparent 70%
+		)
+		var(--pc-sunk);
+	background-size: 250% 100%;
+	animation: pc-shimmer 1.6s var(--pc-ease) infinite;
+}
+.pc-skeleton--text {
+	height: 0.85em;
+	margin-block: 0.4em;
+	border-radius: 6px;
+}
+@keyframes pc-shimmer {
+	from {
+		background-position: 100% 0;
+	}
+	to {
+		background-position: -50% 0;
+	}
+}
+
+/* empty states: say what will be here and how to add the first one */
+.pc-empty {
+	display: grid;
+	justify-items: center;
+	gap: var(--pc-space-2);
+	padding: var(--pc-space-10) var(--pc-space-5);
+	border: 2px dashed var(--pc-line);
+	border-radius: var(--pc-radius);
+	text-align: center;
+	color: var(--pc-muted);
+}
+.pc-empty .pc-stamp {
+	margin-bottom: var(--pc-space-2);
+}
+.pc-empty__title {
+	margin: 0;
+	font-family: var(--pc-font-display);
+	font-variation-settings: var(--pc-display-axes);
+	font-weight: var(--pc-weight-display);
+	font-size: var(--pc-text-xl);
+	color: var(--pc-ink);
+}
+.pc-empty p {
+	max-width: 28rem;
+	margin: 0;
+}
