@@ -20,9 +20,17 @@ jobs:
           cache: npm
       - name: Tag matches package.json
         run: test "v$(node -p "require('./package.json').version")" = "${GITHUB_REF_NAME}"
+      - name: Already on npm?
+        id: published
+        run: |
+          if npm view "$(node -p "require('./package.json').name")@$(node -p "require('./package.json').version")" version >/dev/null 2>&1; then
+            echo "This version is already on npm: tests still run, nothing is published."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          fi
       - run: npm ci
       - run: npx playwright install --with-deps chromium
       - run: npm test
         env:
           CI: 'true'
       - run: npm publish
+        if: steps.published.outputs.skip != 'true'
