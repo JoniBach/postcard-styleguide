@@ -5,6 +5,8 @@ soft pastel fills, deep slate ink and one terracotta accent. Things are rounded,
 touch them. The brief was **whimsy, playfulness and approachability**, without giving up readability: every text colour reaches
 7:1 contrast (WCAG AAA) in every theme.
 
+**See it live: https://jonibach.github.io/postcard-styleguide/**
+
 It's plain CSS (custom properties and `pc-` classes) plus a few optional vanilla JS helpers, with no build step and no
 dependencies. A React, Svelte, Vue or native app can use it as it is or port it piece by piece.
 
